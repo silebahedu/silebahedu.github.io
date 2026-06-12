@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SiLebah EDU - Saran & Kontak</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: { primary: '#ec5b13', }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FDF8F5; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+        .prose-custom p { margin-bottom: 1.25rem; line-height: 1.8; color: #475569; }
+    </style>
+</head>
+
+<body class="text-gray-800 flex flex-col min-h-screen">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm py-2">
+        <nav class="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl font-black shadow-sm">K</div>
+                <span class="text-2xl font-bold tracking-tight"><span class="text-orange-500">Si</span><span class="text-black">Lebah</span></span>
+            </div>
+            <a href="javascript:history.back()" class="flex items-center gap-2 px-5 py-2.5 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Kembali
+            </a>
+        </nav>
+    </header>
+
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-16">
+        <div class="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 p-6 md:p-12 border border-slate-100 relative overflow-hidden">
+            <!-- Dekorasi Lebah -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-orange-100 rounded-full blur-3xl opacity-60"></div>
+
+            <div class="inline-flex items-center gap-2 rounded-full bg-orange-100 px-4 py-1.5 text-sm font-bold text-orange-600 mb-6">
+                <span class="material-symbols-outlined text-sm">support_agent</span> Kontak Developer
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">Saran Dan Kritik</h1>
+            <p class="text-lg text-slate-500 font-medium mb-10 pb-10 border-b border-slate-100">
+                Punya ide cemerlang, kendala, atau sekadar ingin menyapa Inisiator SiLebah EDU? Tuliskan kotak saran Anda di bawah ini!
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Panel Profil Inisiator -->
+                <div class="flex flex-col">
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 text-center shadow-sm">
+                        <div class="w-24 h-24 mx-auto bg-primary/20 rounded-full flex items-center justify-center text-primary mb-4 border-4 border-white shadow-md">
+                            <span class="material-symbols-outlined text-4xl">person_check</span>
+                        </div>
+                        <h3 class="font-black text-xl text-slate-900 mb-1">Fudak Winduko, SH., M.Pd</h3>
+                        <p class="text-sm font-semibold text-slate-500 mb-4">Guru Pendamping Khusus & Initiator SiLebah EDU</p>
+                        
+                        <div class="flex items-center justify-center gap-2 bg-green-50 text-green-700 py-2 px-4 rounded-xl text-sm font-bold border border-green-200 inline-flex mx-auto">
+                            <span class="material-symbols-outlined text-[18px]">forum</span>
+                            +62 822 6645 2216
+                        </div>
+                        
+                        <p class="text-xs text-slate-400 mt-6 leading-relaxed">
+                            Aplikasi SiLebah EDU kami bangun dengan ketulusan untuk menjembatani perlindungan anak. Jika Anda menemui sistem yang error, silahkan segera hubungi saya.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Formulir Saran (WhatsApp Form) -->
+                <div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">edit_note</span> Tulis Surel Saran
+                    </h3>
+                    
+                    <form id="saranForm" class="flex flex-col gap-4">
+                        <div class="flex flex-col">
+                            <label class="text-sm font-semibold text-slate-600 mb-1">Nama Penyampai</label>
+                            <input type="text" id="inputNama" placeholder="Nama Anda atau Instansi..." required class="border-slate-200 focus:border-primary focus:ring-primary rounded-xl px-4 py-3 bg-slate-50" />
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="text-sm font-semibold text-slate-600 mb-1">Saran / Keluhan Spesifik</label>
+                            <textarea id="inputPesan" rows="5" placeholder="Sampaikan kendala, pertanyaan teknis, atau ide pembaruan..." required class="border-slate-200 focus:border-primary focus:ring-primary rounded-xl px-4 py-3 bg-slate-50 resize-y"></textarea>
+                        </div>
+
+                        <button type="submit" class="mt-2 w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 rounded-xl shadow-lg shadow-green-500/30 transition-all hover:-translate-y-1">
+                            <span class="material-symbols-outlined">send</span> Send Melalui WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm font-semibold text-slate-400">
+        © 2023 - 2026 SDN Ngadirejo 03 🌈 <br> Created By Fudak Winduko & SiLebah EDU App
+    </footer>
+
+    <!-- Script Pengiriman Form ke WhatsApp -->
+    <script>
+        document.getElementById('saranForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nama = document.getElementById('inputNama').value.trim();
+            const pesan = document.getElementById('inputPesan').value.trim();
+            
+            if(!nama || !pesan) return;
+
+            const nomorWa = "6282266452216";
+            const curDate = new Date().toLocaleDateString('id-ID');
+            
+            const waFormat = `*FORM SARAN & KRITIK SILEBAH*\nTanggal: ${curDate}\n\n*Nama:* ${nama}\n*Saran / Keluhan:*\n${pesan}\n\nTerima kasih atas masukannya!`;
+            const encodedText = encodeURIComponent(waFormat);
+            const waLink = `https://wa.me/${nomorWa}?text=${encodedText}`;
+            
+            // Redirect ke tab baru
+            window.open(waLink, "_blank");
+            
+            // Opsional reset formulir
+            this.reset();
+        });
+        
+        // Auto-fill nama dari LocalStorage (jika ada yg login)
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedName = localStorage.getItem('kidsgov_userName');
+            if(storedName) {
+                document.getElementById('inputNama').value = storedName;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SiLebah EDU - Petualangan Menantimu!</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Poppins", "sans-serif"],
+                        "sans": ["Poppins", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <script>
+        // Check authentication before loading the page's body to prevent flickering
+        if (!localStorage.getItem('kidsgov_userName')) {
+            window.location.replace('login.html');
+        }
+    </script>
+    <style>
+        /* Base Reset & Universal IFP Optimizations */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent body scroll IFP Safe */
+            background-color: #FDF8F5;
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Master Responsive Container */
+        .app-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Fluid UI Trick via REM Scaling */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            html {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 3840px) {
+            html {
+                font-size: 48px;
+            }
+        }
+
+        /* Touch-Friendly Elements */
+        button,
+        a,
+        select,
+        input {
+            min-height: 48px;
+        }
+
+        @media (min-width: 1024px) {
+
+            button,
+            a,
+            select,
+            input {
+                min-height: 60px;
+            }
+        }
+
+        /* Custom Universal Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        @media (min-width: 1920px) {
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 16px;
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* CSS Stabilizer untuk Simbol agar tidak error menjadi teks */
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            line-height: 1;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kids-bg-pattern {
+            background: linear-gradient(160deg, #fff8f4 0%, #fdf4ff 40%, #eff8ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient Glow Effects */
+        .kids-bg-pattern::before {
+            content: "";
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(236,91,19,0.12), transparent 65%);
+            top: -180px;
+            left: -180px;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .kids-bg-pattern::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99,102,241,0.10), transparent 65%);
+            bottom: -150px;
+            right: -150px;
+            filter: blur(70px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Floating Shapes Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-18px); }
+        }
+
+        .floating-shape {
+            animation: float 7s ease-in-out infinite;
+        }
+
+        /* Premium Card Hover */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Button global transitions */
+        button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn-glow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-glow:hover::after {
+            left: 100%;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(236, 91, 19, 0.35);
+        }
+
+        a.btn-glow-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+        }
+
+        /* Header refined */
+        .header-glass {
+            background: rgba(255, 252, 249, 0.75);
+            border-bottom: 1px solid rgba(236, 91, 19, 0.08);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+        }
+
+        .dark .header-glass {
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        /* Card shimmer line */
+        .card-premium {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-premium:hover {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,1);
+        }
+
+        /* Shimmer/kilau efek */
+        .card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent 0%,
+                rgba(255,255,255,0) 25%,
+                rgba(255,255,255,0.55) 50%,
+                rgba(255,255,255,0) 75%,
+                transparent 100%
+            );
+            transform: skewX(-20deg);
+            transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .card-premium:hover::before {
+            left: 160%;
+        }
+
+        .dark .card-premium {
+            background: rgba(30, 41, 59, 0.85);
+            border-color: rgba(255,255,255,0.07);
+        }
+
+        /* Badge pill */
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        /* Card icon glow */
+        .icon-glow-blue { box-shadow: 0 8px 30px rgba(99,102,241,0.35); }
+        .icon-glow-orange { box-shadow: 0 8px 30px rgba(236,91,19,0.35); }
+    </style>
+</head>
+
+<body class="kids-bg-pattern dark:bg-background-dark text-slate-900 dark:text-slate-100">
+    <div class="app-container custom-scrollbar">
+        <!-- Main Navigation Header -->
+        <header class="header-glass sticky top-0 z-50 w-full h-auto py-2 backdrop-blur-2xl transition-all">
+            <div class="max-w-7xl mx-auto w-full px-4 md:px-16 h-16 flex items-center justify-between relative z-10">
+                <div class="flex items-center gap-3">
+                    <div class="flex shrink-0 items-center justify-center size-10 md:size-11 rounded-2xl overflow-hidden shadow-lg shadow-primary/30">
+                        <img src="https://images2.imgbox.com/4b/66/NcyQCbE8_o.png" alt="Logo SiLebah EDU" class="w-full h-full object-contain" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h2 class="text-lg md:text-xl font-black leading-none tracking-tight">
+                            <span class="text-primary">Si</span><span class="text-slate-900 dark:text-white">Lebah EDU</span>
+                        </h2>
+                        <p class="text-[11px] md:text-[12px] text-primary/80 font-bold italic leading-tight mt-[2px] tracking-wide">
+                            Kolaborasi Cerdas, Layanan Tuntas,<br>Pembelajaran Berkualitas
+                        </p>
+                    </div>
+                </div>
+                <div class="relative flex items-center gap-2 md:gap-3">
+                    <a href="manual-book.html" title="Buku Panduan / Manual Book"
+                        class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100/80 text-slate-600 hover:bg-primary/10 hover:text-primary transition-all duration-200 dark:bg-slate-800 dark:text-slate-400 shadow-sm">
+                        <span class="material-symbols-outlined text-lg">menu_book</span>
+                    </a>
+                    <button
+                        class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100/80 text-slate-600 hover:bg-primary/10 hover:text-primary transition-all duration-200 dark:bg-slate-800 dark:text-slate-400 shadow-sm">
+                        <span class="material-symbols-outlined text-lg">notifications</span>
+                    </button>
+                    <!-- Wrapper dropdown avatar -->
+                    <div class="relative">
+                        <button id="avatarBtn" style="min-height: 40px;"
+                            class="h-10 w-10 overflow-hidden rounded-xl border-2 border-white shadow-md bg-primary/10 ring-2 ring-primary/20 hover:ring-primary/60 hover:scale-105 transition-all duration-200 cursor-pointer">
+                            <img alt="User Avatar" class="h-full w-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnnODcOPYgfeXaaVm0gcgo08iTtPf_TNrYO9nR6Xc-WgUVXHH-DmWzT4R42qom9e6XU0OEtxG6JtwUET1Q62ybOwMdJy0LCmgm06z21A1kUm5TjVUP6EyZVLlTcVR0yPklWDN0ykslBZDgx8Xxu5L8MHSbdL-N9a56Zv_KUKl6SSn0I0MZscEpAo944DWnSRfxOZL4IoG1CIHYkVC6ntx1FIUaUpCC1Q2kWy7IzDI8Fsp-AbAfClyOCpVVMDcZQWBEhaPpKOnvaA" />
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="avatarDropdown"
+                            class="absolute right-0 mt-3 w-48 rounded-2xl bg-white/90 backdrop-blur-xl shadow-2xl shadow-slate-200/60 ring-1 ring-slate-100 dark:bg-slate-800/90 dark:ring-slate-700 opacity-0 invisible transform scale-95 transition-all duration-200 z-50">
+                            <div class="p-2">
+                                <button id="btnProfil"
+                                    class="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-bold text-slate-700 hover:bg-orange-50 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700 transition-colors">
+                                    <span class="material-symbols-outlined text-xl text-primary">person</span>
+                                    Profil
+                                </button>
+                                <button id="btnKeluar"
+                                    class="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors mt-1">
+                                    <span class="material-symbols-outlined text-xl">logout</span>
+                                    Keluar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 max-w-7xl mx-auto w-full px-4 md:px-16 py-6 flex flex-col relative z-10">
+            <!-- Hero Section -->
+            <div class="mb-10 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-2 text-xs font-extrabold text-primary mb-5 shadow-sm">
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    <span id="welcomeMsg">Selamat Datang Kembali!</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-slate-100">
+                    Halo, Sahabat <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">SiLebah EDU!</span>
+                </h1>
+                <p class="mt-4 text-base md:text-lg font-medium text-slate-500 dark:text-slate-400 max-w-xl">
+                    Pilih petualanganmu hari ini bersama kami. Dunia penuh ilmu dan kemudahan menantimu!
+                </p>
+            </div>
+
+            <!-- Choice Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full max-w-5xl mx-auto">
+                <!-- Card 1: Pelayanan -->
+                <div class="card-premium group relative flex flex-col overflow-hidden rounded-3xl dark:bg-slate-900/60">
+                    <!-- Card Banner -->
+                    <div class="h-40 w-full bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-700 relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute -top-6 -left-6 h-28 w-28 rounded-full bg-white/10 blur-md"></div>
+                        <div class="absolute bottom-0 right-0 h-32 w-32 rounded-full bg-indigo-400/20 blur-xl"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/5">
+                            <span class="material-symbols-outlined text-[160px]">medical_services</span>
+                        </div>
+                        <!-- Floating icon -->
+                        <div class="relative z-10 flex h-20 w-20 items-center justify-center rounded-2xl bg-white icon-glow-blue shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-4xl text-indigo-600">health_and_safety</span>
+                        </div>
+                        <!-- Top badge -->
+                        <span class="absolute top-4 right-4 pill-badge bg-white/20 text-white backdrop-blur-sm border border-white/30">PENDUKUNG</span>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="flex flex-1 flex-col p-6">
+                        <h3 class="text-xl font-black text-slate-900 dark:text-slate-100 mb-2">Pelayanan Publik</h3>
+                        <p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400 flex-1">
+                            Akses layanan kesehatan, keamanan, dan sekolah kamu di sini. Semua yang kamu butuhkan ada dalam satu tempat!
+                        </p>
+                        <div class="mt-6">
+                            <a href="pelayanan.html" id="pelayananBtn"
+                                class="btn-glow flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-500 to-indigo-700 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/30">
+                                <span>Buka Layanan</span>
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Pembelajaran -->
+                <div onclick="window.location.href='https://rumahsilebahedu.netlify.app/'"
+                    class="card-premium group relative flex flex-col overflow-hidden rounded-3xl dark:bg-slate-900/60 cursor-pointer">
+                    <!-- Card Banner -->
+                    <div class="h-40 w-full bg-gradient-to-br from-primary via-orange-500 to-amber-500 relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute -top-6 -right-6 h-28 w-28 rounded-full bg-white/10 blur-md"></div>
+                        <div class="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-orange-300/20 blur-xl"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/5">
+                            <span class="material-symbols-outlined text-[160px]">menu_book</span>
+                        </div>
+                        <!-- Floating icon -->
+                        <div class="relative z-10 flex h-20 w-20 items-center justify-center rounded-2xl bg-white icon-glow-orange shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-4xl text-primary">lightbulb</span>
+                        </div>
+                        <!-- Top badge -->
+                        <span class="absolute top-4 right-4 pill-badge bg-white/20 text-white backdrop-blur-sm border border-white/30">SERU!</span>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="flex flex-1 flex-col p-6">
+                        <h3 class="text-xl font-black text-slate-900 dark:text-slate-100 mb-2">Pembelajaran Digital</h3>
+                        <p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400 flex-1">
+                            Temukan materi belajar yang seru dan asyik untukmu. Belajar jadi lebih menyenangkan dengan kuis dan video!
+                        </p>
+                        <div class="mt-6">
+                            <a href="https://rumahsilebahedu.netlify.app/"
+                                class="btn-glow flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-primary to-orange-500 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-primary/30">
+                                <span>Mulai Belajar</span>
+                                <span class="material-symbols-outlined text-base">school</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="mt-auto w-full border-t border-primary/10 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm z-10 shrink-0">
+            <div class="max-w-7xl mx-auto w-full px-4 md:px-16 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <h4 class="font-extrabold text-slate-800 dark:text-slate-100 text-base">Layanan Publik SiLebah EDU</h4>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5 italic">Kolaborasi Cerdas, Layanan Tuntas, Pembelajaran Berkualitas</p>
+                </div>
+                <div class="flex gap-5 md:gap-6 text-xs font-bold text-slate-400 dark:text-slate-500">
+                    <a href="privasi.html" class="hover:text-primary transition-colors">Privasi</a>
+                    <a href="ketentuan.html" class="hover:text-primary transition-colors">Ketentuan</a>
+                    <a href="bantuan.html" class="hover:text-primary transition-colors">Bantuan</a>
+                </div>
+                <div class="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                    © 2023 SDN Ngadirejo 03 &nbsp;🌈<br><span class="text-primary font-bold">Created By Fudak Winduko</span>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Decorative Floating Shapes -->
+        <div class="pointer-events-none fixed -left-16 top-1/3 h-48 w-48 rounded-full bg-indigo-300/15 blur-3xl floating-shape"></div>
+        <div class="pointer-events-none fixed -right-20 bottom-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl floating-shape" style="animation-delay:2s"></div>
+        <div class="pointer-events-none fixed left-1/2 top-1/2 h-64 w-64 rounded-full bg-amber-200/10 blur-3xl floating-shape" style="animation-delay:4s"></div>
+    </div>
+
+    <!-- Access Denied Modal -->
+    <div id="accessDeniedModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="accessDeniedModalContent"
+            class="w-full max-w-sm transform scale-95 rounded-3xl bg-white p-6 text-center shadow-2xl transition-transform duration-300 dark:bg-slate-900">
+            <div
+                class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 text-orange-500 dark:bg-orange-500/20">
+                <span class="material-symbols-outlined text-3xl">lock</span>
+            </div>
+            <h3 class="mb-2 text-2xl font-bold text-slate-900 dark:text-white">Hanya untuk orang tua</h3>
+            <p class="mb-6 text-slate-500 dark:text-slate-400">Fitur Pelayanan ini tidak bisa diakses oleh Murid.</p>
+            <button id="closeAccessDeniedBtn"
+                class="w-full rounded-xl bg-orange-500 py-3 font-bold text-white hover:bg-orange-600 shadow-lg shadow-orange-500/30 transition-all transform active:scale-95">OK,
+                Mengerti</button>
+        </div>
+    </div>
+
+    <!-- Logout Modal -->
+    <div id="logoutModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="logoutModalContent"
+            class="w-full max-w-sm transform scale-95 rounded-3xl bg-white p-6 text-center shadow-2xl transition-transform duration-300 dark:bg-slate-900">
+            <div
+                class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-500 dark:bg-red-500/20">
+                <span class="material-symbols-outlined text-3xl">logout</span>
+            </div>
+            <h3 class="mb-2 text-2xl font-bold text-slate-900 dark:text-white">Yakin mau keluar?</h3>
+            <p class="mb-6 text-slate-500 dark:text-slate-400">Kamu harus login lagi untuk masuk ke SiLebah EDU.</p>
+            <div class="flex gap-3">
+                <button id="cancelLogoutBtn"
+                    class="flex-1 rounded-xl bg-slate-100 py-3 font-bold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors">Tidak</button>
+                <button id="confirmLogoutBtn"
+                    class="flex-1 rounded-xl bg-red-500 py-3 font-bold text-white hover:bg-red-600 shadow-lg shadow-red-500/30 transition-all transform active:scale-95">Ya,
+                    Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 p-4">
+        <div id="profileModalContent"
+            class="w-full max-w-[850px] transform scale-95 rounded-[2rem] bg-white shadow-2xl transition-transform duration-300 dark:bg-slate-900 relative overflow-hidden">
+            <!-- Close Button -->
+            <button id="closeProfileBtn"
+                class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors z-10">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+
+            <!-- Horizontal 2-column layout -->
+            <div class="flex flex-col md:flex-row">
+
+                <!-- LEFT: Avatar + Biodata -->
+                <div class="md:w-[38%] bg-gradient-to-b from-primary/5 to-orange-50/40 dark:from-slate-800 dark:to-slate-900 p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-800 shrink-0">
+                    <div
+                        class="mb-3 flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/10 text-primary overflow-hidden border-4 border-white shadow-md dark:border-slate-800">
+                        <img alt="User Avatar" class="h-full w-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnnODcOPYgfeXaaVm0gcgo08iTtPf_TNrYO9nR6Xc-WgUVXHH-DmWzT4R42qom9e6XU0OEtxG6JtwUET1Q62ybOwMdJy0LCmgm06z21A1kUm5TjVUP6EyZVLlTcVR0yPklWDN0ykslBZDgx8Xxu5L8MHSbdL-N9a56Zv_KUKl6SSn0I0MZscEpAo944DWnSRfxOZL4IoG1CIHYkVC6ntx1FIUaUpCC1Q2kWy7IzDI8Fsp-AbAfClyOCpVVMDcZQWBEhaPpKOnvaA" />
+                    </div>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white mb-1 text-center">Biodata Profil</h3>
+                    <span id="profileRoleBadge"
+                        class="inline-block px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Loading...</span>
+                    <p class="text-[10px] text-slate-400 font-semibold italic text-center leading-relaxed mb-4">
+                        Kolaborasi Cerdas, Layanan Tuntas,<br>Pembelajaran Berkualitas</p>
+
+                    <div class="w-full grid grid-cols-1 gap-2">
+                        <div class="bg-white/70 dark:bg-slate-800/50 p-3 rounded-xl">
+                            <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-0.5">Nama Lengkap</p>
+                            <p id="profileName" class="font-bold text-slate-800 dark:text-slate-200 text-sm truncate">-</p>
+                        </div>
+                        <div class="bg-white/70 dark:bg-slate-800/50 p-3 rounded-xl">
+                            <p id="profileClassLabel" class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-0.5">Kelas</p>
+                            <p id="profileClass" class="font-bold text-slate-800 dark:text-slate-200 text-sm truncate">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Avatar Customization -->
+                <div class="flex-1 p-6 overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                    <!-- Select Face -->
+                    <div class="mb-4">
+                        <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Pilih Avatar Kece-mu!</p>
+                        <div class="grid grid-cols-5 gap-2" id="avatarFacePicker">
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Felix&backgroundColor=b6e3f4"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Felix&backgroundColor=b6e3f4" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Buster&backgroundColor=c0aede"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Buster&backgroundColor=c0aede" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Bailey&backgroundColor=ffd5dc"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Bailey&backgroundColor=ffd5dc" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Jack&backgroundColor=ffdfbf"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Jack&backgroundColor=ffdfbf" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Aneka&backgroundColor=d1d4f9"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Aneka&backgroundColor=d1d4f9" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Sasha&backgroundColor=c0aede"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Sasha&backgroundColor=c0aede" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Snickers&backgroundColor=b6e3f4"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Snickers&backgroundColor=b6e3f4" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Loki&backgroundColor=ffdfbf"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Loki&backgroundColor=ffdfbf" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Mia&backgroundColor=ffd5dc"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Mia&backgroundColor=ffd5dc" class="w-full h-full object-cover pointer-events-none"></button>
+                            <button class="face-btn aspect-square w-full rounded-2xl overflow-hidden border-[3px] border-slate-200 hover:border-primary/50 transition-all focus:outline-none" data-face="https://api.dicebear.com/7.x/adventurer/svg?seed=Milo&backgroundColor=d1d4f9"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Milo&backgroundColor=d1d4f9" class="w-full h-full object-cover pointer-events-none"></button>
+                        </div>
+                    </div>
+                    <!-- Select Shape -->
+                    <div class="mb-4">
+                        <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">Bentuk Bingkai</p>
+                        <div class="flex gap-2" id="avatarShapePicker">
+                            <button class="shape-btn flex-1 py-3 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold transition-all border-[3px] border-slate-200 dark:border-slate-700 hover:border-primary/50 focus:outline-none focus:border-primary" data-shape="rounded-full">Lingkaran</button>
+                            <button class="shape-btn flex-1 py-3 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold transition-all border-[3px] border-slate-200 dark:border-slate-700 hover:border-primary/50 focus:outline-none focus:border-primary" data-shape="rounded-3xl">Balok Halus</button>
+                            <button class="shape-btn flex-1 py-3 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold transition-all border-[3px] border-slate-200 dark:border-slate-700 hover:border-primary/50 focus:outline-none focus:border-primary" data-shape="rounded-lg">Persegi</button>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-4 text-center">
+                        <p class="text-sm font-black text-slate-800 dark:text-slate-100 mb-1">SiLebah EDU</p>
+                        <p class="text-xs text-slate-400 font-medium italic">Kolaborasi Cerdas, Layanan Tuntas, Pembelajaran Berkualitas</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedName = localStorage.getItem('kidsgov_userName') || 'Sahabat';
+            const storedAddress = localStorage.getItem('kidsgov_userAddress') || '';
+            const storedClass = localStorage.getItem('kidsgov_userChildName') || '';
+            const storedRole = localStorage.getItem('kidsgov_userRole') || 'student';
+
+            const welcomeMsg = document.getElementById('welcomeMsg');
+
+            if (storedRole === 'student') {
+                // Format: Selamat Datang [Nama] Kelas [Kelas] Dari [Sekolah]
+                let msg = `Selamat Datang ${storedName}`;
+                if (storedClass) msg += ` Kelas ${storedClass}`;
+                if (storedAddress) msg += ` Dari ${storedAddress}`;
+                welcomeMsg.textContent = msg;
+            } else if (storedRole === 'parent') {
+                // Format: Selamat Datang [Nama] Orang Tua Dari [Nama Anak]
+                let msg = `Selamat Datang ${storedName}`;
+                if (storedClass) msg += ` Orang Tua Dari ${storedClass}`;
+                welcomeMsg.textContent = msg;
+            } else {
+                welcomeMsg.textContent = `Selamat Datang ${storedName}!`;
+            }
+
+            // Avatar Dropdown Logic
+            const avatarBtn = document.getElementById('avatarBtn');
+            const avatarDropdown = document.getElementById('avatarDropdown');
+            const btnProfil = document.getElementById('btnProfil');
+            const btnKeluar = document.getElementById('btnKeluar');
+            let isDropdownOpen = false;
+
+            avatarBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isDropdownOpen = !isDropdownOpen;
+                if (isDropdownOpen) {
+                    avatarDropdown.classList.remove('opacity-0', 'invisible', 'scale-95');
+                    avatarDropdown.classList.add('opacity-100', 'visible', 'scale-100');
+                } else {
+                    avatarDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    avatarDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (isDropdownOpen && !avatarBtn.contains(e.target) && !avatarDropdown.contains(e.target)) {
+                    isDropdownOpen = false;
+                    avatarDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    avatarDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+                }
+            });
+
+            // Profile Modal Logic
+            const profileModal = document.getElementById('profileModal');
+            const profileModalContent = document.getElementById('profileModalContent');
+            const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+            const profileName = document.getElementById('profileName');
+            const profileClass = document.getElementById('profileClass');
+            const profileClassLabel = document.getElementById('profileClassLabel');
+            const profileRoleBadge = document.getElementById('profileRoleBadge');
+
+            // Avatar State Management
+            const defaultFace = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAYnnODcOPYgfeXaaVm0gcgo08iTtPf_TNrYO9nR6Xc-WgUVXHH-DmWzT4R42qom9e6XU0OEtxG6JtwUET1Q62ybOwMdJy0LCmgm06z21A1kUm5TjVUP6EyZVLlTcVR0yPklWDN0ykslBZDgx8Xxu5L8MHSbdL-N9a56Zv_KUKl6SSn0I0MZscEpAo944DWnSRfxOZL4IoG1CIHYkVC6ntx1FIUaUpCC1Q2kWy7IzDI8Fsp-AbAfClyOCpVVMDcZQWBEhaPpKOnvaA';
+            const defaultShape = 'rounded-3xl';
+            let currentFace = localStorage.getItem('kidsgov_avatarFace') || defaultFace;
+            let currentShape = localStorage.getItem('kidsgov_avatarShape') || defaultShape;
+
+            const mainAvatarImg = document.querySelector('#avatarBtn img');
+            const mainAvatarBtn = document.getElementById('avatarBtn');
+            const modalAvatarImg = document.querySelector('#profileModalContent .h-20.w-20 img');
+            const modalAvatarContainer = document.querySelector('#profileModalContent .h-20.w-20');
+
+            const faceBtns = document.querySelectorAll('.face-btn');
+            const shapeBtns = document.querySelectorAll('.shape-btn');
+
+            function applyAvatarSettings() {
+                // Apply source images
+                if (mainAvatarImg) mainAvatarImg.src = currentFace;
+                if (modalAvatarImg) modalAvatarImg.src = currentFace;
+
+                // Map the shape for the small navigation avatar (rounded-3xl becomes rounded-xl)
+                const smallShape = (currentShape === 'rounded-3xl') ? 'rounded-xl' : currentShape;
+
+                // Clear and add shapes
+                const allShapes = ['rounded-full', 'rounded-3xl', 'rounded-xl', 'rounded-lg'];
+                if (mainAvatarBtn) {
+                    mainAvatarBtn.classList.remove(...allShapes);
+                    mainAvatarBtn.classList.add(smallShape);
+                }
+                if (modalAvatarContainer) {
+                    modalAvatarContainer.classList.remove(...allShapes);
+                    modalAvatarContainer.classList.add(currentShape);
+                }
+
+                // Update active states in UI
+                faceBtns.forEach(btn => {
+                    if (btn.dataset.face === currentFace) {
+                        btn.classList.add('border-primary');
+                        btn.classList.remove('border-slate-200');
+                    } else {
+                        btn.classList.remove('border-primary');
+                        btn.classList.add('border-slate-200');
+                    }
+                });
+
+                shapeBtns.forEach(btn => {
+                    if (btn.dataset.shape === currentShape) {
+                        btn.classList.add('bg-primary/10', 'text-primary', 'border-primary/50');
+                        btn.classList.remove('bg-slate-50', 'text-slate-500', 'border-slate-200', 'dark:bg-slate-800', 'dark:text-slate-400', 'dark:border-slate-700');
+                    } else {
+                        btn.classList.remove('bg-primary/10', 'text-primary', 'border-primary/50');
+                        btn.classList.add('bg-slate-50', 'text-slate-500', 'border-slate-200', 'dark:bg-slate-800', 'dark:text-slate-400', 'dark:border-slate-700');
+                    }
+                });
+            }
+
+            // Initialization
+            applyAvatarSettings();
+
+            faceBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentFace = btn.dataset.face;
+                    localStorage.setItem('kidsgov_avatarFace', currentFace);
+                    applyAvatarSettings();
+                });
+            });
+
+            shapeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentShape = btn.dataset.shape;
+                    localStorage.setItem('kidsgov_avatarShape', currentShape);
+                    applyAvatarSettings();
+                });
+            });
+
+            function openProfileModal() {
+                // Set Data
+                profileName.textContent = storedName;
+                profileClass.textContent = storedClass || '-';
+
+                if (storedRole === 'student') {
+                    profileRoleBadge.textContent = 'MURID';
+                    profileClassLabel.textContent = 'Kelas';
+                } else {
+                    profileRoleBadge.textContent = 'ORANG TUA';
+                    profileClassLabel.textContent = 'Nama Anak';
+                }
+
+                profileModal.classList.remove('hidden');
+                profileModal.classList.add('flex');
+                void profileModal.offsetWidth;
+                profileModal.classList.remove('opacity-0');
+                profileModalContent.classList.remove('scale-95');
+                profileModalContent.classList.add('scale-100');
+            }
+
+            function closeProfileModal() {
+                profileModal.classList.add('opacity-0');
+                profileModalContent.classList.remove('scale-100');
+                profileModalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    profileModal.classList.add('hidden');
+                    profileModal.classList.remove('flex');
+                }, 300);
+            }
+
+            btnProfil.addEventListener('click', () => {
+                // close dropdown first
+                isDropdownOpen = false;
+                avatarDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                avatarDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+
+                openProfileModal();
+            });
+
+            closeProfileBtn.addEventListener('click', closeProfileModal);
+            profileModal.addEventListener('click', (e) => {
+                if (e.target === profileModal) {
+                    closeProfileModal();
+                }
+            });
+
+            // Logout Modal Logic
+            const logoutModal = document.getElementById('logoutModal');
+            const logoutModalContent = document.getElementById('logoutModalContent');
+            const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+            const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+
+            function openLogoutModal() {
+                logoutModal.classList.remove('hidden');
+                logoutModal.classList.add('flex');
+                // Trigger reflow
+                void logoutModal.offsetWidth;
+                logoutModal.classList.remove('opacity-0');
+                logoutModalContent.classList.remove('scale-95');
+                logoutModalContent.classList.add('scale-100');
+            }
+
+            function closeLogoutModal() {
+                logoutModal.classList.add('opacity-0');
+                logoutModalContent.classList.remove('scale-100');
+                logoutModalContent.classList.add('scale-95');
+
+                setTimeout(() => {
+                    logoutModal.classList.add('hidden');
+                    logoutModal.classList.remove('flex');
+                }, 300); // Wait for transition
+            }
+
+            btnKeluar.addEventListener('click', () => {
+                // close dropdown first
+                isDropdownOpen = false;
+                avatarDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                avatarDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+
+                openLogoutModal();
+            });
+
+            cancelLogoutBtn.addEventListener('click', closeLogoutModal);
+
+            // Tutup modal jika klik di luar box
+            logoutModal.addEventListener('click', (e) => {
+                if (e.target === logoutModal) {
+                    closeLogoutModal();
+                }
+            });
+
+            confirmLogoutBtn.addEventListener('click', () => {
+                // Hapus data login
+                localStorage.removeItem('kidsgov_userName');
+                localStorage.removeItem('kidsgov_userChildName');
+                localStorage.removeItem('kidsgov_userRole');
+
+                // Redirect ke login html
+                window.location.href = 'login.html';
+            });
+
+            // Role Based Access Control untuk Pelayanan
+            const pelayananBtn = document.getElementById('pelayananBtn');
+            const accessDeniedModal = document.getElementById('accessDeniedModal');
+            const accessDeniedModalContent = document.getElementById('accessDeniedModalContent');
+            const closeAccessDeniedBtn = document.getElementById('closeAccessDeniedBtn');
+
+            if (pelayananBtn && storedRole === 'student') {
+                pelayananBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Mencegah pindah halaman
+                    openAccessModal();
+                });
+            }
+
+            function openAccessModal() {
+                accessDeniedModal.classList.remove('hidden');
+                accessDeniedModal.classList.add('flex');
+                // Trigger reflow
+                void accessDeniedModal.offsetWidth;
+                accessDeniedModal.classList.remove('opacity-0');
+                accessDeniedModalContent.classList.remove('scale-95');
+                accessDeniedModalContent.classList.add('scale-100');
+            }
+
+            function closeAccessModal() {
+                accessDeniedModal.classList.add('opacity-0');
+                accessDeniedModalContent.classList.remove('scale-100');
+                accessDeniedModalContent.classList.add('scale-95');
+
+                setTimeout(() => {
+                    accessDeniedModal.classList.add('hidden');
+                    accessDeniedModal.classList.remove('flex');
+                }, 300); // Wait for transition
+            }
+
+            if (closeAccessDeniedBtn) {
+                closeAccessDeniedBtn.addEventListener('click', closeAccessModal);
+            }
+
+            if (accessDeniedModal) {
+                // Tutup modal jika klik di luar box
+                accessDeniedModal.addEventListener('click', (e) => {
+                    if (e.target === accessDeniedModal) {
+                        closeAccessModal();
+                    }
+                });
+            }
+        });
+        // Tracking Script
+        (function() {
+            const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRerr2xi96PFWPx8FhRxsv0PPCNvaVAUqZWENX2CZNSIufJYgfu698IoQtevg22J3dTQ/exec";
+            
+            function sendTracking(fiturName, pageOrActionName) {
+                const rawNama = localStorage.getItem('kidsgov_userName') || 'Anonim';
+                const rawRole = localStorage.getItem('kidsgov_userRole') || 'student';
+                const rawClassOrChild = localStorage.getItem('kidsgov_userChildName') || '-';
+                const roleText = rawRole === 'student' ? 'Siswa' : 'Orang Tua';
+
+                const payload = {
+                    waktu: new Date().toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }),
+                    nama: rawNama,
+                    role: roleText,
+                    kelas: rawClassOrChild,
+                    fitur: fiturName,
+                    halaman: pageOrActionName
+                };
+
+                fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.warn('Tracking error:', err));
+            }
+
+            // 1. Log page visit
+            const currentFitur = "Beranda";
+            const currentPageFile = window.location.pathname.split("/").pop() || "index.html";
+            sendTracking(currentFitur, "Kunjungan: " + currentPageFile);
+        })();
+    </script>
+</body>
+
+</html>

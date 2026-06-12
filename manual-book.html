@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SiLebah EDU - Buku Panduan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary: '#ec5b13',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDF8F5;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        .prose-custom p {
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            color: #475569; /* slate-600 */
+        }
+        .prose-custom h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a; /* slate-900 */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .prose-custom ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: #475569;
+        }
+        .prose-custom li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm py-2">
+        <nav class="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl font-black shadow-sm">
+                    K
+                </div>
+                <span class="text-2xl font-bold tracking-tight"><span class="text-orange-500">Si</span><span class="text-black">Lebah</span></span>
+            </div>
+            <a href="javascript:history.back()" class="flex items-center gap-2 px-5 py-2.5 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                Kembali
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-16">
+        <div class="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 p-6 md:p-12 border border-slate-100">
+            <div class="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-600 mb-6">
+                <span class="material-symbols-outlined text-sm">menu_book</span>
+                Tutorial & Penggunaan
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">Buku Panduan SiLebah EDU</h1>
+            <p class="text-lg text-slate-500 font-medium mb-10 pb-10 border-b border-slate-100">
+                Panduan lengkap langkah demi langkah untuk memaksimalkan penggunaan Portal Layanan Publik Terpadu SiLebah EDU dengan mudah dan cepat.
+            </p>
+
+            <div class="prose-custom">
+                <h2><span class="material-symbols-outlined text-primary">login</span> 1. Cara Masuk (Login) ke Aplikasi</h2>
+                <p>
+                    Aplikasi SiLebah EDU dirancang sangat praktis tanpa perlu mendaftar menggunakan email atau kata sandi yang rumit. 
+                    Anda hanya perlu memasukkan data diri dasar (seperti Nama, Peran, dan Nomor WhatsApp) di halaman muka.
+                </p>
+                <ul>
+                    <li>Pilih apakah Anda masuk sebagai <strong>Murid</strong> atau <strong>Orang Tua / Wali</strong>.</li>
+                    <li>Isi formulir seperti Nama Lengkap dan Asal Sekolah/Alamat secara benar.</li>
+                    <li>Sistem akan mengingat data Anda secara lokal di dalam browser cerdas perangkat Anda.</li>
+                </ul>
+
+                <h2><span class="material-symbols-outlined text-primary">explore</span> 2. Memilih Portal Layanan</h2>
+                <p>
+                    Setelah berhasil masuk, Anda akan disambut di halaman Beranda (Index). Di sini, Anda akan melihat berbagai kartu pilihan layanan terpadu yang masing-masing melayani kebutuhan spesifik Anda.
+                </p>
+                <ul>
+                    <li><strong>Portal Pelayanan Umum:</strong> Informasi dan panduan layanan pengaduan atau kontak lembaga dasar.</li>
+                    <li><strong>Puskesmas Ramah Anak:</strong> Untuk konsultasi dokter, apoteker, atau paramedis khusus anak.</li>
+                    <li><strong>Babinsa & Keamanan:</strong> Layanan pertahanan sipil dan pelaporan keamanan kepada aparat terkait.</li>
+                    <li><strong>Layanan Sekolah:</strong> Menghubungi guru wali kelas, pembina, hingga fasilitas aduan *anti-bullying*.</li>
+                    <li><strong>Portal Inklusi:</strong> Pendampingan psikologis, terapis, khusus anak berkebutuhan khusus oleh profesional.</li>
+                </ul>
+
+                <h2><span class="material-symbols-outlined text-primary">chat</span> 3. Fitur WhatsApp Otomatis</h2>
+                <p>
+                    Salah satu fitur unggulan SiLebah EDU adalah tombol <strong>Hubungi WA</strong> yang ada pada setiap profil petugas, dokter, atau guru penjaga di dalam menu layanan.
+                </p>
+                <p>
+                    Ketika Anda menekan tombol tersebut, aplikasi tidak hanya akan membuka jendela obrolan WhatsApp menuju nomor petugas, namun secara otomatis juga <strong>merangkaikan teks sapaan dan data diri Anda</strong> yang telah Anda isikan saat pertama kali masuk (login). Hal ini menyingkat waktu Anda saat mengetik ulang data diri dalam kondisi darurat.
+                </p>
+
+                <h2><span class="material-symbols-outlined text-primary">history</span> 4. Riwayat Kontak</h2>
+                <p>
+                    Pada setiap halaman layanan terdapat komponen panel "Riwayat Kontak" di bagian bawah layar. Komponen visual ini berguna untuk mempermudah Anda mengingat dengan siapa Anda baru saja terhubung sebelumnya (Riwayat ini akan terisi begitu Anda telah mengeklik tombol kontak WhatsApp pada salah satu profil yang tersedia).
+                </p>
+                <p>
+                    Bila sesi Anda sudah selesai dan Anda merasa layar terlalu penuh, Anda bebas menghapus deretan riwayat kontak sementara tersebut.
+                </p>
+
+                <h2><span class="material-symbols-outlined text-primary">logout</span> 5. Menghapus Data (Keluar)</h2>
+                <p>
+                    Mengingat fokus keamanan dan privasi tingkat tinggi, semua data biodata profil Anda disimpan secara Luring (Offline). Apabila Anda memakai Komputer Sekolah, Komputer Warnet, atau Ponsel Pinjaman, kami sangat mewajibkan Anda untuk mengeklik menu Profil Anda di pojok kanan atas, kemudian pilih tombol <strong>Keluar (Logout)</strong> untuk menghapus jejak biodata dan mencegah orang lain menyalahgunakan otomatisasi chat Anda.
+                </p>
+                
+                <div class="mt-12 p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">lightbulb</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-1">Tips SiLebah EDU Ku</h4>
+                        <p class="text-sm text-slate-500">
+                            Simpanlah tautan (link) website SiLebah EDU ke dalam Layar Utama ponsel cerdas Anda (*Add to Home Screen*) lewat menu *Browser* agar Anda dapat membukanya dengan satu klik, bagaikan menggunakan aplikasi dari App Store atau PlayStore.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                <a href="index.html" class="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-bold rounded-xl hover:bg-orange-600 transition-colors shadow-lg shadow-primary/30">
+                    <span class="material-symbols-outlined text-sm">home</span>
+                    Kembali ke Beranda Utama
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm font-semibold text-slate-400">
+        © 2023 - 2026 SDN Ngadirejo 03 🌈 <br> Created By Fudak Winduko & SiLebah EDU App
+    </footer>
+</body>
+</html>

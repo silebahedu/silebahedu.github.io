@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Base Reset & Universal IFP Optimizations */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent body scroll IFP Safe */
+            background-color: #FDF8F5;
+            font-family: 'Public Sans', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f8f6f6 100%);
+        }
+
+        /* Master Responsive Container */
+        .app-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fluid UI Trick via REM Scaling */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            html {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 3840px) {
+            html {
+                font-size: 48px;
+            }
+        }
+
+        /* Touch-Friendly Elements */
+        button,
+        a,
+        select,
+        input {
+            min-height: 48px;
+        }
+
+        @media (min-width: 1024px) {
+
+            button,
+            a,
+            select,
+            input {
+                min-height: 60px;
+            }
+        }
+
+        /* Custom Universal Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        @media (min-width: 1920px) {
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 16px;
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #ec5b13;
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+
+        /* === PREMIUM REDESIGN === */
+        body {
+            background: linear-gradient(160deg, #fff8f4 0%, #fdf4ff 45%, #eff8ff 100%) !important;
+        }
+
+        .blob-a {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(236, 91, 19, 0.09), transparent 65%);
+            top: -160px;
+            left: -160px;
+            filter: blur(60px);
+        }
+
+        .blob-b {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 133, 162, 0.08), transparent 65%);
+            bottom: -160px;
+            right: -160px;
+            filter: blur(70px);
+        }
+
+        header {
+            background: rgba(255, 253, 250, 0.85) !important;
+            border-bottom: 1px solid rgba(236, 91, 19, 0.09) !important;
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .contact-btn {
+            background: rgba(255, 255, 255, 0.92) !important;
+            border-color: rgba(255, 255, 255, 0.9) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07) !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.10) !important;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        .contact-btn:hover::before {
+            left: 160%;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.45) !important;
+            border-top: 1px solid rgba(236, 91, 19, 0.1) !important;
+            backdrop-filter: blur(12px);
+        }
+
+        /* ===== Activity Cards (Program Unggulan) ===== */
+        .activity-card { position: relative; overflow: hidden; border-radius: 28px; text-decoration: none; display: block; cursor: pointer; }
+        .act-pakar { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); border: 1.5px solid rgba(255, 255, 255, 0.2); box-shadow: 0 6px 24px rgba(59, 130, 246, 0.30); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; }
+        .act-pakar::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 2px; background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.7) 75%, transparent 88%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 3; }
+        .act-pakar:hover::before { opacity: 1; animation: beamSpin 1.4s linear infinite; }
+        .act-pakar:hover { transform: scale(1.06); box-shadow: 0 20px 55px rgba(37, 99, 235, 0.50), 0 0 0 4px rgba(37, 99, 235, 0.20); }
+
+        .act-deteksi { background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%); border: 1.5px solid rgba(255, 255, 255, 0.2); box-shadow: 0 6px 24px rgba(16, 185, 129, 0.30); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; }
+        .act-deteksi::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 2px; background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.7) 75%, transparent 88%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 3; }
+        .act-deteksi:hover::before { opacity: 1; animation: beamSpin 1.4s linear infinite; }
+        .act-deteksi:hover { transform: scale(1.06); box-shadow: 0 20px 55px rgba(5, 150, 105, 0.50), 0 0 0 4px rgba(5, 150, 105, 0.20); }
+
+        .act-konsultasi { background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%); border: 1.5px solid rgba(255, 255, 255, 0.2); box-shadow: 0 6px 24px rgba(245, 158, 11, 0.30); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; }
+        .act-konsultasi::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 2px; background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.7) 75%, transparent 88%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 3; }
+        .act-konsultasi:hover::before { opacity: 1; animation: beamSpin 1.4s linear infinite; }
+        .act-konsultasi:hover { transform: scale(1.06); box-shadow: 0 20px 55px rgba(217, 119, 6, 0.50), 0 0 0 4px rgba(217, 119, 6, 0.20); }
+
+        .act-sinergi { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%); border: 1.5px solid rgba(255, 255, 255, 0.2); box-shadow: 0 6px 24px rgba(139, 92, 246, 0.30); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; }
+        .act-sinergi::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 2px; background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.7) 75%, transparent 88%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 3; }
+        .act-sinergi:hover::before { opacity: 1; animation: beamSpin 1.4s linear infinite; }
+        .act-sinergi:hover { transform: scale(1.06); box-shadow: 0 20px 55px rgba(124, 58, 237, 0.50), 0 0 0 4px rgba(124, 58, 237, 0.20); }
+
+        @keyframes beamSpin { to { rotate: 360deg; } }
+        .act-icon-ring { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); flex-shrink: 0; transition: transform 0.3s ease, background 0.3s ease; }
+        .activity-card:hover .act-icon-ring { transform: rotate(-8deg) scale(1.12); background: rgba(255,255,255,0.28); }
+        .act-arrow { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.20); border: 1.5px solid rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1); flex-shrink: 0; }
+        .activity-card:hover .act-arrow { background: rgba(255,255,255,0.40); transform: translateX(5px); }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+    <div class="app-container custom-scrollbar">
+        <div class="blob-a"></div>
+        <div class="blob-b"></div>
+        <!-- Top Navigation Bar - Reduced Padding -->
+        <header
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 py-3 bg-white/80 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary p-2 rounded-xl text-white">
+                    <span class="material-symbols-outlined text-2xl"
+                        style="font-variation-settings: 'FILL' 1">child_care</span>
+                </div>
+                <div>
+                    <h2 class="text-slate-900 dark:text-white text-lg font-extrabold leading-none tracking-tight">
+                        SiLebah EDU</h2>
+                    <p class="text-primary text-[9px] font-bold tracking-widest uppercase">Portal Inklusi</p>
+                </div>
+            </div>
+            <div class="flex flex-1 justify-end items-center gap-2 md:gap-8">
+                <nav class="flex items-center gap-1 md:gap-8" style="min-height:auto">
+                    <a href="layanan-inklusi.html" title="Layanan"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 dark:bg-slate-800/50 md:bg-transparent text-slate-700 dark:text-slate-200 hover:text-primary transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">grid_view</span>
+                        <span class="hidden md:inline font-bold text-sm">Layanan</span>
+                    </a>
+                    <a href="saran-kontak.html" title="Saran Kontak"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 dark:bg-slate-800/50 md:bg-transparent text-slate-700 dark:text-slate-200 hover:text-primary transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">contact_support</span>
+                        <span class="hidden md:inline font-bold text-sm">Saran Kontak</span>
+                    </a>
+                    <a href="manual-book.html" title="Manual Book"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 dark:bg-slate-800/50 md:bg-transparent text-slate-700 dark:text-slate-200 hover:text-primary transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">menu_book</span>
+                        <span class="hidden md:inline font-bold text-sm">Manual Book</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 md:px-20 py-6 flex flex-col justify-between">
+            <!-- Hero Section - More Compact -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-4">
+                <div class="max-w-2xl text-left">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-extrabold mb-4 shadow-sm">
+                        <span class="material-symbols-outlined text-sm">child_care</span>
+                        PENDAMPINGAN KHUSUS & RAMAH
+                    </div>
+                    <h1
+                        class="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-[1.1] tracking-tight mb-4">
+                        Halo, Sahabat Inklusi! <br /><span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#ec5b13] to-amber-500">Butuh
+                            bantuan apa?</span>
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-3">
+                        Pusat layanan pendampingan siswa berkebutuhan khusus SDN Ngadirejo 03. Halaman ini memiliki
+                        fitur layanan inklusif:
+                    </p>
+                    <ul class="flex flex-col gap-2">
+                        <li class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-green-500 text-base mt-0.5 shrink-0">chat</span>
+                            <span><strong class="text-slate-800 dark:text-slate-200">Konsultasi via WhatsApp</strong> —
+                                Pilih tenaga pendidik/ahli (Psikolog, GPK, Konselor) & kirim pesan langsung kepada pakar
+                                layanan inklusi.</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <span
+                                class="material-symbols-outlined text-blue-500 text-base mt-0.5 shrink-0">history</span>
+                            <span><strong class="text-slate-800 dark:text-slate-200">Riwayat Kontak</strong> — Pantau
+                                riwayat ahli yang sudah pernah Anda hubungi untuk kemudahan sesi konsultasi
+                                selanjutnya.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Kembali Button -->
+                <a href="pelayanan.html"
+                    class="flex items-center justify-center gap-2 px-6 py-3 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-300 dark:hover:bg-slate-700 transition-all shadow-sm">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Kembali
+                </a>
+            </div>
+
+            <!-- Feature Tabs — Program Unggulan -->
+            <div class="mb-8">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-primary text-xl">rocket_launch</span>
+                    <h2 class="text-slate-800 dark:text-slate-200 font-black text-sm uppercase tracking-widest">Program Unggulan</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    
+                    <!-- Card 1: Pakar -->
+                    <a href="inklusi-edukasi-pakar.html" class="activity-card act-pakar p-4 text-white">
+                        <div class="relative z-10 flex flex-col gap-2 h-full">
+                            <div class="flex items-center justify-between">
+                                <div class="act-icon-ring"><span class="material-symbols-outlined text-white text-lg">psychology</span></div>
+                                <span class="text-[9px] font-black uppercase tracking-widest bg-white/20 border border-white/30 px-2 py-0.5 rounded-full backdrop-blur-sm">Modul 01</span>
+                            </div>
+                            <div class="flex-1 mt-2 mb-2">
+                                <h3 class="font-bold text-[11px] opacity-80 leading-tight uppercase tracking-wider">Edukasi Wali Murid</h3>
+                                <p class="text-[15px] font-black opacity-100 leading-snug mt-1">Kenali Pakarnya: Psikolog dan GPK</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold opacity-80">Pelajari &rarr;</span>
+                                <div class="act-arrow"><span class="material-symbols-outlined text-white" style="font-size:14px">arrow_outward</span></div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 2: Deteksi -->
+                    <a href="inklusi-edukasi-deteksi.html" class="activity-card act-deteksi p-4 text-white">
+                        <div class="relative z-10 flex flex-col gap-2 h-full">
+                            <div class="flex items-center justify-between">
+                                <div class="act-icon-ring"><span class="material-symbols-outlined text-white text-lg">search</span></div>
+                                <span class="text-[9px] font-black uppercase tracking-widest bg-white/20 border border-white/30 px-2 py-0.5 rounded-full backdrop-blur-sm">Modul 02</span>
+                            </div>
+                            <div class="flex-1 mt-2 mb-2">
+                                <h3 class="font-bold text-[11px] opacity-80 leading-tight uppercase tracking-wider">Edukasi Wali Murid</h3>
+                                <p class="text-[15px] font-black opacity-100 leading-snug mt-1">Deteksi Dini &amp; Observasi Anak</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold opacity-80">Pelajari &rarr;</span>
+                                <div class="act-arrow"><span class="material-symbols-outlined text-white" style="font-size:14px">arrow_outward</span></div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 3: Konsultasi -->
+                    <a href="inklusi-edukasi-konsultasi.html" class="activity-card act-konsultasi p-4 text-white">
+                        <div class="relative z-10 flex flex-col gap-2 h-full">
+                            <div class="flex items-center justify-between">
+                                <div class="act-icon-ring"><span class="material-symbols-outlined text-white text-lg">forum</span></div>
+                                <span class="text-[9px] font-black uppercase tracking-widest bg-white/20 border border-white/30 px-2 py-0.5 rounded-full backdrop-blur-sm">Modul 03</span>
+                            </div>
+                            <div class="flex-1 mt-2 mb-2">
+                                <h3 class="font-bold text-[11px] opacity-80 leading-tight uppercase tracking-wider">Edukasi Wali Murid</h3>
+                                <p class="text-[15px] font-black opacity-100 leading-snug mt-1">Persiapan Konsultasi WhatsApp Efektif</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold opacity-80">Pelajari &rarr;</span>
+                                <div class="act-arrow"><span class="material-symbols-outlined text-white" style="font-size:14px">arrow_outward</span></div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 4: Sinergi -->
+                    <a href="inklusi-edukasi-sinergi.html" class="activity-card act-sinergi p-4 text-white">
+                        <div class="relative z-10 flex flex-col gap-2 h-full">
+                            <div class="flex items-center justify-between">
+                                <div class="act-icon-ring"><span class="material-symbols-outlined text-white text-lg">family_home</span></div>
+                                <span class="text-[9px] font-black uppercase tracking-widest bg-white/20 border border-white/30 px-2 py-0.5 rounded-full backdrop-blur-sm">Modul 04</span>
+                            </div>
+                            <div class="flex-1 mt-2 mb-2">
+                                <h3 class="font-bold text-[11px] opacity-80 leading-tight uppercase tracking-wider">Edukasi Wali Murid</h3>
+                                <p class="text-[15px] font-black opacity-100 leading-snug mt-1">Sinergi Rumah &amp; Sekolah</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold opacity-80">Pelajari &rarr;</span>
+                                <div class="act-arrow"><span class="material-symbols-outlined text-white" style="font-size:14px">arrow_outward</span></div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Service Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Card 0: Monika Dyah Arwidiavin D - Slate -->
+                <a href="javascript:void(0)" data-phone="628157939962"
+                    class="group bg-slate-50 dark:bg-slate-900/30 border-2 border-transparent hover:border-slate-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Monika Dyah Arwidiavin D, S.Psi , M.Pd."
+                    data-img="https://images2.imgbox.com/12/da/gbqoBKBy_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <!-- Background Shape -->
+                        <div
+                            class="absolute inset-0 bg-slate-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <!-- Image -->
+                        <img alt="Monika Dyah Arwidiavin D"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/12/da/gbqoBKBy_o.png" />
+                        <!-- Chat Icon Overlay -->
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Monika Dyah Arwidiavin D, S.Psi , M.Pd.</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Pengembang Teknologi Pembelajaran</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium leading-tight">Dinas Pendidikan Dan Kebudayaan<br>Kabupaten Madiun</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+628157939962</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-slate-500/20 group-hover:bg-slate-500 text-slate-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 1: Psikologi - Light Blue -->
+                <a href="javascript:void(0)" data-phone="6287861542003"
+                    class="group bg-blue-50 dark:bg-blue-900/30 border-2 border-transparent hover:border-blue-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Robik Anwar Dani, M.Psi, Psikolog"
+                    data-img="https://images2.imgbox.com/91/68/dor8CUYo_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <!-- Background Shape -->
+                        <div
+                            class="absolute inset-0 bg-blue-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <!-- Image -->
+                        <img alt="Robik Anwar Dani"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/91/68/dor8CUYo_o.png" />
+                        <!-- Chat Icon Overlay -->
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Robik Anwar Dani, M.Psi, Psikolog</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Dosen Fakultas
+                        Psikologi</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-[13px] font-medium leading-tight">Universitas
+                        Katolik Widya Mandala Madiun.</p>
+                    <p class="text-blue-500 hover:text-blue-600 font-bold text-[13px] mb-2 cursor-pointer relative z-30 flex items-center justify-center gap-1"
+                        onclick="window.open('https://robikanwardani.blogspot.com/', '_blank'); event.preventDefault(); event.stopPropagation();">
+                        <span class="material-symbols-outlined text-[13px]">link</span> Hasil Karya
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6287861542003</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-blue-500/20 group-hover:bg-blue-500 text-blue-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 2: Terapi - Light Pink -->
+                <a href="javascript:void(0)" data-phone="6282266452216"
+                    class="group bg-pink-50 dark:bg-pink-900/30 border-2 border-transparent hover:border-pink-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Fudak Winduko, SH., M.Pd."
+                    data-img="https://images2.imgbox.com/fd/71/WxHhfljv_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <!-- Background Shape -->
+                        <div
+                            class="absolute inset-0 bg-pink-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <!-- Image -->
+                        <img alt="Ahli Terapi"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/fd/71/WxHhfljv_o.png" />
+                        <!-- Chat Icon Overlay -->
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1">Fudak Winduko, SH.,
+                        M.Pd.</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Wonoasri, Mejayan,
+                        Pilangkenceng</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6282266452216</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-pink-500/20 group-hover:bg-pink-500 text-pink-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 3: Guru Pendamping - Light Yellow -->
+                <a href="javascript:void(0)" data-phone="6281230144945"
+                    class="group bg-yellow-50 dark:bg-yellow-900/30 border-2 border-transparent hover:border-yellow-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Martha Febri Tri Marthadiputri, S.Pd.SD., M.Pd."
+                    data-img="https://images2.imgbox.com/67/7e/LiGdse7i_o.jpeg">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <!-- Background Shape -->
+                        <div
+                            class="absolute inset-0 bg-yellow-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <!-- Image -->
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/67/7e/LiGdse7i_o.jpeg" />
+                        <!-- Chat Icon Overlay -->
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Martha Febri Tri Marthadiputri, S.Pd.SD., M.Pd.</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Dolopo, Madiun,
+                        Wungu, Kare.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6281230144945</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-yellow-500/20 group-hover:bg-yellow-500 text-yellow-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 4: Konselor - Light Green -->
+                <a href="javascript:void(0)" data-phone="6282232637880"
+                    class="group bg-green-50 dark:bg-green-900/30 border-2 border-transparent hover:border-green-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Emilia julaika, S.Pd. M.Pd."
+                    data-img="https://images2.imgbox.com/47/72/Mmwt9nwl_o.jpeg">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <!-- Background Shape -->
+                        <div
+                            class="absolute inset-0 bg-green-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <!-- Image -->
+                        <img alt="Konselor"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/47/72/Mmwt9nwl_o.jpeg" />
+                        <!-- Chat Icon Overlay -->
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Emilia Julaika,S.Pd., M.Pd.</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Dagangan, Dolopo,
+                        Kebonsari.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6282232637880</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-green-500/20 group-hover:bg-green-500 text-green-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 5 -->
+                <a href="javascript:void(0)" data-phone="6282244026398"
+                    class="group bg-purple-50 dark:bg-purple-900/30 border-2 border-transparent hover:border-purple-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Heny Sulistyo Rini, S.Pd, M.Pd"
+                    data-img="https://images2.imgbox.com/82/4d/7YO0tmIU_o.jpeg">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-purple-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/82/4d/7YO0tmIU_o.jpeg" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Heny Sulistyo Rini, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Geger, Wungu,
+                        Dolopo.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6282244026398</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-purple-500/20 group-hover:bg-purple-500 text-purple-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 6 -->
+                <a href="javascript:void(0)" data-phone="6282336786189"
+                    class="group bg-teal-50 dark:bg-teal-900/30 border-2 border-transparent hover:border-teal-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Sulasih, S.Pd., M.Pd."
+                    data-img="https://ui-avatars.com/api/?name=Sulasih&background=99f6e4&color=0f766e">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-teal-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Sulasih&background=99f6e4&color=0f766e" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Sulasih, S.Pd., M.Pd.</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Madiun, Balerejo
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6282336786189</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-teal-500/20 group-hover:bg-teal-500 text-teal-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 7 -->
+                <a href="javascript:void(0)" data-phone="6285856317382"
+                    class="group bg-orange-50 dark:bg-orange-900/30 border-2 border-transparent hover:border-orange-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Intan Permatasari, S.Pd, M.Pd"
+                    data-img="https://ui-avatars.com/api/?name=Intan+Permatasari&background=fed7aa&color=c2410c">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-orange-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Intan+Permatasari&background=fed7aa&color=c2410c" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Intan Permatasari, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Jiwan, Sawahan,
+                        Kare.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6285856317382</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-orange-500/20 group-hover:bg-orange-500 text-orange-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 8 -->
+                <a href="javascript:void(0)" data-phone="628563355484"
+                    class="group bg-indigo-50 dark:bg-indigo-900/30 border-2 border-transparent hover:border-indigo-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Adam Satriyo Putra M, S.Pd, M.Pd"
+                    data-img="https://images2.imgbox.com/aa/d1/IFqNqSyh_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-indigo-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/aa/d1/IFqNqSyh_o.png" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Adam Satriyo Putra M, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Jiwan, Sawahan,
+                        Geger.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+628563355484</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-indigo-500/20 group-hover:bg-indigo-500 text-indigo-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 9 -->
+                <a href="javascript:void(0)" data-phone="6285732452464"
+                    class="group bg-rose-50 dark:bg-rose-900/30 border-2 border-transparent hover:border-rose-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Yeni Sulistyaningrum, S.Pd, M.Pd"
+                    data-img="https://ui-avatars.com/api/?name=Yeni+Sulistyaningrum&background=fecdd3&color=be123c">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-rose-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Yeni+Sulistyaningrum&background=fecdd3&color=be123c" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Yeni Sulistyaningrum, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Balerejo, Saradan,
+                        Gemarang.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6285732452464</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-rose-500/20 group-hover:bg-rose-500 text-rose-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 10 -->
+                <a href="javascript:void(0)" data-phone="6282257073893"
+                    class="group bg-cyan-50 dark:bg-cyan-900/30 border-2 border-transparent hover:border-cyan-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Mutin Kartika Dewi, S.Pd.SD, M.Pd"
+                    data-img="https://images2.imgbox.com/cd/b0/XkJdXyOX_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-cyan-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/cd/b0/XkJdXyOX_o.png" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Mutin Kartika Dewi, S.Pd.SD, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Balerejo, Saradan,
+                        Gemarang.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6282257073893</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-cyan-500/20 group-hover:bg-cyan-500 text-cyan-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 11 -->
+                <a href="javascript:void(0)" data-phone="6285331977633"
+                    class="group bg-amber-50 dark:bg-amber-900/30 border-2 border-transparent hover:border-amber-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Rinti Pujiastuti, S.Pd, M.Pd"
+                    data-img="https://images2.imgbox.com/df/2c/iJQNHEYc_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-amber-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/df/2c/iJQNHEYc_o.png" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Rinti Pujiastuti, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Dagangan, Dolopo,
+                        Bonsari.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6285331977633</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-amber-500/20 group-hover:bg-amber-500 text-amber-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 12 -->
+                <a href="javascript:void(0)" data-phone="6285852153728"
+                    class="group bg-emerald-50 dark:bg-emerald-900/30 border-2 border-transparent hover:border-emerald-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Suprihadi, S.Pd, M.Pd"
+                    data-img="https://images2.imgbox.com/d0/73/l4KFPQzz_o.png">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-emerald-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://images2.imgbox.com/d0/73/l4KFPQzz_o.png" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Suprihadi, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Madiun, Wungu,
+                        Kare.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6285852153728</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-emerald-500/20 group-hover:bg-emerald-500 text-emerald-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 13 -->
+                <a href="javascript:void(0)" data-phone="6282232637880"
+                    class="group bg-fuchsia-50 dark:bg-fuchsia-900/30 border-2 border-transparent hover:border-fuchsia-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Retno Saraswati, S.Pd, M.Pd"
+                    data-img="https://ui-avatars.com/api/?name=Retno+Saraswati&background=f0abfc&color=a21caf">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-fuchsia-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping Khusus"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Retno+Saraswati&background=f0abfc&color=a21caf" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Retno Saraswati, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Pilangkenceng, Wonoasri, Gemarang</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6282232637880</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-fuchsia-500/20 group-hover:bg-fuchsia-500 text-fuchsia-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 14 -->
+                <a href="javascript:void(0)" data-phone="6281259625929"
+                    class="group bg-lime-50 dark:bg-lime-900/30 border-2 border-transparent hover:border-lime-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Prastyo Budiningsih, S.Pd.SD, M.Pd"
+                    data-img="https://ui-avatars.com/api/?name=Prastyo+Budiningsih&background=bef264&color=4d7c0f">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-lime-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping Khusus"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Prastyo+Budiningsih&background=bef264&color=4d7c0f" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Prastyo Budiningsih, S.Pd.SD, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Jiwan, Sawahan, dan Geger.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6281259625929</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-lime-500/20 group-hover:bg-lime-500 text-lime-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 15 -->
+                <a href="javascript:void(0)" data-phone="6285792666297"
+                    class="group bg-sky-50 dark:bg-sky-900/30 border-2 border-transparent hover:border-sky-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Dian Agestiningsih, S.Pd, M.Pd"
+                    data-img="https://ui-avatars.com/api/?name=Dian+Agestiningsih&background=7dd3fc&color=0369a1">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-sky-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping Khusus"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Dian+Agestiningsih&background=7dd3fc&color=0369a1" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Dian Agestiningsih, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Wonoasri, Mejayan, Pilangkenceng.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6285792666297</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-sky-500/20 group-hover:bg-sky-500 text-sky-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+
+                <!-- Card 16 -->
+                <a href="javascript:void(0)" data-phone="6285785727905"
+                    class="group bg-indigo-50 dark:bg-indigo-900/30 border-2 border-transparent hover:border-indigo-400 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center text-center contact-btn"
+                    data-purpose="personnel-card" data-name="Anna Tridiliyanto, S.Pd, M.Pd"
+                    data-img="https://ui-avatars.com/api/?name=Anna+Tridiliyanto&background=c7d2fe&color=4338ca">
+                    <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                        <div
+                            class="absolute inset-0 bg-indigo-200 rounded-[24px] -rotate-3 translate-y-2 group-hover:-rotate-12 group-hover:scale-105 transition-all duration-300">
+                        </div>
+                        <img alt="Guru Pendamping Khusus"
+                            class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                            src="https://ui-avatars.com/api/?name=Anna+Tridiliyanto&background=c7d2fe&color=4338ca" />
+                        <div
+                            class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-sm block">chat</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight mb-1 px-2 text-[15px]">
+                        Anna Tridiliyanto, S.Pd, M.Pd</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 mb-1 text-sm font-semibold">Guru Pendamping Khusus
+                    </p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-1 text-xs font-medium">Kecamatan Wonoasri, Mejayan, Pilangkenceng.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mb-4 text-xs font-bold hidden">+6285785727905</p>
+                    <div
+                        class="mt-auto w-full py-2.5 bg-indigo-500/20 group-hover:bg-indigo-500 text-indigo-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                        Hubungi WA
+                    </div>
+                </a>
+            </div>
+
+            <!-- Contact History Section -->
+            <section
+                class="p-5 bg-white dark:bg-slate-800/50 rounded-[40px] border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col mb-4"
+                data-purpose="bottom-navigation-card">
+                <div class="flex items-center justify-between w-full mb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="size-11 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-xl">history</span>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-base text-slate-900 dark:text-white leading-none">Riwayat
+                                Kontak</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Siapa saja yang sudah
+                                Anda hubungi.</p>
+                        </div>
+                    </div>
+                    <button
+                        class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                        Lihat Semua
+                    </button>
+                </div>
+
+                <!-- Area Riwayat yang Bisa di Scroll -->
+                <div id="history-list" class="space-y-3 w-full max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="flex items-center justify-center py-6 text-slate-400 italic text-xs empty-msg">
+                        Belum ada riwayat kontak.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tombol Kembali Terpisah -->
+            <div class="flex w-full mt-2">
+                <a href="index.html"
+                    class="flex items-center justify-center gap-3 bg-[#E65100] hover:bg-[#BF4300] text-white px-10 py-4 rounded-2xl font-extrabold text-sm transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 w-full">
+                    <span class="material-symbols-outlined font-bold">arrow_back</span>
+                    Kembali ke Layanan Utama
+                </a>
+            </div>
+        </main>
+
+        <!-- BEGIN: Footer -->
+        <footer class="mt-auto bg-white dark:bg-slate-900 border-t-4 border-amber-500 py-8 w-full z-10 shrink-0">
+            <div
+                class="w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
+                <div>
+                    <h4 class="font-bold text-blue-500 text-lg leading-tight">Layanan Publik SiLebah EDU</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Kolaborasi Cerdas, Layanan Tuntas,
+                        Pembelajaran Berkualitas</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 text-slate-500 dark:text-slate-400 font-medium text-sm">
+                    <a class="hover:text-blue-500 transition-colors" href="privasi.html">Privasi</a>
+                    <a class="hover:text-blue-500 transition-colors" href="ketentuan.html">Ketentuan</a>
+                    <a class="hover:text-blue-500 transition-colors" href="bantuan.html">Bantuan</a>
+                </div>
+                <div class="text-pink-500 font-semibold text-sm">
+                    © 2023 SDN Ngadirejo 03 🌈 <br> Created By Fudak Winduko
+                </div>
+            </div>
+        </footer>
+        <!-- END: Footer -->
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="profileModalContent"
+            class="w-full max-w-sm transform scale-95 rounded-3xl bg-white dark:bg-slate-900 p-8 shadow-2xl transition-transform duration-300 relative">
+            <!-- Close Button -->
+            <button id="closeProfileBtn"
+                class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+
+            <div class="text-center mb-6">
+                <!-- Avatar Modal -->
+                <div
+                    class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary overflow-hidden border-4 border-white dark:border-slate-800 shadow-md">
+                    <img alt="User Avatar" class="h-full w-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnnODcOPYgfeXaaVm0gcgo08iTtPf_TNrYO9nR6Xc-WgUVXHH-DmWzT4R42qom9e6XU0OEtxG6JtwUET1Q62ybOwMdJy0LCmgm06z21A1kUm5TjVUP6EyZVLlTcVR0yPklWDN0ykslBZDgx8Xxu5L8MHSbdL-N9a56Zv_KUKl6SSn0I0MZscEpAo944DWnSRfxOZL4IoG1CIHYkVC6ntx1FIUaUpCC1Q2kWy7IzDI8Fsp-AbAfClyOCpVVMDcZQWBEhaPpKOnvaA" />
+                </div>
+                <!-- Profile Base Name -->
+                <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-1">Biodata Profil</h3>
+                <!-- Role Tag -->
+                <span id="profileRoleBadge"
+                    class="inline-block px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Loading...</span>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap</p>
+                    <p id="profileName" class="font-bold text-slate-800 dark:text-slate-200">-</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+                    <p id="profileClassLabel" class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                        Kelas</p>
+                    <p id="profileClass" class="font-bold text-slate-800 dark:text-slate-200">-</p>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center border-t border-slate-100 dark:border-slate-800 pt-4">
+                <p class="text-xs text-slate-400 font-medium">SiLebah EDU Student Portal</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alasan -->
+    <div id="reasonModal"
+        class="fixed inset-0 z-[110] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="reasonModalContent"
+            class="w-full max-w-md transform scale-95 rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 relative">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">Tulis Alasan Menghubungi</h3>
+            <div class="space-y-4 mb-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Nomor HP WA
+                        Aktif</label>
+                    <input type="text" id="reasonPhone"
+                        class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#d946ef] focus:border-[#d946ef] bg-transparent text-slate-800"
+                        placeholder="Masukan Nomer HP Whatsapp Aktif" />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Alasan</label>
+                    <textarea id="reasonText"
+                        class="w-full h-32 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#d946ef] focus:border-[#d946ef] resize-none bg-transparent text-slate-800"
+                        placeholder="Ketik alasan Anda di sini..."></textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-4 justify-end mt-6">
+                <button id="cancelReasonBtn"
+                    class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-colors">Batal</button>
+                <button id="sendReasonBtn"
+                    class="px-5 py-2.5 bg-[#d946ef] text-white rounded-xl font-bold hover:bg-fuchsia-600 transition-colors flex items-center justify-center gap-2">
+                    <span id="sendReasonText">Kirim</span>
+                    <span id="sendReasonSpinner"
+                        class="hidden material-symbols-outlined animate-spin text-sm">progress_activity</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirmSubmitModal"
+        class="fixed inset-0 z-[120] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="confirmSubmitModalContent"
+            class="w-full max-w-sm transform scale-95 rounded-3xl bg-white p-6 shadow-2xl transition-transform duration-300 relative text-center">
+            <div
+                class="w-16 h-16 bg-fuchsia-100 text-[#d946ef] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-3xl">send</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Konfirmasi Pengiriman</h3>
+            <p class="text-slate-500 mb-6 font-medium">Apakah Anda yakin mau mengirim pesan ini?</p>
+            <div class="flex gap-3 justify-center">
+                <button id="cancelConfirmBtn"
+                    class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-colors flex-1">Tidak</button>
+                <button id="yesConfirmBtn"
+                    class="px-5 py-2.5 bg-[#d946ef] text-white rounded-xl font-bold hover:bg-fuchsia-600 transition-colors flex-1">Ya,
+                    Kirim</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal"
+        class="fixed inset-0 z-[130] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="successModalContent"
+            class="w-full max-w-sm transform scale-95 rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 relative text-center">
+            <div
+                class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-5 drop-shadow-sm">
+                <span class="material-symbols-outlined text-4xl">check_circle</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-2">Berhasil!</h3>
+            <p class="text-slate-500 mb-6 text-sm leading-relaxed">Pesan Anda berhasil terkirim. Mohon tunggu balasan
+                dari pakar layanan inklusi kami melalui WhatsApp.</p>
+            <button id="closeSuccessBtn"
+                class="w-full py-3.5 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600 transition-colors shadow-lg shadow-green-500/30">
+                Selesai
+            </button>
+        </div>
+    </div>
+
+    <!-- Script Riwayat Interaktif & Profile Modal -->
+    <script>
+        // Masukkan URL Web App Google Apps Script Khusus INKLUSI di Sini:
+        const GOOGLE_APPS_SCRIPT_URL_INKLUSI = "https://script.google.com/macros/s/AKfycbzdV8hO2jdhu1qqFOJ6EetxD6x7NlYGcINhjL_uZu9Fuzk9173xeoTl1UzqSQfqy-tP/exec";
+
+        // ============================================================
+        // PERSISTENT CONTACT HISTORY — Inklusi
+        // Key: silebah_history_inklusi_{userName}_{childName}
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const historyList = document.getElementById('history-list');
+
+            const _uName = localStorage.getItem('kidsgov_userName') || '';
+            const _cName = localStorage.getItem('kidsgov_userChildName') || '';
+            const HISTORY_KEY = `silebah_history_inklusi_${_uName}_${_cName}`;
+
+            function saveHistory() {
+                const items = historyList.querySelectorAll('.history-item');
+                const data = [];
+                items.forEach(el => data.push({ name: el.dataset.hName, img: el.dataset.hImg, time: el.dataset.hTime }));
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(data));
+            }
+
+            function createHistoryItem(unitName, unitImg, timeLabel) {
+                const item = document.createElement('div');
+                item.className = 'history-item flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/30 rounded-2xl border border-slate-100 dark:border-slate-800 transition-all';
+                item.dataset.hName = unitName;
+                item.dataset.hImg = unitImg;
+                item.dataset.hTime = timeLabel;
+                item.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img alt="${unitName}" class="w-9 h-9 rounded-full object-cover border-2 border-white dark:border-slate-700" src="${unitImg}"/>
+                        <div>
+                            <p class="font-bold text-xs text-slate-900 dark:text-white">${unitName}</p>
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400">Terakhir: ${timeLabel}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-[9px] font-black rounded-full uppercase tracking-wider">Terkirim</span>
+                        <button class="delete-btn text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center" title="Hapus Riwayat">
+                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                        </button>
+                    </div>
+                `;
+                item.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    item.remove();
+                    saveHistory();
+                    if (historyList.querySelectorAll('.history-item').length === 0) {
+                        historyList.innerHTML = `<div class="flex items-center justify-center py-6 text-slate-400 italic text-xs empty-msg">Belum ada riwayat kontak.</div>`;
+                    }
+                });
+                return item;
+            }
+
+            function loadHistory() {
+                const raw = localStorage.getItem(HISTORY_KEY);
+                if (!raw) return;
+                try {
+                    const data = JSON.parse(raw);
+                    if (!data.length) return;
+                    const emptyMsg = historyList.querySelector('.empty-msg');
+                    if (emptyMsg) emptyMsg.remove();
+                    data.forEach(d => historyList.appendChild(createHistoryItem(d.name, d.img, d.time)));
+                } catch (e) { }
+            }
+
+            /* ---- Logic Modals & Fetch API ---- */
+            const reasonModal = document.getElementById('reasonModal');
+            const reasonModalContent = document.getElementById('reasonModalContent');
+            const confirmModal = document.getElementById('confirmSubmitModal');
+            const confirmContent = document.getElementById('confirmSubmitModalContent');
+
+            const reasonPhoneInput = document.getElementById('reasonPhone');
+            const reasonTextInput = document.getElementById('reasonText');
+            const sendReasonBtn = document.getElementById('sendReasonBtn');
+            const sendReasonSpinner = document.getElementById('sendReasonSpinner');
+            const sendReasonText = document.getElementById('sendReasonText');
+            let selectedUnit = null;
+
+            // Batal Modal Alasan
+            document.getElementById('cancelReasonBtn').addEventListener('click', () => {
+                reasonModal.classList.add('opacity-0');
+                reasonModalContent.classList.remove('scale-100');
+                reasonModalContent.classList.add('scale-95');
+                setTimeout(() => { reasonModal.classList.add('hidden'); reasonModal.classList.remove('flex'); }, 300);
+            });
+
+            const contactBtns = document.querySelectorAll('.contact-btn');
+            contactBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedUnit = {
+                        name: btn.getAttribute('data-name'),
+                        img: btn.getAttribute('data-img'),
+                        phone: btn.getAttribute('data-phone')
+                    };
+
+                    reasonModal.classList.remove('hidden');
+                    reasonModal.classList.add('flex');
+                    void reasonModal.offsetWidth;
+                    reasonModal.classList.remove('opacity-0');
+                    reasonModalContent.classList.remove('scale-95');
+                    reasonModalContent.classList.add('scale-100');
+                });
+            });
+
+            // Action Send (Buka Konfirmasi)
+            sendReasonBtn.addEventListener('click', () => {
+                if (!reasonPhoneInput.value.trim() || !reasonTextInput.value.trim()) {
+                    alert("Nomor HP WA dan Alasan wajib diisi!");
+                    return;
+                }
+
+                confirmModal.classList.remove('hidden');
+                confirmModal.classList.add('flex');
+                void confirmModal.offsetWidth;
+                confirmModal.classList.remove('opacity-0');
+                confirmContent.classList.remove('scale-95');
+                confirmContent.classList.add('scale-100');
+            });
+
+            // Batal Konfirmasi
+            document.getElementById('cancelConfirmBtn').addEventListener('click', () => {
+                confirmModal.classList.add('opacity-0');
+                confirmContent.classList.remove('scale-100');
+                confirmContent.classList.add('scale-95');
+                setTimeout(() => { confirmModal.classList.add('hidden'); confirmModal.classList.remove('flex'); }, 300);
+            });
+
+            // Tutup Success Modal
+            document.getElementById('closeSuccessBtn').addEventListener('click', () => {
+                const successModal = document.getElementById('successModal');
+                const successContent = document.getElementById('successModalContent');
+                successModal.classList.add('opacity-0');
+                successContent.classList.remove('scale-100');
+                successContent.classList.add('scale-95');
+                setTimeout(() => { successModal.classList.add('hidden'); successModal.classList.remove('flex'); }, 300);
+            });
+
+            // YA Kirim
+            document.getElementById('yesConfirmBtn').addEventListener('click', async () => {
+                document.getElementById('cancelConfirmBtn').click(); // Tutup confirm
+
+                sendReasonBtn.disabled = true;
+                sendReasonText.textContent = "Mengirim...";
+                sendReasonSpinner.classList.remove('hidden');
+
+                const payload = {
+                    customerName: localStorage.getItem('kidsgov_userName') || '-',
+                    customerRole: (localStorage.getItem('kidsgov_userRole') || 'student') === 'student' ? 'Murid / Siswa' : 'Orang Tua / Wali',
+                    customerAddress: localStorage.getItem('kidsgov_userAddress') || '-',
+                    customerChild: localStorage.getItem('kidsgov_userChildName') || '-',
+                    customerPhone: reasonPhoneInput.value.trim(),
+                    targetBabinsaPhone: selectedUnit.phone, // penamaan di-reuse dari skrip lama
+                    targetBabinsaName: selectedUnit.name,
+                    reason: reasonTextInput.value.trim()
+                };
+
+                try {
+                    // Cek dummy URL
+                    if (GOOGLE_APPS_SCRIPT_URL_INKLUSI === "URL_APP_SCRIPT_ANDA_DISINI") {
+                        alert("URL Google Apps Script Inklusi belum disetup. Simulasi berhasil!");
+                        await new Promise(r => setTimeout(r, 1000));
+                    } else {
+                        await fetch(GOOGLE_APPS_SCRIPT_URL_INKLUSI, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: new URLSearchParams(payload).toString()
+                        });
+                    }
+
+                    // Simpan ke riwayat
+                    const now = new Date();
+                    const timeLabel = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+                    const emptyMsg = historyList.querySelector('.empty-msg');
+                    if (emptyMsg) emptyMsg.remove();
+
+                    const item = createHistoryItem(selectedUnit.name, selectedUnit.img, timeLabel);
+                    historyList.prepend(item);
+                    historyList.scrollTo({ top: 0, behavior: 'smooth' });
+                    saveHistory();
+
+                    document.getElementById('cancelReasonBtn').click(); // Tutup form alasan
+                    reasonPhoneInput.value = '';
+                    reasonTextInput.value = '';
+
+                    // Tampilkan Success Modal
+                    const successModal = document.getElementById('successModal');
+                    const successContent = document.getElementById('successModalContent');
+                    successModal.classList.remove('hidden');
+                    successModal.classList.add('flex');
+                    void successModal.offsetWidth;
+                    successModal.classList.remove('opacity-0');
+                    successContent.classList.remove('scale-95');
+                    successContent.classList.add('scale-100');
+
+                } catch (e) {
+                    alert("Terjadi kesalahan saat mengirim: " + e.message);
+                } finally {
+                    sendReasonBtn.disabled = false;
+                    sendReasonText.textContent = "Kirim";
+                    sendReasonSpinner.classList.add('hidden');
+                }
+            });
+
+            loadHistory();
+        });
+        // Tracking Script
+        (function() {
+            const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRerr2xi96PFWPx8FhRxsv0PPCNvaVAUqZWENX2CZNSIufJYgfu698IoQtevg22J3dTQ/exec";
+            
+            function sendTracking(fiturName, pageOrActionName) {
+                const rawNama = localStorage.getItem('kidsgov_userName') || 'Anonim';
+                const rawRole = localStorage.getItem('kidsgov_userRole') || 'student';
+                const rawClassOrChild = localStorage.getItem('kidsgov_userChildName') || '-';
+                const roleText = rawRole === 'student' ? 'Siswa' : 'Orang Tua';
+
+                const payload = {
+                    waktu: new Date().toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }),
+                    nama: rawNama,
+                    role: roleText,
+                    kelas: rawClassOrChild,
+                    fitur: fiturName,
+                    halaman: pageOrActionName
+                };
+
+                fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.warn('Tracking error:', err));
+            }
+
+            // 1. Log page visit
+            const currentFitur = "Layanan Inklusi";
+            const currentPageFile = window.location.pathname.split("/").pop() || "inklusi.html";
+            sendTracking(currentFitur, "Kunjungan: " + currentPageFile);
+
+            // 2. Log Program Card Click
+            document.querySelectorAll('.activity-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    let cardTitle = "Kartu Program";
+                    const titleEl = card.querySelector('h3') || card.querySelector('p');
+                    if (titleEl) {
+                        cardTitle = titleEl.textContent.trim();
+                    }
+                    sendTracking(currentFitur, "Program: " + cardTitle);
+                });
+            });
+
+            // 3. Log Contact/Personnel Card Click
+            document.querySelectorAll('.contact-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let nameVal = btn.getAttribute('data-name');
+                    const h3El = btn.querySelector('h3');
+                    if (h3El) {
+                        nameVal = h3El.textContent.trim();
+                    }
+                    nameVal = nameVal || "Tenaga Pendamping";
+                    sendTracking(currentFitur, "Hubungi: " + nameVal);
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

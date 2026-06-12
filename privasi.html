@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SiLebah EDU - Kebijakan Privasi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary: '#ec5b13',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDF8F5;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        .prose-custom p {
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            color: #475569; /* slate-600 */
+        }
+        .prose-custom h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a; /* slate-900 */
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prose-custom ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: #475569;
+        }
+        .prose-custom li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm py-2">
+        <nav class="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl font-black shadow-sm">
+                    K
+                </div>
+                <span class="text-2xl font-bold tracking-tight"><span class="text-orange-500">Si</span><span class="text-black">Lebah</span></span>
+            </div>
+            <a href="javascript:history.back()" class="flex items-center gap-2 px-5 py-2.5 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                Kembali
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-16">
+        <div class="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 p-6 md:p-12 border border-slate-100">
+            <div class="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-600 mb-6">
+                <span class="material-symbols-outlined text-sm">shield_person</span>
+                Aman & Transparan
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">Kebijakan Privasi SiLebah EDU</h1>
+            <p class="text-lg text-slate-500 font-medium mb-10 pb-10 border-b border-slate-100">
+                Pembaruan Terakhir: Maret 2026. Dokumen ini menjelaskan bagaimana SiLebah EDU melindungi, mengelola, dan tidak pernah menyalahgunakan data Anda dan anak-anak Anda.
+            </p>
+
+            <div class="prose-custom">
+                <h2>1. Pendahuluan</h2>
+                <p>
+                    Selamat datang di SiLebah EDU! Kami menyadari bahwa privasi adalah hal yang paling krusial, terutama ketika menyangkut keselamatan dan keamanan anak-anak di ranah digital. Oleh karena itu, platform Layanan Publik SiLebah EDU dibangun dengan asas transparansi penuh dan keamanan mutlak yang berbasis pada teknologi luring (offline) lokal.
+                </p>
+                <p>
+                    Kebijakan Privasi ini disusun untuk membantu Anda—sebagai pengguna langsung maupun orang tua/wali—memahami informasi apa yang kami minta, mengapa kami memintanya, dan bagaimana teknologi kami menanganinya dengan sangat hati-hati. Menggunakan aplikasi kami berarti Anda setuju dengan komitmen kami sebagaimana diuraikan secara panjang dan jelas di halaman ini.
+                </p>
+
+                <h2>2. Data Apa yang Dikumpulkan?</h2>
+                <p>
+                    Aplikasi SiLebah EDU sama sekali tidak menuntut atau menggunakan formulir pendaftaran akun (Registrasi Server). Data yang kami kumpulkan hanyalah sebatas data dasar yang Anda isikan di halaman Login (Masuk) lokal, yaitu:
+                </p>
+                <ul>
+                    <li><strong>Nama Lengkap:</strong> Digunakan untuk memberikan sapaan hangat di Beranda.</li>
+                    <li><strong>Alamat / Nama Sekolah:</strong> Digunakan untuk memberikan konteks pada pesan darurat yang Anda buat.</li>
+                    <li><strong>Nama Anak / Kelas:</strong> Referensi tambahan jika Anda bertindak mewakili sang anak.</li>
+                    <li><strong>Nomor Handphone (Opsional):</strong> Membantu petugas layanan mengenali Anda.</li>
+                    <li><strong>Peran Pengguna:</strong> Memisahkan logika tampilan antara "Murid" dan "Orang Tua/Wali".</li>
+                </ul>
+
+                <h2>3. Bagaimana Data Disimpan? (LocalStorage)</h2>
+                <p>
+                    Hal yang paling membedakan SiLebah EDU dari aplikasi lain adalah: **Data Anda tidak pernah keluar dari gawai (handphone/komputer) Anda.** Kami tidak memiliki server penyimpanan rahasia (Database Pihak Ketiga) yang merekam biodata Anda. 
+                </p>
+                <p>
+                    Seluruh pengisian yang telah disebutkan pada poin ke-2, hanya dienkripsi dan disematkan langsung di dalam *Browser* Anda menggunakan teknologi bawaan bernama <code>localStorage</code>. Begitu Anda mengeklik "Keluar" (Logout) dari menu pendaftaran, kami akan secara permanen memberangus dan menghapus jejak data tersebut dari browser seketika itu juga. Anda tak perlu khawatir adanya kebocoran data terpusat, sebab data Anda ada *di dalam dompet perangkat Anda sendiri*.
+                </p>
+
+                <h2>4. Penggunaan Data Pihak Ketiga (Integrasi WhatsApp)</h2>
+                <p>
+                    Salah satu fitur ajaib kami adalah dapat menata teks pesanan WhatsApp (seperti dalam layanan Puskesmas, Babinsa, dan Inklusi) secara otomatis. Ini adalah pengintegrasian satu arah.
+                </p>
+                <p>
+                    Browser Anda sekadar mengambil data *localStorage* Anda sendiri, lalu menjahitnya menjadi pesan kalimat permohonan yang dilampirkan via *Link WhatsApp* (wa.me). Kami tidak memiliki kuasa memantau atau merekam percakapan pribadi yang terjadi setelah pesan tersebut terkirim keluar kepada petugas. Percakapan WhatsApp dilindungi langsung secara *End-to-End Encryption* oleh perusahaan WhatsApp (Meta Inc.).
+                </p>
+
+                <h2>5. Komitmen Terhadap Privasi Anak (COPPA)</h2>
+                <p>
+                    Aplikasi ini ditujukan untuk digunakan oleh institusi pendidikan, orang tua, dan murid awam yang ramah anak. Kami senantiasa mematuhi kerangka panduan Privasi Online Anak (COPPA). Tidak ada penawaran iklan *(ads-tracking)*, kamera *pop-up* mencurigakan, fitur lokasi tak terizin (*GPS Tracking*), atau pengambilan riwayat *cookies* eksternal. Kami menjaga SiLebah EDU sebagai ruang bermain dan ruang belajar yang murni nan bersih dari pelacak digital.
+                </p>
+
+                <h2>6. Perubahan Syarat Kebijakan</h2>
+                <p>
+                    Meski aplikasi SiLebah EDU menjunjung etika tinggi, inovasi akan terus mengalir. Karenanya, kami dapat memperbarui lembar kebijakan ini mengikuti zaman. Karena sistem kami tanpa *database*, perubahan perihal cara fitur berjalan akan kami infomasikan melalui antarmuka visual aplikasi. Bila Anda merasa tidak sepakat dengan penyesuaian aturan terbaru, Anda kapan saja berhak menekan *Logout* dan seluruh interaksi antara SiLebah EDU dengan perangkat Anda akan dihentikan secara tunai.
+                </p>
+                
+                <div class="mt-12 p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">info</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-1">Pertanyaan Lebih Lanjut?</h4>
+                        <p class="text-sm text-slate-500">
+                            Apabila Anda—sebagai mitra sekolah, pemerintah daerah, maupun aparat keamanan—membutuhkan pendampingan atau audit mandiri terkait keamanan SiLebah EDU, Anda dapat menghubungi tim inovasi Sekolah (Dinas Pendidikan) terkait di kontak resmi lembaga yang Anda hadiri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                <a href="javascript:history.back()" class="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-bold rounded-xl hover:bg-orange-600 transition-colors shadow-lg shadow-primary/30">
+                    <span class="material-symbols-outlined text-sm">home</span>
+                    Kembali ke Aplikasi
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm font-semibold text-slate-400">
+        © 2023 - 2026 SDN Ngadirejo 03 🌈 <br> Created By Fudak Winduko & SiLebah EDU App
+    </footer>
+</body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Pusat Babinsa - SiLebah EDU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS v3 with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        body {
+            background-color: #FDF8F5;
+        }
+    </style>
+    <style data-purpose="custom-layout">
+        /* Base Reset & Universal IFP Optimizations */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent body scroll IFP Safe */
+            background-color: #FDF8F5;
+        }
+
+        /* Master Responsive Container */
+        .app-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fluid UI Trick via REM Scaling */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            html {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 3840px) {
+            html {
+                font-size: 48px;
+            }
+        }
+
+        /* Touch-Friendly Elements */
+        button,
+        a,
+        select,
+        input {
+            min-height: 48px;
+        }
+
+        @media (min-width: 1024px) {
+
+            button,
+            a,
+            select,
+            input {
+                min-height: 60px;
+            }
+        }
+
+        /* Subtle background texture */
+        .bg-main-canvas {
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #fdf8f5 100%);
+        }
+
+        .card-shadow {
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .hover-lift {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Custom Universal Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        @media (min-width: 1920px) {
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 16px;
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* === PREMIUM REDESIGN === */
+        body { background: linear-gradient(160deg, #fffbf5 0%, #fdf4ff 45%, #eff9ff 100%) !important; }
+
+        .header-glass {
+            background: rgba(255,253,250,0.85) !important;
+            border-bottom: 1px solid rgba(240,100,36,0.09) !important;
+            box-shadow: 0 1px 20px rgba(0,0,0,0.05) !important;
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+        }
+
+        /* Blob background */
+        .blob-1 { position:fixed; z-index:0; pointer-events:none; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(240,100,36,0.09),transparent 65%); top:-160px; left:-160px; filter:blur(60px); }
+        .blob-2 { position:fixed; z-index:0; pointer-events:none; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(34,197,94,0.07),transparent 65%); bottom:-160px; right:-160px; filter:blur(70px); }
+
+        /* Personnel cards shimmer */
+        .contact-btn {
+            background: rgba(255,255,255,0.92) !important;
+            border: 1.5px solid rgba(255,255,255,0.9) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06) !important;
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275) !important;
+            position: relative; overflow: hidden;
+        }
+        .contact-btn:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 20px 48px rgba(0,0,0,0.10) !important;
+        }
+        .contact-btn::before {
+            content: ''; position: absolute; top:0; left:-100%; width:60%; height:100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.65s cubic-bezier(0.4,0,0.2,1);
+            pointer-events: none; z-index: 30;
+        }
+        .contact-btn:hover::before { left: 160%; }
+
+        /* History card */
+        [data-purpose="history-card"] {
+            background: rgba(255,255,255,0.85) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.9) !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06) !important;
+        }
+
+        /* Back button */
+        .btn-back {
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(0,0,0,0.07); box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .btn-back:hover { transform: translateX(-4px); background: white; box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+        /* ===== Activity Cards ===== */
+        .activity-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* --- Card 1: Edukasi Siswa --- */
+        .act-siswa {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 24px rgba(37, 99, 235, 0.30);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.4s ease;
+        }
+        .act-siswa::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            padding: 2px;
+            background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.7) 75%, transparent 88%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: none;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .act-siswa:hover::before {
+            opacity: 1;
+            animation: beamSpin 1.4s linear infinite;
+        }
+        .act-siswa:hover {
+            transform: scale(1.06);
+            box-shadow: 0 20px 55px rgba(37, 99, 235, 0.50), 0 0 0 4px rgba(37, 99, 235, 0.20);
+        }
+
+        /* --- Card 2: Edukasi Wali Murid --- */
+        .act-wali {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 24px rgba(5, 150, 105, 0.30);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.4s ease;
+        }
+        .act-wali::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            padding: 2px;
+            background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.7) 75%, transparent 88%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: none;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .act-wali:hover::before {
+            opacity: 1;
+            animation: beamSpin 1.4s linear infinite;
+        }
+        .act-wali:hover {
+            transform: scale(1.06);
+            box-shadow: 0 20px 55px rgba(5, 150, 105, 0.50), 0 0 0 4px rgba(5, 150, 105, 0.20);
+        }
+
+        @keyframes beamSpin { to { rotate: 360deg; } }
+
+        /* Card icon circle */
+        .act-icon-ring {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.18);
+            border: 1.5px solid rgba(255,255,255,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            flex-shrink: 0;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .activity-card:hover .act-icon-ring {
+            transform: rotate(-8deg) scale(1.12);
+            background: rgba(255,255,255,0.28);
+        }
+
+        /* Arrow button */
+        .act-arrow {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.20);
+            border: 1.5px solid rgba(255,255,255,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            flex-shrink: 0;
+        }
+        .activity-card:hover .act-arrow {
+            background: rgba(255,255,255,0.40);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-main-canvas text-[#1a1a1a]">
+    <div class="app-container custom-scrollbar">
+        <!-- BEGIN: MainHeader -->
+        <header class="header-glass w-full sticky top-0 z-50 py-3 px-4 md:px-16 flex justify-between items-center">
+            <div class="blob-1"></div><div class="blob-2"></div>
+            <!-- Logo Section -->
+            <div class="flex items-center gap-3">
+                <div class="flex shrink-0 w-9 h-9 bg-gradient-to-br from-[#F06424] to-orange-600 rounded-2xl items-center justify-center shadow-lg shadow-orange-400/25">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                        viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-xl leading-none">SiLebah EDU</h1>
+                    <p class="text-[#F06424] text-[10px] font-bold tracking-widest uppercase">Pusat Babinsa</p>
+                </div>
+            </div>
+            <!-- Navigation & Profile/Notification -->
+            <div class="flex items-center gap-2 md:gap-8 relative z-10">
+                <!-- Navigation with mobile-friendly icons -->
+                <nav class="flex items-center gap-2 md:gap-8" style="min-height:auto">
+                    <a href="layanan-babinsa.html" title="Layanan"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 md:bg-transparent text-slate-600 hover:text-[#F06424] transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">grid_view</span>
+                        <span class="hidden md:inline font-bold text-sm">Layanan</span>
+                    </a>
+                    <a href="saran-kontak.html" title="Saran Kontak"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 md:bg-transparent text-slate-600 hover:text-[#F06424] transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">contact_support</span>
+                        <span class="hidden md:inline font-bold text-sm">Saran Kontak</span>
+                    </a>
+                    <a href="manual-book.html" title="Manual Book"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 md:bg-transparent text-slate-600 hover:text-[#F06424] transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">menu_book</span>
+                        <span class="hidden md:inline font-bold text-sm">Manual Book</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+        <!-- END: MainHeader -->
+
+        <!-- BEGIN: HeroSection -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-4 md:px-16 py-6">
+            <div class="w-full">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8">
+                    <div class="max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F06424]/10 border border-[#F06424]/20 text-[#F06424] text-xs font-extrabold mb-4 shadow-sm">
+                            <span class="material-symbols-outlined text-sm">security</span>
+                            PERLINDUNGAN CEPAT & RAMAH
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] tracking-tight mb-4">
+                            Halo, Sahabat Keamanan!<br />
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F06424] to-amber-500">Ada kondisi darurat?</span>
+                        </h2>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-3">
+                            Pusat layanan keamanan terpadu untuk siswa & orang tua SDN Ngadirejo 03. Halaman ini menyediakan fitur pelaporan pintar:
+                        </p>
+                        <ul class="flex flex-col gap-2">
+                            <li class="flex items-start gap-2 text-sm text-slate-600">
+                                <span class="material-symbols-outlined text-green-500 text-base mt-0.5 shrink-0">chat</span>
+                                <span><strong class="text-slate-800">Lapor via WhatsApp</strong> — Pilih unit pelindung (Kepolisian atau TNI AD) & kirim pesan laporan keamanan langsung kepada aparat yang siap membantu.</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-slate-600">
+                                <span class="material-symbols-outlined text-blue-500 text-base mt-0.5 shrink-0">history</span>
+                                <span><strong class="text-slate-800">Riwayat Pelaporan</strong> — Pantau riwayat aparat yang sudah pernah Anda hubungi agar mudah diakses kembali jika keadaan darurat terulang.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="pelayanan.html" class="btn-back flex items-center justify-center gap-2 px-6 py-3 text-slate-700 font-bold rounded-2xl shrink-0 text-sm">
+                        <span class="material-symbols-outlined text-lg">arrow_back</span>
+                        Kembali
+                    </a>
+                </div>
+
+                <!-- Feature Tabs — Premium Activity Cards -->
+                <div class="mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-[#F06424] text-xl">rocket_launch</span>
+                        <h2 class="text-slate-800 font-black text-sm uppercase tracking-widest">Program Unggulan</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto w-full">
+
+                        <!-- Card 1: Edukasi Siswa -->
+                        <a href="edukasi-siswa.html"
+                            class="activity-card act-siswa p-4 text-white">
+                            <div class="relative z-10 flex flex-col gap-2 h-full">
+                                <div class="flex items-center justify-between">
+                                    <div class="act-icon-ring">
+                                        <span class="material-symbols-outlined text-white text-lg">school</span>
+                                    </div>
+                                    <span class="text-[9px] font-black uppercase tracking-widest bg-white/20 border border-white/30 px-2 py-0.5 rounded-full backdrop-blur-sm">Program 01</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-black text-sm leading-tight">Edukasi Siswa</h3>
+                                    <p class="text-[10px] font-medium opacity-70 leading-relaxed">Materi keamanan dan kedisiplinan untuk siswa.</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-bold opacity-80">Buka →</span>
+                                    <div class="act-arrow">
+                                        <span class="material-symbols-outlined text-white" style="font-size:14px">arrow_outward</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Card 2: Edukasi Wali Murid -->
+                        <a href="edukasi-wali-murid.html"
+                            class="activity-card act-wali p-4 text-white">
+                            <div class="relative z-10 flex flex-col gap-2 h-full">
+                                <div class="flex items-center justify-between">
+                                    <div class="act-icon-ring">
+                                        <span class="material-symbols-outlined text-white text-lg">family_home</span>
+                                    </div>
+                                    <span class="text-[9px] font-black uppercase tracking-widest bg-white/20 border border-white/30 px-2 py-0.5 rounded-full backdrop-blur-sm">Program 02</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-black text-sm leading-tight">Edukasi Wali Murid</h3>
+                                    <p class="text-[10px] font-medium opacity-70 leading-relaxed">Panduan pengawasan dan keamanan lingkungan anak.</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-bold opacity-80">Buka →</span>
+                                    <div class="act-arrow">
+                                        <span class="material-symbols-outlined text-white" style="font-size:14px">arrow_outward</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- BEGIN: PersonnelGrid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto w-full mb-12">
+                    <!-- Card 1: Polisi -->
+                    <a href="javascript:void(0)" data-phone="6282265578338"
+                        class="group bg-amber-100 dark:bg-amber-900/30 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-2 border-amber-200 hover:border-amber-400 p-5 flex flex-col items-center text-center contact-btn"
+                        data-purpose="personnel-card" data-name="Bpk. Edy S."
+                        data-img="https://images2.imgbox.com/de/8a/a4Yqys47_o.jpeg">
+                        <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                            <!-- Background Shape -->
+                            <div
+                                class="absolute inset-0 bg-amber-200 rounded-[24px] rotate-3 translate-y-2 group-hover:rotate-12 group-hover:scale-105 transition-all duration-300">
+                            </div>
+                            <!-- Image -->
+                            <img alt="Kakak Polisi"
+                                class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                                src="https://images2.imgbox.com/de/8a/a4Yqys47_o.jpeg" />
+                            <!-- Chat Icon Overlay -->
+                            <div
+                                class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                                <span class="material-symbols-outlined text-sm block">chat</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg text-black leading-tight mb-1">Bpk. Edy S.</h3>
+                        <div class="flex flex-col items-center mb-4 mt-1">
+                            <span
+                                class="text-amber-700 font-bold text-sm uppercase tracking-wider mb-1">Kepolisian</span>
+                            <span class="text-gray-500 text-xs font-semibold mb-1">Bhabinkamtibmas Desa Ngadirejo</span>
+                            <span class="text-gray-600 text-sm hidden">0822-6557-8338</span>
+                        </div>
+                        <div
+                            class="w-full py-2.5 bg-amber-500/20 group-hover:bg-amber-600 text-amber-800 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                            Hubungi WA
+                        </div>
+                    </a>
+                    <!-- Card 2: TNI AD -->
+                    <a href="javascript:void(0)" data-phone="082244905151"
+                        class="group bg-green-100 dark:bg-green-900/30 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-2 border-green-200 hover:border-green-400 p-5 flex flex-col items-center text-center contact-btn"
+                        data-purpose="personnel-card" data-name="Bpk. Eko Heny M."
+                        data-img="https://images2.imgbox.com/90/9f/VHBcC0uO_o.png">
+                        <div class="relative w-full aspect-square mb-6 mx-auto max-w-[160px]">
+                            <!-- Background Shape -->
+                            <div
+                                class="absolute inset-0 bg-green-200 rounded-[24px] rotate-3 translate-y-2 group-hover:-rotate-6 group-hover:scale-105 transition-all duration-300">
+                            </div>
+                            <!-- Image -->
+                            <img alt="Kakak TNI"
+                                class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
+                                src="https://images2.imgbox.com/90/9f/VHBcC0uO_o.png" />
+                            <!-- Chat Icon Overlay -->
+                            <div
+                                class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
+                                <span class="material-symbols-outlined text-sm block">chat</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg text-black leading-tight mb-1">Bpk. Eko Heny M.</h3>
+                        <div class="flex flex-col items-center mb-4 mt-1">
+                            <span class="text-green-600 font-bold text-sm uppercase tracking-wider mb-1">TNI AD</span>
+                            <span class="text-gray-500 text-xs font-semibold mb-1">Babinsa Desa Ngadirejo</span>
+                            <span class="text-gray-600 text-sm hidden">0822-4490-5151</span>
+                        </div>
+                        <div
+                            class="w-full py-2.5 bg-green-500/20 group-hover:bg-green-500 text-green-700 group-hover:text-white rounded-xl text-sm font-bold transition-colors">
+                            Hubungi WA
+                        </div>
+                    </a>
+                    <!-- END: PersonnelGrid -->
+                </div>
+
+                <!-- BEGIN: FooterAction & History -->
+                <!-- Dibuat terpisah antara list riwayat dan tombol utama -->
+                <section class="p-6 bg-white rounded-[40px] border-2 border-[#F06424]/10 shadow-sm flex flex-col mb-6"
+                    data-purpose="history-card">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center justify-between w-full mb-6">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="size-12 rounded-full bg-[#F06424]/10 flex items-center justify-center text-[#F06424]">
+                                    <span class="material-symbols-outlined">history</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#1a202c]">Riwayat Kontak</h3>
+                                    <p class="text-sm text-gray-500">Siapa saja yang sudah adik hubungi.</p>
+                                </div>
+                            </div>
+                            <button
+                                class="px-5 py-2.5 bg-gray-100 text-gray-600 rounded-xl text-sm font-bold hover:bg-gray-200 transition-colors">
+                                Lihat Semua
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Area Riwayat yang Bisa di Scroll (Max Height ditambahkan) -->
+                    <div id="history-list" class="space-y-4 w-full max-h-[220px] overflow-y-auto pr-2 custom-scrollbar">
+                        <div class="flex items-center justify-center py-8 text-gray-400 italic text-sm empty-msg">
+                            Belum ada riwayat kontak.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tombol Kembali Layanan Utama dipisah dari kotak riwayat -->
+                <a href="index.html"
+                    class="w-full py-4 bg-[#F06424] text-white font-black rounded-2xl shadow-lg shadow-[#F06424]/30 hover:shadow-[#F06424]/50 transition-all flex items-center justify-center gap-3 active:scale-[98%]">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    Kembali ke Layanan Utama
+                </a>
+        </main>
+
+        <!-- BEGIN: Footer -->
+        <footer class="mt-auto border-t border-orange-200/30 py-6 backdrop-blur-sm bg-white/40 w-full z-10 shrink-0">
+            <div class="w-full max-w-7xl mx-auto px-4 md:px-16 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <h4 class="font-extrabold text-slate-800 text-sm">Layanan Publik SiLebah EDU</h4>
+                    <p class="text-xs text-slate-400 italic mt-0.5">Kolaborasi Cerdas, Layanan Tuntas, Pembelajaran Berkualitas</p>
+                </div>
+                <div class="flex gap-5 text-xs font-bold text-slate-400">
+                    <a class="hover:text-[#F06424] transition-colors" href="privasi.html">Privasi</a>
+                    <a class="hover:text-[#F06424] transition-colors" href="ketentuan.html">Ketentuan</a>
+                    <a class="hover:text-[#F06424] transition-colors" href="bantuan.html">Bantuan</a>
+                </div>
+                <div class="text-xs font-semibold text-slate-400">
+                    &copy; 2023 SDN Ngadirejo 03 🌈<br><span class="text-pink-500 font-bold">Created By Fudak Winduko</span>
+                </div>
+            </div>
+        </footer>
+        <!-- END: Footer -->
+        <!-- END: HeroSection -->
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="profileModalContent"
+            class="w-full max-w-sm transform scale-95 rounded-3xl bg-white dark:bg-slate-900 p-8 shadow-2xl transition-transform duration-300 relative">
+            <!-- Close Button -->
+            <button id="closeProfileBtn"
+                class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+
+            <div class="text-center mb-6">
+                <!-- Avatar Modal -->
+                <div
+                    class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-[#F06424]/10 text-[#F06424] overflow-hidden border-4 border-white dark:border-slate-800 shadow-md">
+                    <img alt="User Avatar" class="h-full w-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnnODcOPYgfeXaaVm0gcgo08iTtPf_TNrYO9nR6Xc-WgUVXHH-DmWzT4R42qom9e6XU0OEtxG6JtwUET1Q62ybOwMdJy0LCmgm06z21A1kUm5TjVUP6EyZVLlTcVR0yPklWDN0ykslBZDgx8Xxu5L8MHSbdL-N9a56Zv_KUKl6SSn0I0MZscEpAo944DWnSRfxOZL4IoG1CIHYkVC6ntx1FIUaUpCC1Q2kWy7IzDI8Fsp-AbAfClyOCpVVMDcZQWBEhaPpKOnvaA" />
+                </div>
+                <!-- Profile Base Name -->
+                <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-1">Biodata Profil</h3>
+                <!-- Role Tag -->
+                <span id="profileRoleBadge"
+                    class="inline-block px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Loading...</span>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap</p>
+                    <p id="profileName" class="font-bold text-slate-800 dark:text-slate-200">-</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+                    <p id="profileClassLabel" class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                        Kelas</p>
+                    <p id="profileClass" class="font-bold text-slate-800 dark:text-slate-200">-</p>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center border-t border-slate-100 dark:border-slate-800 pt-4">
+                <p class="text-xs text-slate-400 font-medium">SiLebah EDU Student Portal</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alasan -->
+    <div id="reasonModal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="reasonModalContent" class="w-full max-w-md transform scale-95 rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 relative">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">Tulis Alasan Menghubungi</h3>
+            <div class="space-y-4 mb-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Nomor HP WA Aktif</label>
+                    <input type="text" id="reasonPhone" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#F06424] focus:border-[#F06424] bg-transparent text-slate-800" placeholder="Masukan Nomer HP Whatsapp Aktif" />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Alasan</label>
+                    <textarea id="reasonText" class="w-full h-32 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#F06424] focus:border-[#F06424] resize-none bg-transparent text-slate-800" placeholder="Ketik alasan Anda di sini..."></textarea>
+                </div>
+            </div>
+            
+            <div class="flex gap-4 justify-end mt-6">
+                <button id="cancelReasonBtn" class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-colors">Batal</button>
+                <button id="sendReasonBtn" class="px-5 py-2.5 bg-[#F06424] text-white rounded-xl font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+                    <span id="sendReasonText">Kirim</span>
+                    <span id="sendReasonSpinner" class="hidden material-symbols-outlined animate-spin text-sm">progress_activity</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirmSubmitModal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div id="confirmSubmitModalContent" class="w-full max-w-sm transform scale-95 rounded-3xl bg-white p-6 shadow-2xl transition-transform duration-300 relative text-center">
+            <div class="w-16 h-16 bg-orange-100 text-[#F06424] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-3xl">send</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Konfirmasi Pengiriman</h3>
+            <p class="text-slate-500 mb-6 font-medium">Apakah Anda yakin mau mengirim pesan ini?</p>
+            <div class="flex gap-3 justify-center">
+                <button id="cancelConfirmBtn" class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-colors flex-1">Tidak</button>
+                <button id="yesConfirmBtn" class="px-5 py-2.5 bg-[#F06424] text-white rounded-xl font-bold hover:bg-orange-600 transition-colors flex-1">Ya, Kirim</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Masukkan URL Web App Google Apps Script Anda di Bawah Ini:
+        // GANTI "URL_APP_SCRIPT_ANDA_DISINI" dengan URL asli setelah Anda deploy!
+        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw03uYQkpLKNQWJN_fHvSEJkMnkdNOwvwYSUPxiWZTP0BmT2_7Lqgc5c1gRz4p4Dpk0aw/exec";
+
+        // ============================================================
+        // PERSISTENT CONTACT HISTORY & WHATSAPP LOGIC — Babinsa
+        // Key: silebah_history_babinsa_{userName}_{childName}
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const historyList = document.getElementById('history-list');
+
+            const _uName  = localStorage.getItem('kidsgov_userName') || '';
+            const _cName  = localStorage.getItem('kidsgov_userChildName') || '';
+            const HISTORY_KEY = `silebah_history_babinsa_${_uName}_${_cName}`;
+
+            /* ---- Simpan semua data riwayat ke localStorage ---- */
+            function saveHistory() {
+                const items = historyList.querySelectorAll('.history-item');
+                const data = [];
+                items.forEach(el => {
+                    data.push({ name: el.dataset.hName, img: el.dataset.hImg, time: el.dataset.hTime });
+                });
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(data));
+            }
+
+            /* ---- Buat elemen riwayat ---- */
+            function createHistoryItem(unitName, unitImg, timeLabel) {
+                const item = document.createElement('div');
+                item.className = 'history-item flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-green-100 transition-all';
+                item.dataset.hName = unitName;
+                item.dataset.hImg  = unitImg;
+                item.dataset.hTime = timeLabel;
+                item.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <img alt="${unitName}" class="w-10 h-10 rounded-full object-cover border-2 border-white" src="${unitImg}"/>
+                        <div>
+                            <p class="font-bold text-sm text-[#1a202c]">${unitName}</p>
+                            <p class="text-xs text-gray-500">Terakhir: ${timeLabel}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-black rounded-full uppercase tracking-wider">Terkirim</span>
+                        <button class="delete-btn text-gray-400 hover:text-red-500 transition-colors p-1.5 rounded-full hover:bg-red-50 flex items-center justify-center" title="Hapus Riwayat">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                    </div>
+                `;
+                item.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    item.remove();
+                    saveHistory();
+                    if (historyList.querySelectorAll('.history-item').length === 0) {
+                        historyList.innerHTML = `<div class="flex items-center justify-center py-8 text-gray-400 italic text-sm empty-msg">Belum ada riwayat kontak.</div>`;
+                    }
+                });
+                return item;
+            }
+
+            /* ---- Muat dari localStorage ---- */
+            function loadHistory() {
+                const raw = localStorage.getItem(HISTORY_KEY);
+                if (!raw) return;
+                try {
+                    const data = JSON.parse(raw);
+                    if (!data.length) return;
+                    const emptyMsg = historyList.querySelector('.empty-msg');
+                    if (emptyMsg) emptyMsg.remove();
+                    data.forEach(d => historyList.appendChild(createHistoryItem(d.name, d.img, d.time)));
+                } catch(e) {}
+            }
+
+            /* ---- Logic Popup Alasan & Send API ---- */
+            const reasonModal = document.getElementById('reasonModal');
+            const reasonModalContent = document.getElementById('reasonModalContent');
+            const cancelReasonBtn = document.getElementById('cancelReasonBtn');
+            const sendReasonBtn = document.getElementById('sendReasonBtn');
+            const reasonPhoneInput = document.getElementById('reasonPhone');
+            const reasonTextInput = document.getElementById('reasonText');
+            
+            const sendReasonText = document.getElementById('sendReasonText');
+            const sendReasonSpinner = document.getElementById('sendReasonSpinner');
+
+            // sengaja tidak memuat default phone dari localstorage agar placeholder terlihat
+            // const storedPhoneLocal = localStorage.getItem('kidsgov_userPhone') || '';
+            // if(storedPhoneLocal !== '-' && storedPhoneLocal !== '') {
+            //     reasonPhoneInput.value = storedPhoneLocal;
+            // }
+
+            let selectedUnit = null; // Menyimpan data unit sementara (nama, target, hp) saat diklik
+
+            function closeReasonModal() {
+                reasonModal.classList.add('opacity-0');
+                reasonModalContent.classList.remove('scale-100');
+                reasonModalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    reasonModal.classList.add('hidden');
+                    reasonModal.classList.remove('flex');
+                }, 300);
+            }
+
+            cancelReasonBtn.addEventListener('click', closeReasonModal);
+
+            /* ---- Klik kartu ---- */
+            const contactBtns = document.querySelectorAll('.contact-btn');
+            contactBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    selectedUnit = {
+                        name: btn.getAttribute('data-name'),
+                        img: btn.getAttribute('data-img'),
+                        phone: btn.getAttribute('data-phone')
+                    };
+
+                    // Tampilkan modal
+                    reasonModal.classList.remove('hidden');
+                    reasonModal.classList.add('flex');
+                    // Paksa render reflow
+                    void reasonModal.offsetWidth;
+                    reasonModal.classList.remove('opacity-0');
+                    reasonModalContent.classList.remove('scale-95');
+                    reasonModalContent.classList.add('scale-100');
+                });
+            });
+
+            // Action Send (Membuka Konfirmasi)
+            sendReasonBtn.addEventListener('click', () => {
+                const phoneVal = reasonPhoneInput.value.trim();
+                const reasonVal = reasonTextInput.value.trim();
+
+                if (!phoneVal || !reasonVal) {
+                    alert("Nomor HP WA dan Alasan wajib diisi!");
+                    return;
+                }
+
+                // Tampilkan Custom Modal Konfirmasi
+                const confirmModal = document.getElementById('confirmSubmitModal');
+                const confirmContent = document.getElementById('confirmSubmitModalContent');
+                confirmModal.classList.remove('hidden');
+                confirmModal.classList.add('flex');
+                void confirmModal.offsetWidth;
+                confirmModal.classList.remove('opacity-0');
+                confirmContent.classList.remove('scale-95');
+                confirmContent.classList.add('scale-100');
+            });
+
+            // Action Batal Konfirmasi
+            document.getElementById('cancelConfirmBtn').addEventListener('click', () => {
+                const confirmModal = document.getElementById('confirmSubmitModal');
+                const confirmContent = document.getElementById('confirmSubmitModalContent');
+                confirmModal.classList.add('opacity-0');
+                confirmContent.classList.remove('scale-100');
+                confirmContent.classList.add('scale-95');
+                setTimeout(() => {
+                    confirmModal.classList.add('hidden');
+                    confirmModal.classList.remove('flex');
+                }, 300);
+            });
+
+            // Action Ya (Kirim Pesan)
+            document.getElementById('yesConfirmBtn').addEventListener('click', async () => {
+                // Tutup modal konfirmasi terlebih dahulu
+                document.getElementById('cancelConfirmBtn').click();
+                
+                const phoneVal = reasonPhoneInput.value.trim();
+                const reasonVal = reasonTextInput.value.trim();
+
+                // Loading State
+                sendReasonBtn.disabled = true;
+                sendReasonText.textContent = "Mengirim...";
+                sendReasonSpinner.classList.remove('hidden');
+
+                // Siapkan Data
+                const storedName = localStorage.getItem('kidsgov_userName') || '-';
+                const storedRole = localStorage.getItem('kidsgov_userRole') || 'student';
+                const storedAddress = localStorage.getItem('kidsgov_userAddress') || '-';
+                const storedChild = localStorage.getItem('kidsgov_userChildName') || '-';
+
+                const roleText = storedRole === 'student' ? 'Murid / Siswa' : 'Orang Tua / Wali';
+
+                const payload = {
+                    customerName: storedName,
+                    customerRole: roleText,
+                    customerAddress: storedAddress,
+                    customerChild: storedChild,
+                    customerPhone: phoneVal,
+                    targetBabinsaPhone: selectedUnit.phone,
+                    targetBabinsaName: selectedUnit.name,
+                    reason: reasonVal
+                };
+
+                try {
+                    // Cek jika belum diubah url app scriptnya
+                    if (GOOGLE_APPS_SCRIPT_URL === "URL_APP_SCRIPT_ANDA_DISINI") {
+                        alert("URL Google Apps Script belum disetup oleh admin. Mensimulasikan sukses sementara...");
+                        await new Promise(r => setTimeout(r, 1000));
+                    } else {
+                        // Kirim fetch request
+                        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: new URLSearchParams(payload).toString()
+                        });
+                        
+                        // Anda dapat parse json jika app script retur json
+                        // const result = await response.json(); 
+                    }
+
+                    // --- JIKA SUKSES ---
+                    alert("Pesan Berhasil Dikirim! Mohon tunggu balasan dari bot WhatsApp kami.");
+
+                    // Simpan ke riwayat
+                    const now = new Date();
+                    const timeLabel = now.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' })
+                                    + ' ' + now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+
+                    const emptyMsg = historyList.querySelector('.empty-msg');
+                    if (emptyMsg) emptyMsg.remove();
+
+                    const item = createHistoryItem(selectedUnit.name, selectedUnit.img, timeLabel);
+                    historyList.prepend(item);
+                    historyList.scrollTop = 0;
+                    saveHistory();
+
+                    reasonTextInput.value = ""; // clear textarea
+                    closeReasonModal();
+
+                } catch (error) {
+                    alert("Gagal mengirim pesan: " + error.message);
+                } finally {
+                    // Kembalikan ke state awal
+                    sendReasonBtn.disabled = false;
+                    sendReasonText.textContent = "Kirim";
+                    sendReasonSpinner.classList.add('hidden');
+                }
+            });
+
+            loadHistory();
+        });
+        // Tracking Script
+        (function() {
+            const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRerr2xi96PFWPx8FhRxsv0PPCNvaVAUqZWENX2CZNSIufJYgfu698IoQtevg22J3dTQ/exec";
+            
+            function sendTracking(fiturName, pageOrActionName) {
+                const rawNama = localStorage.getItem('kidsgov_userName') || 'Anonim';
+                const rawRole = localStorage.getItem('kidsgov_userRole') || 'student';
+                const rawClassOrChild = localStorage.getItem('kidsgov_userChildName') || '-';
+                const roleText = rawRole === 'student' ? 'Siswa' : 'Orang Tua';
+
+                const payload = {
+                    waktu: new Date().toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" }),
+                    nama: rawNama,
+                    role: roleText,
+                    kelas: rawClassOrChild,
+                    fitur: fiturName,
+                    halaman: pageOrActionName
+                };
+
+                fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.warn('Tracking error:', err));
+            }
+
+            // 1. Log page visit
+            const currentFitur = "Layanan Babinsa";
+            const currentPageFile = window.location.pathname.split("/").pop() || "babinsa.html";
+            sendTracking(currentFitur, "Kunjungan: " + currentPageFile);
+
+            // 2. Log Program Card Click
+            document.querySelectorAll('.activity-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    let cardTitle = "Kartu Program";
+                    const titleEl = card.querySelector('h3') || card.querySelector('p');
+                    if (titleEl) {
+                        cardTitle = titleEl.textContent.trim();
+                    }
+                    sendTracking(currentFitur, "Program: " + cardTitle);
+                });
+            });
+
+            // 3. Log Contact/Personnel Card Click
+            document.querySelectorAll('.contact-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let nameVal = btn.getAttribute('data-name');
+                    const h3El = btn.querySelector('h3');
+                    if (h3El) {
+                        nameVal = h3El.textContent.trim();
+                    }
+                    nameVal = nameVal || "Aparat Keamanan";
+                    sendTracking(currentFitur, "Hubungi: " + nameVal);
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

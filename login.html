@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SiLebah EDU - Mari Bergabung!</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "primary-dark": "#d14a0a",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script>
+        if (localStorage.getItem('kidsgov_userName')) {
+            window.location.replace('index.html');
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #FDF8F5 0%, #FEF3EE 50%, #FFF8F5 100%);
+            font-family: 'Public Sans', sans-serif;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark body, body.dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+        }
+
+        .app-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html { font-size: 16px; } 
+        @media (max-width: 768px) { html { font-size: 14px; } } 
+        @media (max-width: 480px) { html { font-size: 12px; } } 
+        @media (min-width: 1920px) { html { font-size: 24px; } } 
+        @media (min-width: 3840px) { html { font-size: 48px; } } 
+
+        button, a, select, input { min-height: 48px; }
+        @media (min-width: 1024px) {
+            button, a, select, input { min-height: 60px; }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        @media (min-width: 1920px) { .custom-scrollbar::-webkit-scrollbar { width: 12px; } }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        #visualSide { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        .fade-element {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .input-float-label {
+            position: relative;
+        }
+
+        .input-float-label .floating-label {
+            position: absolute;
+            left: 48px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.875rem;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            padding: 0 4px;
+        }
+
+        .input-float-label textarea ~ .floating-label {
+            top: 20px;
+            transform: none;
+        }
+
+        .input-float-label input:focus ~ .floating-label,
+        .input-float-label input:not(:placeholder-shown) ~ .floating-label,
+        .input-float-label textarea:focus ~ .floating-label,
+        .input-float-label textarea:not(:placeholder-shown) ~ .floating-label {
+            top: -8px;
+            transform: translateY(0);
+            font-size: 0.75rem;
+            background: white;
+            color: #ec5b13;
+            font-weight: 600;
+        }
+
+        .dark .input-float-label input:focus ~ .floating-label,
+        .dark .input-float-label input:not(:placeholder-shown) ~ .floating-label,
+        .dark .input-float-label textarea:focus ~ .floating-label,
+        .dark .input-float-label textarea:not(:placeholder-shown) ~ .floating-label {
+            background: #1e293b;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.85);
+        }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .role-option {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-option::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(236, 91, 19, 0.1), rgba(236, 91, 19, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .role-option:hover::before {
+            opacity: 1;
+        }
+
+        .visual-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(236, 91, 19, 0.05) 0%, transparent 50%);
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .input-field {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-field:hover {
+            border-color: #ec5b13;
+            box-shadow: 0 0 0 3px rgba(236, 91, 19, 0.1);
+        }
+
+        .input-field:focus {
+            border-color: #ec5b13;
+            box-shadow: 0 0 0 4px rgba(236, 91, 19, 0.15);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ec5b13;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .logo-icon {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-icon:hover {
+            transform: rotate(-15deg) scale(1.1);
+        }
+
+        .submit-btn {
+            position: relative;
+            background: linear-gradient(135deg, #ec5b13 0%, #d14a0a 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(236, 91, 19, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .emerald-btn {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        .emerald-btn:hover {
+            box-shadow: 0 10px 40px rgba(5, 150, 105, 0.4);
+        }
+    </style>
+</head>
+
+<body class="font-display text-slate-900 dark:text-slate-100">
+    <div class="app-container custom-scrollbar">
+        <header
+            class="flex items-center justify-between px-6 py-3 lg:px-12 border-b border-orange-100/50 dark:border-slate-700/50 bg-[#FDF8F5]/70 dark:bg-slate-900/60 backdrop-blur-2xl sticky top-0 z-50 shadow-sm shadow-orange-100/20">
+            <div class="flex items-center gap-3">
+                <div
+                    class="logo-icon flex shrink-0 items-center justify-center w-16 h-16 md:w-[72px] md:h-[72px] rounded-2xl bg-gradient-to-br from-white/80 to-orange-50/50 dark:from-slate-800 dark:to-slate-900 text-white shadow-xl shadow-primary/10 p-0 overflow-hidden border-2 border-white dark:border-slate-700">
+                    <img id="headerLogo" src="https://images2.imgbox.com/57/47/N6xZIGgt_o.png" alt="Logo SiLebah EDU" class="w-full h-full object-contain p-1" />
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h2 class="text-xl md:text-2xl font-black leading-none tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">SiLebah EDU</h2>
+                    <p class="text-[10px] md:text-[11px] text-primary/80 font-bold italic leading-tight mt-[3px] tracking-wide">
+                        Kolaborasi Cerdas, Layanan Tuntas,<br>Pembelajaran Berkualitas
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="statistik.html" title="Dashboard Statistik Admin"
+                    class="flex items-center justify-center rounded-2xl h-11 w-11 bg-slate-100/80 dark:bg-slate-800/80 text-primary dark:text-orange-500 transition-all duration-300 hover:bg-primary hover:text-white hover:scale-110 active:scale-95 border border-primary/20">
+                    <span class="material-symbols-outlined text-xl">insights</span>
+                </a>
+                <button id="themeToggle"
+                    class="flex items-center justify-center rounded-2xl h-11 w-11 bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 transition-all duration-300 hover:bg-primary hover:text-white hover:scale-110 active:scale-95">
+                    <span id="themeIcon" class="material-symbols-outlined text-xl">light_mode</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 flex items-center justify-center p-4 lg:p-8">
+            <div
+                class="w-full max-w-[1240px] grid grid-cols-1 lg:grid-cols-[55fr_45fr] items-stretch glass-card rounded-[2rem] overflow-hidden border border-white/50 dark:border-slate-700/50 shadow-2xl">
+
+                <div id="visualSide"
+                    class="hidden lg:flex flex-col justify-between relative p-6 xl:p-10 bg-gradient-to-br from-orange-50 via-orange-100/30 to-amber-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 h-full">
+                    <div class="floating-shape w-64 h-64 bg-orange-200/50 -top-20 -left-20" style="animation-delay: 0s;"></div>
+                    <div class="floating-shape w-48 h-48 bg-amber-200/50 bottom-20 -right-10" style="animation-delay: 2s;"></div>
+                    
+                    <div class="relative z-10 fade-element" id="textContent">
+                        <span id="visualTag"
+                            class="inline-block px-5 py-2 rounded-full bg-gradient-to-r from-primary/20 to-orange-200/50 dark:from-primary/40 dark:to-orange-300/40 text-primary dark:text-orange-300 text-xs font-bold mb-4 tracking-wider uppercase transition-all duration-300">Portal Murid</span>
+                        <div class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2 italic">Kolaborasi Cerdas, Layanan Tuntas, Pembelajaran Berkualitas</div>
+                        <h1 id="visualTitle"
+                            class="text-4xl xl:text-5xl font-black text-slate-900 dark:text-white leading-[1.1] mb-3">
+                            Halo, Mari <span class="text-primary">Bergabung!</span>
+                        </h1>
+                        <p id="visualDesc"
+                            class="text-sm xl:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+                            Belajar jadi warga negara yang hebat itu seru, lho! Yuk isi data dirimu di samping.
+                        </p>
+                    </div>
+                    <div class="relative mt-4 z-10 mx-auto w-full max-w-sm">
+                        <div id="accentBlur"
+                             class="absolute -top-8 -left-8 w-40 h-40 bg-gradient-to-br from-yellow-400/30 to-orange-300/30 rounded-full blur-3xl transition-all duration-500">
+                        </div>
+                        <div class="visual-card rounded-3xl overflow-hidden aspect-video bg-slate-200/50 dark:bg-slate-700/50 shadow-xl relative border border-white/30 dark:border-slate-600/30">
+                            <img id="visualImg" alt="Logo SiLebah EDU"
+                                 class="w-full h-full object-contain transition-all duration-500"
+                                 src="https://images2.imgbox.com/1a/e4/Y3t0ZtoS_o.png" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 lg:p-8 flex flex-col justify-center h-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md relative z-20">
+                    <div class="lg:hidden mb-6 text-center">
+                        <h1 class="text-3xl font-black text-slate-900 dark:text-white leading-tight">Halo, Mari
+                            Bergabung!</h1>
+                        <p class="text-slate-500 mt-2 text-sm">Silakan isi data dirimu untuk mulai belajar</p>
+                    </div>
+
+                    <form class="space-y-4">
+                        <div class="space-y-2">
+                            <p class="text-sm font-bold text-slate-700 dark:text-slate-300 px-1">Pilih Sebagai</p>
+                            <div
+                                class="flex h-14 items-center justify-center rounded-2xl bg-slate-100/80 dark:bg-slate-800/80 p-1.5 gap-1">
+                                <label
+                                    class="role-option flex cursor-pointer h-full grow items-center justify-center rounded-xl px-3 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-md transition-all duration-300 text-slate-500 has-[:checked]:text-primary font-bold text-sm group">
+                                    <span class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg transition-transform group-hover:scale-110">family_restroom</span>
+                                        Orang Tua
+                                    </span>
+                                    <input class="hidden role-radio" name="user_role" type="radio" value="parent" />
+                                </label>
+                                <label
+                                    class="role-option flex cursor-pointer h-full grow items-center justify-center rounded-xl px-3 has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-md transition-all duration-300 text-slate-500 has-[:checked]:text-primary font-bold text-sm group">
+                                    <span class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg transition-transform group-hover:scale-110">face</span>
+                                        Murid
+                                    </span>
+                                    <input checked="" class="hidden role-radio" name="user_role" type="radio"
+                                        value="student" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="input-float-label relative group">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl transition-all duration-300 group-focus-within:text-primary group-hover:text-primary/70 z-10">person</span>
+                                <input id="inputName"
+                                    class="input-field w-full pl-12 pr-5 py-3 rounded-2xl border-2 border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-800 outline-none text-slate-900 dark:text-white placeholder:text-transparent"
+                                    placeholder=" " type="text" />
+                                <span class="floating-label">Nama Lengkap</span>
+                            </div>
+                            <div class="input-float-label relative group">
+                                <span id="iconField2"
+                                    class="material-symbols-outlined absolute left-4 top-4 text-slate-400 text-xl transition-all duration-300 group-focus-within:text-primary group-hover:text-primary/70 z-10">location_on</span>
+                                <textarea id="inputField2"
+                                    class="input-field w-full pl-12 pr-4 py-3 rounded-2xl border-2 border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-800 outline-none text-slate-900 dark:text-white placeholder:text-transparent resize-none"
+                                    placeholder=" " rows="2"></textarea>
+                                <span class="floating-label">Alamat Rumah</span>
+                            </div>
+                            <div class="input-float-label relative group">
+                                <span id="iconField3"
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl transition-all duration-300 group-focus-within:text-primary group-hover:text-primary/70 z-10">grade</span>
+                                <input id="inputField3"
+                                    class="input-field w-full pl-12 pr-5 py-3 rounded-2xl border-2 border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-800 outline-none text-slate-900 dark:text-white placeholder:text-transparent"
+                                    placeholder=" " type="text" />
+                                <span class="floating-label">Kelas</span>
+                            </div>
+                            <div class="input-float-label relative group">
+                                <span id="iconField4"
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl transition-all duration-300 group-focus-within:text-primary group-hover:text-primary/70 z-10">family_restroom</span>
+                                <input id="inputField4"
+                                    class="input-field w-full pl-12 pr-5 py-3 rounded-2xl border-2 border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-800 outline-none text-slate-900 dark:text-white placeholder:text-transparent"
+                                    placeholder=" " type="text" />
+                                <span class="floating-label">Nama Ayah / Ibu</span>
+                            </div>
+                        </div>
+
+                        <a id="submitBtn" href="index.html"
+                            class="submit-btn w-full py-3.5 text-white rounded-2xl font-extrabold text-base flex items-center justify-center gap-3 mt-6">
+                            <span>Masuk</span>
+                            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </a>
+
+                        <div class="flex items-center justify-center gap-4 mt-2">
+                            <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-600"></div>
+                            <p class="text-xs text-slate-400 font-medium">
+                                Isi dengan sebenar benarnya
+                            </p>
+                            <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-600"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-auto w-full border-t border-slate-200/50 dark:border-slate-700/50 pt-8 pb-8 px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-slate-100 text-base">Layanan Publik SiLebah EDU</h4>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Kolaborasi Cerdas, Layanan Tuntas, Pembelajaran Berkualitas</p>
+            </div>
+            <div class="flex gap-6 md:gap-8 text-sm font-medium text-slate-500 dark:text-slate-400">
+                <a href="privasi.html" class="nav-link hover:text-primary transition-colors duration-300">Privasi</a>
+                <a href="ketentuan.html" class="nav-link hover:text-primary transition-colors duration-300">Ketentuan</a>
+                <a href="bantuan.html" class="nav-link hover:text-primary transition-colors duration-300">Bantuan</a>
+            </div>
+            <div class="text-sm font-semibold text-slate-400 dark:text-slate-500">
+                © 2023 SDN Ngadirejo 03 <br> <span class="text-primary">Created By Fudak Winduko</span>
+            </div>
+        </footer>
+    </div>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        const roleRadios = document.querySelectorAll('.role-radio');
+        const visualSide = document.getElementById('visualSide');
+        const visualTag = document.getElementById('visualTag');
+        const visualTitle = document.getElementById('visualTitle');
+        const visualDesc = document.getElementById('visualDesc');
+        const visualImg = document.getElementById('visualImg');
+        const accentBlur = document.getElementById('accentBlur');
+        const submitBtn = document.getElementById('submitBtn');
+        const headerLogo = document.getElementById('headerLogo');
+
+        const inputField2 = document.getElementById('inputField2');
+        const iconField2 = document.getElementById('iconField2');
+        const inputField3 = document.getElementById('inputField3');
+        const iconField3 = document.getElementById('iconField3');
+        const inputField4 = document.getElementById('inputField4');
+        const iconField4 = document.getElementById('iconField4');
+
+        const labelField2 = document.querySelector('#inputField2 ~ .floating-label');
+        const labelField3 = document.querySelector('#inputField3 ~ .floating-label');
+        const labelField4 = document.querySelector('#inputField4 ~ .floating-label');
+
+        function updateVisuals(role) {
+            visualSide.style.opacity = "0.7";
+
+            setTimeout(() => {
+                if (role === 'student') {
+                    visualTitle.innerHTML = 'Halo, Murid <span class="text-primary">Hebat!</span>';
+                    visualDesc.textContent = 'Belajar jadi warga negara yang hebat itu seru, lho! Yuk isi data dirimu di samping.';
+                    visualTag.textContent = 'Portal Murid';
+                    visualTag.className = 'inline-block px-5 py-2 rounded-full bg-gradient-to-r from-primary/20 to-orange-200/50 dark:from-primary/40 dark:to-orange-300/40 text-primary dark:text-orange-300 text-xs font-bold mb-4 tracking-wider uppercase transition-all duration-300';
+
+                    visualSide.className = "hidden lg:flex flex-col justify-between relative p-6 xl:p-10 bg-gradient-to-br from-orange-50 via-orange-100/30 to-amber-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 h-full";
+                    accentBlur.className = "absolute -top-8 -left-8 w-40 h-40 bg-gradient-to-br from-yellow-400/30 to-orange-300/30 rounded-full blur-3xl transition-all duration-500";
+
+                    visualImg.src = "https://images2.imgbox.com/1a/e4/Y3t0ZtoS_o.png";
+                    visualImg.alt = "Logo Murid";
+                    visualImg.className = "w-full h-full object-contain transition-all duration-500";
+
+                    submitBtn.className = "submit-btn w-full py-3.5 text-white rounded-2xl font-extrabold text-base flex items-center justify-center gap-3 mt-6";
+
+                    inputField2.placeholder = " ";
+                    iconField2.textContent = "school";
+                    inputField2.rows = "2";
+
+                    inputField3.placeholder = " ";
+                    iconField3.textContent = "grade";
+
+                    inputField4.placeholder = " ";
+                    iconField4.textContent = "family_restroom";
+                    inputField4.type = "text";
+
+                    labelField2.textContent = "Nama Sekolah";
+                    labelField3.textContent = "Kelas";
+                    labelField4.textContent = "Nama Ayah / Ibu";
+                } else {
+                    visualTitle.innerHTML = 'Halo, Ayah & <span class="text-emerald-500">Bunda!</span>';
+                    visualDesc.textContent = 'Pantau perkembangan belajar si kecil dan dukung mereka jadi pahlawan masa depan Indonesia.';
+                    visualTag.textContent = 'Portal Orang Tua';
+                    visualTag.className = 'inline-block px-5 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-green-200/50 dark:from-emerald-500/30 dark:to-green-400/40 text-emerald-600 dark:text-emerald-300 text-xs font-bold mb-4 tracking-wider uppercase transition-all duration-300';
+
+                    visualSide.className = "hidden lg:flex flex-col justify-between relative p-6 xl:p-10 bg-gradient-to-br from-emerald-50 via-teal-50/30 to-green-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 h-full";
+                    accentBlur.className = "absolute -top-8 -left-8 w-40 h-40 bg-gradient-to-br from-emerald-400/30 to-teal-300/30 rounded-full blur-3xl transition-all duration-500";
+
+                    visualImg.src = "https://images2.imgbox.com/48/3b/hlaKl6l9_o.png";
+                    visualImg.alt = "Logo Orang Tua";
+                    visualImg.className = "w-full h-full object-contain transition-all duration-500";
+
+                    submitBtn.className = "submit-btn emerald-btn w-full py-3.5 text-white rounded-2xl font-extrabold text-base flex items-center justify-center gap-3 mt-6";
+
+                    inputField2.placeholder = " ";
+                    iconField2.textContent = "location_on";
+                    inputField2.rows = "2";
+
+                    inputField3.placeholder = " ";
+                    iconField3.textContent = "child_care";
+
+                    inputField4.placeholder = " ";
+                    iconField4.textContent = "phone_iphone";
+                    inputField4.type = "tel";
+
+                    labelField2.textContent = "Alamat Rumah";
+                    labelField3.textContent = "Nama Anak";
+                    labelField4.textContent = "Nomor HP";
+                }
+                visualSide.style.opacity = "1";
+            }, 150);
+        }
+
+        roleRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                updateVisuals(e.target.value);
+                const inputsToClear = document.querySelectorAll('input[type="text"], input[type="tel"], textarea');
+                inputsToClear.forEach(input => {
+                    input.value = '';
+                    input.classList.remove('ring-2', 'ring-primary/50', 'border-primary');
+                });
+            });
+        });
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+            localStorage.setItem('kidsgov_theme', isDark ? 'dark' : 'light');
+        });
+
+        const savedTheme = localStorage.getItem('kidsgov_theme');
+        if (savedTheme === 'dark') {
+            html.classList.add('dark');
+            themeIcon.textContent = 'dark_mode';
+        }
+
+        updateVisuals('student');
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], textarea');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    isValid = false;
+                    input.classList.add('ring-2', 'ring-primary/50', 'border-primary');
+                } else {
+                    input.classList.remove('ring-2', 'ring-primary/50', 'border-primary');
+                }
+            });
+
+            if (isValid) {
+                const originalBtnContent = submitBtn.innerHTML;
+                submitBtn.innerHTML = 'Memproses... <span class="material-symbols-outlined animate-spin">sync</span>';
+                submitBtn.classList.add('pointer-events-none', 'opacity-80');
+
+                const nameValue = document.getElementById('inputName').value;
+                const field2Value = document.getElementById('inputField2').value;
+                const field3Value = document.getElementById('inputField3').value;
+                const field4Value = document.getElementById('inputField4').value;
+                const roleValue = document.querySelector('.role-radio:checked').value;
+                
+                localStorage.setItem('kidsgov_userName', nameValue);
+                localStorage.setItem('kidsgov_userAddress', field2Value);
+                localStorage.setItem('kidsgov_userChildName', field3Value);
+                localStorage.setItem('kidsgov_userPhone', field4Value);
+                localStorage.setItem('kidsgov_userRole', roleValue);
+
+                const now = new Date();
+                const hariArray = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                const bulanArray = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                const dateString = `${hariArray[now.getDay()]}, ${now.getDate()} ${bulanArray[now.getMonth()]} ${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+                let payload = {};
+                if (roleValue === 'student') {
+                    payload = {
+                        role: 'Murid',
+                        hariTanggal: dateString,
+                        namaLengkap: nameValue,
+                        namaSekolah: field2Value,
+                        kelas: field3Value,
+                        namaWali: field4Value
+                    };
+                } else {
+                    payload = {
+                        role: 'Orang Tua',
+                        hariTanggal: dateString,
+                        namaLengkap: nameValue,
+                        alamatRumah: field2Value,
+                        namaAnak: field3Value,
+                        nomorHP: field4Value
+                    };
+                }
+
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbzynXU8-isCVO0A58eIhI5GA6_R7iHeVgSTC_9y7mYzaqINknbkhcUhQLI16I6mv8XZDw/exec';
+                
+                if(scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                     window.location.href = submitBtn.getAttribute('href');
+                     return;
+                }
+
+                fetch(scriptURL, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    window.location.href = submitBtn.getAttribute('href');
+                })
+                .catch(error => {
+                    console.error('Error submitting to spreadsheet:', error);
+                    window.location.href = submitBtn.getAttribute('href');
+                });
+
+            } else {
+                alert('Mohon isi semua data diri terlebih dahulu sebelum masuk.');
+            }
+        });
+    </script>
+</body>
+
+</html>

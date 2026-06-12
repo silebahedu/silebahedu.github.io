@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Layanan Sekolah - SiLebah EDU</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #FDF8F5;
+            font-family: 'Public Sans', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f8f6f6 100%);
+        }
+        .app-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        html { font-size: 16px; }
+        @media (max-width: 768px) { html { font-size: 14px; } }
+        @media (max-width: 480px) { html { font-size: 12px; } }
+        @media (min-width: 1920px) { html { font-size: 24px; } }
+        @media (min-width: 3840px) { html { font-size: 48px; } }
+
+        button, a, select, input { min-height: 48px; }
+        @media (min-width: 1024px) {
+            button, a, select, input { min-height: 60px; }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #ec5b13; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+        .school-float { animation: float 4s ease-in-out infinite; }
+
+        .school-card {
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .school-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(124, 58, 237, 0.2);
+        }
+
+        /* === PREMIUM REDESIGN === */
+        body { background: linear-gradient(160deg, #fffbff 0%, #f5f0ff 40%, #eff8ff 100%) !important;
+               background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f8f6f6 100%) !important; }
+
+        .blob-a { position:fixed;z-index:0;pointer-events:none;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.09),transparent 65%);top:-160px;left:-160px;filter:blur(60px); }
+        .blob-b { position:fixed;z-index:0;pointer-events:none;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(236,91,19,0.08),transparent 65%);bottom:-160px;right:-160px;filter:blur(70px); }
+
+        header { background: rgba(255,253,255,0.88) !important; border-bottom: 1px solid rgba(124,58,237,0.09) !important; box-shadow: 0 1px 20px rgba(0,0,0,0.05) !important; backdrop-filter: blur(24px); }
+
+        .school-card {
+            background: rgba(255,255,255,0.92) !important;
+            position: relative; overflow: hidden;
+        }
+        .school-card::before {
+            content:''; position:absolute; top:0; left:-100%; width:60%; height:100%;
+            background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+            transform:skewX(-20deg);
+            transition:left 0.7s cubic-bezier(0.4,0,0.2,1);
+            pointer-events:none; z-index:30;
+        }
+        .school-card:hover::before { left:160%; }
+
+        footer { background: rgba(255,255,255,0.45) !important; border-top: 1px solid rgba(124,58,237,0.1) !important; backdrop-filter: blur(12px); }
+    </style>
+</head>
+
+<body class="bg-background-light font-display text-slate-900">
+    <div class="app-container custom-scrollbar">
+        <div class="blob-a"></div><div class="blob-b"></div>
+        <!-- Header -->
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 px-6 md:px-20 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary p-2 rounded-xl text-white">
+                    <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">school</span>
+                </div>
+                <div>
+                    <h2 class="text-slate-900 text-lg font-extrabold leading-none tracking-tight">SiLebah EDU</h2>
+                    <p class="text-primary text-[9px] font-bold tracking-widest uppercase">Layanan Sekolah</p>
+                </div>
+            </div>
+            <div class="flex flex-1 justify-end items-center gap-2 md:gap-8">
+                <nav class="flex items-center gap-1 md:gap-8" style="min-height:auto">
+                    <a href="layanan-sekolah.html" title="Layanan"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 md:bg-transparent text-slate-700 hover:text-primary transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">grid_view</span>
+                        <span class="hidden md:inline font-bold text-sm">Layanan</span>
+                    </a>
+                    <a href="saran-kontak.html" title="Saran Kontak"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 md:bg-transparent text-slate-700 hover:text-primary transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">contact_support</span>
+                        <span class="hidden md:inline font-bold text-sm">Saran Kontak</span>
+                    </a>
+                    <a href="manual-book.html" title="Manual Book"
+                        class="flex items-center justify-center h-9 w-9 md:w-auto md:h-auto rounded-xl bg-slate-100/50 md:bg-transparent text-slate-700 hover:text-primary transition-all duration-200 shadow-sm md:shadow-none">
+                        <span class="material-symbols-outlined md:hidden text-[20px]">menu_book</span>
+                        <span class="hidden md:inline font-bold text-sm">Manual Book</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full px-6 md:px-20 py-6 flex flex-col">
+
+            <!-- Hero + Kembali Row -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-8">
+                <!-- Hero Text (kiri) -->
+                <div class="max-w-2xl text-left">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-extrabold mb-3">
+                        <span class="material-symbols-outlined text-[13px]">star</span> LAYANAN PENDIDIKAN
+                    </span>
+                    <h1 class="text-slate-900 text-3xl md:text-4xl font-extrabold leading-tight mb-3">
+                        Pilih Sekolah Kamu!
+                    </h1>
+                    <p class="text-slate-500 text-sm max-w-md">Klik kartu sekolah di bawah untuk melihat daftar guru dan staf yang bisa kamu hubungi.</p>
+                </div>
+                <!-- Tombol Kembali (kanan) -->
+                <a href="pelayanan.html"
+                    class="flex items-center justify-center gap-2 px-6 py-3 bg-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-300 transition-all shadow-sm shrink-0">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Kembali
+                </a>
+            </div>
+
+            <!-- School Card (diperkecil) -->
+            <div class="w-full max-w-xs mx-auto">
+                <a href="sekolah.html" class="school-card group block bg-white rounded-3xl shadow-lg border-2 border-purple-100 hover:border-purple-400 p-5 text-center relative overflow-hidden">
+
+                    <!-- Background Decoration -->
+                    <div class="absolute -top-8 -right-8 w-28 h-28 bg-purple-100 rounded-full opacity-50 group-hover:opacity-80 transition-all duration-500"></div>
+                    <div class="absolute -bottom-8 -left-8 w-24 h-24 bg-primary/10 rounded-full opacity-50 group-hover:opacity-80 transition-all duration-500"></div>
+
+                    <!-- School Icon -->
+                    <div class="relative z-10 mx-auto mb-4 w-20 h-20 bg-gradient-to-br from-purple-500 to-primary rounded-3xl flex items-center justify-center shadow-xl shadow-purple-300/40 school-float">
+                        <span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1">school</span>
+                    </div>
+
+                    <!-- School Info -->
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center gap-1.5 bg-green-100 text-green-700 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+                            <span class="material-symbols-outlined text-[12px]">verified</span>
+                            Sekolah Aktif
+                        </div>
+                        <h2 class="text-xl font-black text-slate-900 leading-tight mb-1">SDN NGADIREJO 03</h2>
+                        <p class="text-slate-500 text-xs font-semibold mb-1">Desa Ngadirejo, Kec. Wonoasri</p>
+                        <p class="text-slate-400 text-xs mb-4">Kabupaten Madiun, Jawa Timur</p>
+
+                        <!-- Stats Row -->
+                        <div class="flex justify-center gap-5 mb-4">
+                            <div class="text-center">
+                                <p class="text-xl font-black text-primary">11</p>
+                                <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Guru &amp; Staf</p>
+                            </div>
+                            <div class="w-px bg-slate-200"></div>
+                            <div class="text-center">
+                                <p class="text-xl font-black text-purple-600">6</p>
+                                <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Kelas</p>
+                            </div>
+                            <div class="w-px bg-slate-200"></div>
+                            <div class="text-center">
+                                <p class="text-xl font-black text-green-600">WA</p>
+                                <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Tersedia</p>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="w-full py-3 bg-gradient-to-r from-purple-500 to-primary text-white rounded-2xl text-sm font-black flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-purple-300/40 transition-all">
+                            <span class="material-symbols-outlined text-base">waving_hand</span>
+                            Lihat Guru &amp; Staf
+                            <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Back to Main Button -->
+            <div class="w-full max-w-xs mx-auto mt-5">
+                <a href="index.html" class="flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-orange-500 text-white px-10 py-3 rounded-2xl font-extrabold text-sm transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 w-full">
+                    <span class="material-symbols-outlined font-bold">home</span>
+                    Kembali ke Layanan Utama
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-primary/10 py-6 backdrop-blur-sm bg-white/40 w-full z-10 shrink-0">
+            <div class="w-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <h4 class="font-extrabold text-slate-800 text-sm">Layanan Publik SiLebah EDU</h4>
+                    <p class="text-xs text-slate-400 italic mt-0.5">Kolaborasi Cerdas, Layanan Tuntas, Pembelajaran Berkualitas</p>
+                </div>
+                <div class="flex gap-5 text-xs font-bold text-slate-400">
+                    <a class="hover:text-primary transition-colors" href="privasi.html">Privasi</a>
+                    <a class="hover:text-primary transition-colors" href="ketentuan.html">Ketentuan</a>
+                    <a class="hover:text-primary transition-colors" href="bantuan.html">Bantuan</a>
+                </div>
+                <div class="text-xs font-semibold text-slate-400">
+                    &copy; 2023 SDN Ngadirejo 03 🌈<br><span class="text-pink-500 font-bold">Created By Fudak Winduko</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedName = localStorage.getItem('kidsgov_userName');
+            if (!storedName) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

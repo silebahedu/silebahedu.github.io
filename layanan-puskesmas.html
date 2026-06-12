@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SiLebah EDU - Layanan Puskesmas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary: '#ec5b13',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FDF8F5; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+        .prose-custom p { margin-bottom: 1.25rem; line-height: 1.8; color: #475569; }
+        .prose-custom h2 { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    </style>
+</head>
+
+<body class="text-gray-800 flex flex-col min-h-screen">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm py-2">
+        <nav class="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl font-black shadow-sm">K</div>
+                <span class="text-2xl font-bold tracking-tight"><span class="text-orange-500">Si</span><span class="text-black">Lebah</span></span>
+            </div>
+            <a href="puskesmas.html" class="flex items-center gap-2 px-5 py-2.5 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Kembali
+            </a>
+        </nav>
+    </header>
+
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-16">
+        <div class="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 p-6 md:p-12 border border-slate-100">
+            <div class="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-600 mb-6">
+                <span class="material-symbols-outlined text-sm">health_and_safety</span> Rincian Fitur
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">Penjelasan Layanan Kesehatan Puskesmas</h1>
+            <p class="text-lg text-slate-500 font-medium mb-10 pb-10 border-b border-slate-100">
+                Berikut ini adalah uraian mendetail mengenai fungsi dan tugas dari masing-masing unit pelayanan kesehatan yang tersedia pada Portal Puskesmas SiLebah EDU.
+            </p>
+
+            <div class="prose-custom">
+                <h2><span class="material-symbols-outlined text-red-500 border-2 border-red-200 rounded-full p-1 bg-red-50">emergency</span> Unit Gawat Darurat (UGD)</h2>
+                <p>
+                    Layanan pengaduan medis dan respon cepat untuk insiden tak terduga yang terjadi di lingkungan sekolah maupun di rumah (misal: kecelakaan saat bermain, patah tulang, anak pingsan, asma mendadak, dsb). Anda dapat langsung tersambung dengan perawat UGD untuk meminta panduan P3K instan atau pengiriman ambulans cepat.
+                </p>
+
+                <h2><span class="material-symbols-outlined text-rose-500 border-2 border-rose-200 rounded-full p-1 bg-rose-50">stethoscope</span> Poli Anak & Imunisasi</h2>
+                <p>
+                    Sentra pemeriksaan kesehatan yang berdedikasi melayani keluhan umum pada balita hingga pra-remaja (seperti demam berkepanjangan, batuk pilek, diare). Di sini, Anda juga bisa melakukan janji temu (booking antrean) pengecekan kelengkapan imunisasi dan perekaman data PIN polio langsung dari layar ponsel Anda.
+                </p>
+
+                <h2><span class="material-symbols-outlined text-amber-500 border-2 border-amber-200 rounded-full p-1 bg-amber-50">medication</span> Apotek Ceria (Farmasi Anak)</h2>
+                <p>
+                    Menghubungkan orang tua dengan apoteker ahli guna berkonsultasi seputar dosis obat yang paling aman bagi anak Anda, mengecek ketersediaan obat cacing gratis program pemerintah, hingga menanyakan stok resep vitamin khusus tanpa harus datang langsung dan mengantre panjang di loket.
+                </p>
+
+                <h2><span class="material-symbols-outlined text-emerald-500 border-2 border-emerald-200 rounded-full p-1 bg-emerald-50">restaurant_menu</span> Konsultasi Gizi & Stunting</h2>
+                <p>
+                    Ruang khusus untuk berkonsultasi secara tatap maya dengan ahli nutrisi (Ahli Gizi Puskesmas). Fitur ini sangat dianjurkan bila anak mengalami masalah berat badan yang susah naik, indikasi <em>stunting</em>, perlambatan motorik/sensorik akibat malnutrisi gizi, atau alergi makanan bawaan pada bekal sekolah.
+                </p>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                <a href="puskesmas.html" class="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-bold rounded-xl hover:bg-orange-600 transition-colors shadow-lg shadow-primary/30">
+                    <span class="material-symbols-outlined text-sm">home</span> Kembali ke Puskesmas
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm font-semibold text-slate-400">
+        © 2023 - 2026 SDN Ngadirejo 03 🌈 <br> Created By Fudak Winduko & SiLebah EDU App
+    </footer>
+</body>
+</html>

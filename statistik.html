@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>SiLebah EDU - Admin Statistik</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+  :root {
+    --primary-color: #ec5b13;
+    --primary-dark: #d14a0a;
+    --bg-dark: #221610;
+    --card-bg: #2d1e16;
+    --border-color: rgba(236, 91, 19, 0.15);
+  }
+  html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100vh;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background: radial-gradient(ellipse 90% 55% at 50% -5%, #7a3100 0%, #2d1e16 45%, #221610 100%);
+    color: #ffffff;
+  }
+  .material-symbols-outlined{
+    font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;
+  }
+  .glass{
+    background: rgba(45, 30, 22, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+  }
+  .bar-col{
+    transition:height .7s cubic-bezier(.4,0,.2,1);
+    border-radius:8px 8px 0 0;
+  }
+  button,a,input,select{min-height:40px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .spin{animation:spin .8s linear infinite}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .fade-in{animation:fadeIn .4s ease forwards}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .float{animation:float 6s ease-in-out infinite}
+</style>
+</head>
+<body class="selection:bg-orange-500 selection:text-white">
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="pointer-events-none fixed -top-32 -left-32 w-96 h-96 rounded-full float" style="background:radial-gradient(circle,rgba(236,91,19,.12),transparent 65%);filter:blur(60px)"></div>
+  <div class="pointer-events-none fixed -bottom-32 -right-32 w-96 h-96 rounded-full float" style="background:radial-gradient(circle,rgba(236,91,19,.08),transparent 65%);filter:blur(70px);animation-delay:2s"></div>
+
+  <div class="glass rounded-3xl p-8 w-full max-w-sm text-center relative z-10 fade-in">
+    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl shadow-orange-500/20">
+      <span class="material-symbols-outlined text-white" style="font-size:2.2rem">admin_panel_settings</span>
+    </div>
+    <h1 class="text-2xl font-black text-white mb-1">Admin Panel</h1>
+    <p class="text-slate-400 text-sm mb-1 font-medium">Dashboard Statistik</p>
+    <p class="text-[#ec5b13] text-xs font-bold italic mb-6">SiLebah EDU</p>
+
+    <div class="relative mb-3 group">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#ec5b13] transition-colors" style="font-size:1.2rem">lock</span>
+      <input id="pwInput" type="password" placeholder="Password admin"
+        class="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-slate-700 bg-slate-900 outline-none text-white font-semibold placeholder:text-slate-500 focus:border-[#ec5b13] focus:ring-4 focus:ring-[#ec5b13]/10 transition-all text-sm"
+        onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <p id="pwError" class="text-red-400 text-xs font-bold mb-3 hidden">❌ Password salah! Coba lagi.</p>
+
+    <button onclick="doLogin()"
+      class="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-extrabold rounded-2xl shadow-lg shadow-orange-500/10 hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all text-sm">
+      Masuk ke Dashboard
+    </button>
+    <a href="login.html"
+      class="flex items-center justify-center gap-1.5 w-full mt-3 py-2.5 bg-slate-800 text-slate-300 font-bold rounded-2xl text-xs hover:bg-slate-700 hover:text-white transition-all">
+      <span class="material-symbols-outlined" style="font-size:1rem">arrow_back</span>
+      Kembali ke Login Aplikasi
+    </a>
+
+    <p class="text-slate-500 text-xs mt-4">Hanya untuk pembuat / admin aplikasi</p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp" class="hidden" style="min-height:100vh">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 px-4 md:px-10 py-3" style="background:rgba(34,22,16,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-color);box-shadow:0 1px 20px rgba(0,0,0,.3)">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-gradient-to-br from-[#ec5b13] to-orange-600 rounded-2xl flex items-center justify-center shadow-md shadow-orange-500/10">
+          <span class="material-symbols-outlined text-white" style="font-size:1.2rem">insights</span>
+        </div>
+        <div>
+          <h2 class="font-black text-white text-base leading-none">Admin Statistik</h2>
+          <p class="text-[#ec5b13] text-[10px] font-bold uppercase tracking-wider">SiLebah EDU</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="login.html" class="flex items-center gap-1.5 px-3 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl text-xs hover:bg-slate-700 hover:text-white transition-all">
+          <span class="material-symbols-outlined" style="font-size:1rem">arrow_back</span>
+          <span class="hidden sm:inline">Kembali</span>
+        </a>
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl text-xs hover:bg-slate-700 hover:text-white transition-all">
+          <span class="material-symbols-outlined" style="font-size:1rem">home</span>
+          <span class="hidden sm:inline">Beranda</span>
+        </a>
+        <button id="refreshBtn" onclick="loadData()" class="flex items-center gap-1.5 px-3 py-2 bg-orange-500/10 text-[#ec5b13] border border-[#ec5b13]/20 font-bold rounded-xl text-xs hover:bg-[#ec5b13]/20 transition-all">
+          <span class="material-symbols-outlined" style="font-size:1rem">refresh</span>
+          <span class="hidden sm:inline">Refresh</span>
+        </button>
+        <button onclick="doLogout()" class="flex items-center gap-1.5 px-3 py-2 bg-red-500/10 text-red-400 border border-red-500/20 font-bold rounded-xl text-xs hover:bg-red-500/20 transition-all">
+          <span class="material-symbols-outlined" style="font-size:1rem">logout</span>
+          <span class="hidden sm:inline">Keluar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+    <!-- Loading -->
+    <div id="loadingState" class="text-center py-20">
+      <div class="w-14 h-14 border-4 border-slate-700 border-t-[#ec5b13] rounded-full spin mx-auto mb-4"></div>
+      <p class="text-slate-400 font-semibold">Memuat data dari Google Sheets...</p>
+      <p class="text-slate-500 text-xs mt-1">Harap tunggu sebentar</p>
+    </div>
+
+    <!-- Error / Konfigurasi -->
+    <div id="errorState" class="hidden fade-in">
+      <div class="glass rounded-3xl p-8 text-center max-w-xl mx-auto">
+        <span class="material-symbols-outlined block text-orange-500 mb-3" style="font-size:4rem">build</span>
+        <h3 class="font-black text-white text-xl mb-2">Terjadi Kesalahan / Konfigurasi Gagal</h3>
+        <p class="text-slate-300 text-sm mb-5">Gagal mengambil data dari Google Sheets. Pastikan deployment script URL sudah benar dan dapat diakses public.</p>
+        <button onclick="loadData()" class="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-xs transition-colors">
+          Coba Lagi
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div id="emptyState" class="hidden text-center py-20 fade-in">
+      <span class="material-symbols-outlined block text-slate-700 mb-3" style="font-size:5rem">inbox</span>
+      <p class="text-slate-400 font-black text-lg">Belum ada data aktivitas</p>
+      <p class="text-slate-500 text-sm mt-1">Data akan muncul setelah pengguna membuka halaman fitur</p>
+    </div>
+
+    <!-- DATA VIEW -->
+    <div id="dataView" class="hidden">
+
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="summaryCards"></div>
+
+      <!-- Group 1: Statistik Penggunaan Fitur -->
+      <h3 class="text-sm font-black text-slate-400 mb-4 flex items-center gap-2 uppercase tracking-widest fade-in">
+        <span class="w-1.5 h-4 bg-[#ec5b13] rounded-full"></span>
+        Analisis Penggunaan Fitur
+      </h3>
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+        <!-- Bar Chart Fitur -->
+        <div class="glass rounded-3xl p-6 lg:col-span-3 fade-in">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="material-symbols-outlined text-[#ec5b13]">bar_chart</span>
+            <h3 class="font-black text-white">Grafik Batang Fitur</h3>
+          </div>
+          <div id="barChart" class="flex items-end gap-3 h-44 border-b border-slate-700 pb-1"></div>
+          <div id="barLabels" class="flex gap-3 mt-3"></div>
+        </div>
+
+        <!-- Donut Chart Fitur -->
+        <div class="glass rounded-3xl p-6 lg:col-span-2 fade-in flex flex-col items-center">
+          <div class="flex items-center gap-2 mb-4 self-start">
+            <span class="material-symbols-outlined text-[#ec5b13]">donut_large</span>
+            <h3 class="font-black text-white">Donut Chart Fitur</h3>
+          </div>
+          <canvas id="fiturPieCanvas" width="200" height="200"></canvas>
+          <div id="fiturPieLegend" class="flex gap-2 mt-4 flex-wrap justify-center text-[10px]"></div>
+        </div>
+      </div>
+
+      <!-- Group 2: Statistik Peran Pengguna (Role) -->
+      <h3 class="text-sm font-black text-slate-400 mb-4 flex items-center gap-2 uppercase tracking-widest fade-in">
+        <span class="w-1.5 h-4 bg-[#ec5b13] rounded-full"></span>
+        Analisis Peran Pengguna (Role)
+      </h3>
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+        <!-- Bar Chart Role -->
+        <div class="glass rounded-3xl p-6 lg:col-span-2 fade-in">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="material-symbols-outlined text-[#ec5b13]">bar_chart</span>
+            <h3 class="font-black text-white">Grafik Batang Role</h3>
+          </div>
+          <div id="roleBarChart" class="flex items-end gap-6 h-44 border-b border-slate-700 pb-1 px-4"></div>
+          <div id="roleBarLabels" class="flex gap-6 mt-3 px-4"></div>
+        </div>
+
+        <!-- Donut Chart Role -->
+        <div class="glass rounded-3xl p-6 lg:col-span-3 fade-in flex flex-col items-center">
+          <div class="flex items-center gap-2 mb-4 self-start">
+            <span class="material-symbols-outlined text-[#ec5b13]">donut_large</span>
+            <h3 class="font-black text-white">Donut Chart Role</h3>
+          </div>
+          <canvas id="pieCanvas" width="200" height="200"></canvas>
+          <div id="pieLegend" class="flex gap-4 mt-4 flex-wrap justify-center text-xs"></div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="glass rounded-3xl p-6 fade-in">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#ec5b13]">table_chart</span>
+            <h3 class="font-black text-white">Riwayat Aktivitas</h3>
+            <span id="rowCount" class="px-2 py-0.5 bg-orange-400/10 text-[#ec5b13] text-xs font-black rounded-full border border-orange-400/20"></span>
+          </div>
+          <div class="flex gap-2">
+            <select id="filterLimit" onchange="applyFilter()"
+              class="px-3 py-2 rounded-xl border-2 border-slate-700 bg-slate-900 text-xs font-bold text-slate-300 outline-none focus:border-[#ec5b13] transition-all">
+              <option value="10">10 data</option>
+              <option value="50">50 data</option>
+              <option value="100">100 data</option>
+              <option value="1000">1000 data</option>
+              <option value="all">Semua</option>
+            </select>
+            <select id="filterFitur" onchange="applyFilter()"
+              class="px-3 py-2 rounded-xl border-2 border-slate-700 bg-slate-900 text-xs font-bold text-slate-300 outline-none focus:border-[#ec5b13] transition-all">
+              <option value="">Semua Fitur</option>
+            </select>
+            <select id="filterRole" onchange="applyFilter()"
+              class="px-3 py-2 rounded-xl border-2 border-slate-700 bg-slate-900 text-xs font-bold text-slate-300 outline-none focus:border-[#ec5b13] transition-all">
+              <option value="">Semua Role</option>
+              <option value="Siswa">Siswa</option>
+              <option value="Orang Tua">Orang Tua</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-[10px] font-black text-slate-500 uppercase tracking-wider border-b border-slate-800">
+                <th class="pb-3 text-left pr-4">Waktu</th>
+                <th class="pb-3 text-left pr-4">Nama</th>
+                <th class="pb-3 text-left pr-4">Role</th>
+                <th class="pb-3 text-left pr-4">Kelas/Anak</th>
+                <th class="pb-3 text-left">Fitur Diakses</th>
+              </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div id="paginationControls" class="flex items-center justify-between mt-5 pt-4 border-t border-slate-800/80">
+          <span id="pageInfo" class="text-xs text-slate-400 font-medium">Halaman 1 dari 1</span>
+          <div class="flex gap-1">
+            <button id="btnPrev" onclick="prevPage()" class="flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 text-slate-300 hover:bg-[#ec5b13] hover:text-white transition-all disabled:opacity-30 disabled:pointer-events-none">
+              <span class="material-symbols-outlined text-sm">chevron_left</span>
+            </button>
+            <div id="pageNumbers" class="flex gap-1"></div>
+            <button id="btnNext" onclick="nextPage()" class="flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 text-slate-300 hover:bg-[#ec5b13] hover:text-white transition-all disabled:opacity-30 disabled:pointer-events-none">
+              <span class="material-symbols-outlined text-sm">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dataView -->
+  </main>
+
+  <footer class="mt-8 py-6 text-center border-t border-slate-800/80">
+    <p class="text-xs text-slate-500 font-semibold">SiLebah EDU Admin Panel &nbsp;•&nbsp; SDN Ngadirejo 03 &nbsp;•&nbsp; <span class="text-orange-500/80">Created By Fudak Winduko</span></p>
+  </footer>
+</div>
+
+<script>
+// ======================================================
+// KONFIGURASI
+// ======================================================
+var SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbyRerr2xi96PFWPx8FhRxsv0PPCNvaVAUqZWENX2CZNSIufJYgfu698IoQtevg22J3dTQ/exec';
+var ADMIN_SECRET = 'silebahedu2026';
+var ADMIN_PASS_HASH = '6b373cbcfe0b13812cff943505c3cdc9ce5435bf80c61aa41c41f8efd56cbff1'; // SHA-256 nirmala0903
+// ======================================================
+
+var allData = [];
+
+/* ----- HASH UTILITY ----- */
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/* ----- LOGIN ----- */
+async function doLogin() {
+  var pw = document.getElementById('pwInput').value;
+  var err = document.getElementById('pwError');
+  var pwHash = await sha256(pw);
+  if (pwHash === ADMIN_PASS_HASH) {
+    err.classList.add('hidden');
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+    loadData();
+  } else {
+    err.classList.remove('hidden');
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+
+function doLogout() {
+  document.getElementById('mainApp').classList.add('hidden');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('pwInput').value = '';
+}
+
+/* ----- LOAD DATA ----- */
+function loadData() {
+  setState('loading');
+  if (SCRIPT_URL.indexOf('GANTI') > -1) { setState('error'); return; }
+
+  fetch(SCRIPT_URL + '?secret=' + ADMIN_SECRET)
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (res.status === 'success' && res.data && res.data.length > 0) {
+        allData = res.data.reverse();
+        renderAll(allData);
+        setState('data');
+      } else {
+        setState('empty');
+      }
+    })
+    .catch(function(){ setState('error'); });
+}
+
+function setState(s) {
+  ['loadingState','errorState','emptyState','dataView'].forEach(function(id){
+    document.getElementById(id).classList.add('hidden');
+  });
+  var map = {loading:'loadingState',error:'errorState',empty:'emptyState',data:'dataView'};
+  document.getElementById(map[s]).classList.remove('hidden');
+}
+
+/* ----- RENDER ALL ----- */
+function renderAll(data) {
+  renderSummary(data);
+  renderBarChart(data);
+  renderFiturPieChart(data);
+  renderRoleBarChart(data);
+  renderPieChart(data);
+  populateFilters(data);
+  filteredData = data;
+  currentPage = 1;
+  renderPaginatedTable();
+}
+
+/* ----- SUMMARY CARDS ----- */
+function renderSummary(data) {
+  var counts = {};
+  data.forEach(function(d){ counts[d.fitur] = (counts[d.fitur]||0)+1; });
+  var sorted = Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; });
+  var top = sorted[0] || '-';
+  var unik = new Set(data.map(function(d){ return d.nama; })).size;
+  var murid = data.filter(function(d){ return d.role.toLowerCase() === 'siswa' || d.role.toLowerCase() === 'murid'; }).length;
+
+  var cards = [
+    {icon:'touch_app',   label:'Total Akses',     value: data.length, grad:'from-orange-400 to-orange-600', txtClass:'text-orange-400'},
+    {icon:'star',        label:'Fitur Terpopuler', value: top,         grad:'from-purple-400 to-indigo-500', txtClass:'text-purple-400'},
+    {icon:'group',       label:'Pengguna Unik',    value: unik,        grad:'from-emerald-400 to-teal-500',   txtClass:'text-emerald-400'},
+    {icon:'school',      label:'Akses Murid',      value: murid,       grad:'from-pink-400 to-rose-500',     txtClass:'text-pink-400'}
+  ];
+
+  document.getElementById('summaryCards').innerHTML = cards.map(function(c){
+    return '<div class="glass rounded-2xl p-5 hover:-translate-y-1 transition-transform">'
+      +'<div class="w-11 h-11 bg-gradient-to-br '+c.grad+' rounded-xl flex items-center justify-center mb-3 shadow-md">'
+      +'<span class="material-symbols-outlined text-white" style="font-size:1.25rem">'+c.icon+'</span></div>'
+      +'<p class="text-2xl font-black text-white">'+c.value+'</p>'
+      +'<p class="text-xs text-slate-400 font-semibold mt-0.5">'+c.label+'</p></div>';
+  }).join('');
+}
+
+/* ----- BAR CHART ----- */
+function renderBarChart(data) {
+  var FITURS  = ['Beranda', 'Pelayanan Publik', 'Pusat Kesehatan', 'Layanan Babinsa', 'Layanan Inklusi', 'Layanan Sekolah'];
+  var COLORS  = {
+    'Beranda':'#f97316',
+    'Pelayanan Publik':'#3b82f6',
+    'Pusat Kesehatan':'#10b981',
+    'Layanan Babinsa':'#f59e0b',
+    'Layanan Inklusi':'#8b5cf6',
+    'Layanan Sekolah':'#ec4899'
+  };
+  var counts  = {};
+  FITURS.forEach(function(f){ counts[f] = 0; });
+  data.forEach(function(d){ if (counts.hasOwnProperty(d.fitur)) counts[d.fitur]++; });
+  var maxVal  = Math.max.apply(null, FITURS.map(function(f){ return counts[f]; })) || 1;
+
+  var barDiv   = document.getElementById('barChart');
+  var labelDiv = document.getElementById('barLabels');
+  barDiv.innerHTML = '';
+  labelDiv.innerHTML = '';
+
+  FITURS.forEach(function(f) {
+    var pct = Math.round(counts[f] / maxVal * 130);
+    var col = COLORS[f] || '#94a3b8';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'flex-1 flex flex-col items-center gap-1';
+    wrap.innerHTML =
+      '<span class="text-xs font-black text-[#ec5b13]">'+counts[f]+'</span>'
+      +'<div class="bar-col w-full" style="height:'+Math.max(pct,6)+'px;background:'+col+';box-shadow:0 0 10px '+col+'44"></div>';
+    barDiv.appendChild(wrap);
+
+    var lbl = document.createElement('div');
+    lbl.className = 'flex-1 text-center';
+    lbl.innerHTML = '<span class="text-[9px] font-bold text-slate-400 block truncate">'+f+'</span>';
+    labelDiv.appendChild(lbl);
+  });
+}
+
+/* ----- PIE CHART ----- */
+function renderPieChart(data) {
+  var murid = data.filter(function(d){ return d.role.toLowerCase() === 'siswa' || d.role.toLowerCase() === 'murid'; }).length;
+  var ortu  = data.length - murid;
+  var total = murid + ortu || 1;
+  var segs  = [
+    {label:'Murid', val:murid, color:'#ec5b13'},
+    {label:'Orang Tua',  val:ortu,  color:'#10b981'}
+  ];
+
+  var canvas = document.getElementById('pieCanvas');
+  var ctx    = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 200, 200);
+
+  var angle = -Math.PI / 2;
+  segs.forEach(function(s) {
+    var slice = 2 * Math.PI * (s.val / total);
+    ctx.beginPath();
+    ctx.moveTo(100, 100);
+    ctx.arc(100, 100, 88, angle, angle + slice);
+    ctx.fillStyle = s.color;
+    ctx.fill();
+    angle += slice;
+  });
+
+  // Donut hole
+  ctx.beginPath();
+  ctx.arc(100, 100, 52, 0, 2 * Math.PI);
+  ctx.fillStyle = '#2d1e16'; // Match card-bg/glass container color
+  ctx.fill();
+
+  // Center text
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 24px "Plus Jakarta Sans",sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(data.length, 100, 107);
+  ctx.font = '600 10px "Plus Jakarta Sans",sans-serif';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('Total', 100, 122);
+
+  // Legend
+  document.getElementById('pieLegend').innerHTML = segs.map(function(s){
+    return '<div class="flex items-center gap-1.5">'
+      +'<div class="w-3 h-3 rounded-full" style="background:'+s.color+'"></div>'
+      +'<span class="text-xs font-semibold text-slate-300">'+s.label+' ('+s.val+')</span></div>';
+  }).join('');
+}
+
+/* ----- FITUR PIE CHART ----- */
+function renderFiturPieChart(data) {
+  var FITURS  = ['Beranda', 'Pelayanan Publik', 'Pusat Kesehatan', 'Layanan Babinsa', 'Layanan Inklusi', 'Layanan Sekolah'];
+  var COLORS  = {
+    'Beranda':'#f97316',
+    'Pelayanan Publik':'#3b82f6',
+    'Pusat Kesehatan':'#10b981',
+    'Layanan Babinsa':'#f59e0b',
+    'Layanan Inklusi':'#8b5cf6',
+    'Layanan Sekolah':'#ec4899'
+  };
+  
+  var counts = {};
+  FITURS.forEach(function(f){ counts[f] = 0; });
+  data.forEach(function(d){ if (counts.hasOwnProperty(d.fitur)) counts[d.fitur]++; });
+  
+  var total = data.length || 1;
+  
+  var canvas = document.getElementById('fiturPieCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 200, 200);
+  
+  var angle = -Math.PI / 2;
+  FITURS.forEach(function(f) {
+    var val = counts[f];
+    var slice = 2 * Math.PI * (val / total);
+    if (slice > 0) {
+      ctx.beginPath();
+      ctx.moveTo(100, 100);
+      ctx.arc(100, 100, 88, angle, angle + slice);
+      ctx.fillStyle = COLORS[f] || '#94a3b8';
+      ctx.fill();
+      angle += slice;
+    }
+  });
+
+  // Donut hole
+  ctx.beginPath();
+  ctx.arc(100, 100, 52, 0, 2 * Math.PI);
+  ctx.fillStyle = '#2d1e16'; // Match card-bg/glass container color
+  ctx.fill();
+
+  // Center text
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 24px "Plus Jakarta Sans",sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(data.length, 100, 107);
+  ctx.font = '600 10px "Plus Jakarta Sans",sans-serif';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('Aktivitas', 100, 122);
+
+  // Legend
+  var legendDiv = document.getElementById('fiturPieLegend');
+  if (legendDiv) {
+    legendDiv.innerHTML = FITURS.map(function(f){
+      var col = COLORS[f] || '#94a3b8';
+      return '<div class="flex items-center gap-1.5">'
+        +'<div class="w-2.5 h-2.5 rounded-full" style="background:'+col+'"></div>'
+        +'<span class="text-[10px] font-semibold text-slate-300">'+f+' ('+counts[f]+')</span></div>';
+    }).join('');
+  }
+}
+
+/* ----- ROLE BAR CHART ----- */
+function renderRoleBarChart(data) {
+  var murid = data.filter(function(d){ return d.role.toLowerCase() === 'siswa' || d.role.toLowerCase() === 'murid'; }).length;
+  var ortu  = data.length - murid;
+  
+  var maxVal = Math.max(murid, ortu) || 1;
+  var roles = [
+    { label: 'Siswa/Murid', val: murid, color: '#ec5b13' },
+    { label: 'Orang Tua', val: ortu, color: '#10b981' }
+  ];
+  
+  var barDiv   = document.getElementById('roleBarChart');
+  var labelDiv = document.getElementById('roleBarLabels');
+  if (!barDiv || !labelDiv) return;
+  barDiv.innerHTML = '';
+  labelDiv.innerHTML = '';
+  
+  roles.forEach(function(r) {
+    var pct = Math.round(r.val / maxVal * 130);
+    
+    var wrap = document.createElement('div');
+    wrap.className = 'flex-1 flex flex-col items-center gap-1';
+    wrap.innerHTML =
+      '<span class="text-xs font-black text-[#ec5b13]">'+r.val+'</span>'
+      +'<div class="bar-col w-12" style="height:'+Math.max(pct,6)+'px;background:'+r.color+';box-shadow:0 0 10px '+r.color+'44"></div>';
+    barDiv.appendChild(wrap);
+    
+    var lbl = document.createElement('div');
+    lbl.className = 'flex-1 text-center';
+    lbl.innerHTML = '<span class="text-[10px] font-bold text-slate-400 block truncate">'+r.label+'</span>';
+    labelDiv.appendChild(lbl);
+  });
+}
+
+/* ----- PAGINATION STATE & CONTROLS ----- */
+var currentPage = 1;
+var itemsPerPage = 10;
+var filteredData = [];
+
+function renderPaginatedTable() {
+  var limitSelect = document.getElementById('filterLimit');
+  var limitVal = limitSelect ? limitSelect.value : '10';
+  
+  if (limitVal === 'all') {
+    itemsPerPage = filteredData.length;
+  } else {
+    itemsPerPage = parseInt(limitVal, 10) || 10;
+  }
+  
+  var totalItems = filteredData.length;
+  var totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+  
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+  
+  var startIndex = (currentPage - 1) * itemsPerPage;
+  var endIndex = startIndex + itemsPerPage;
+  var pageData = filteredData.slice(startIndex, endIndex);
+  
+  // Update row count text
+  var countText = totalItems + ' data';
+  if (limitVal !== 'all' && totalItems > itemsPerPage) {
+    countText = (startIndex + 1) + '-' + Math.min(endIndex, totalItems) + ' dari ' + totalItems;
+  }
+  document.getElementById('rowCount').textContent = countText;
+  
+  // Render table rows
+  renderTableRows(pageData);
+  
+  // Render pagination controls
+  renderPaginationControls(totalPages);
+}
+
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPaginatedTable();
+  }
+}
+
+function nextPage() {
+  var limitSelect = document.getElementById('filterLimit');
+  var limitVal = limitSelect ? limitSelect.value : '10';
+  var limit = limitVal === 'all' ? filteredData.length : parseInt(limitVal, 10);
+  var totalPages = Math.ceil(filteredData.length / limit) || 1;
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderPaginatedTable();
+  }
+}
+
+function goToPage(p) {
+  currentPage = p;
+  renderPaginatedTable();
+}
+
+function renderPaginationControls(totalPages) {
+  var controlsDiv = document.getElementById('paginationControls');
+  if (!controlsDiv) return;
+  
+  var limitVal = document.getElementById('filterLimit').value;
+  if (limitVal === 'all' || totalPages <= 1) {
+    controlsDiv.classList.add('hidden');
+    return;
+  }
+  controlsDiv.classList.remove('hidden');
+  
+  document.getElementById('pageInfo').textContent = 'Halaman ' + currentPage + ' dari ' + totalPages;
+  document.getElementById('btnPrev').disabled = (currentPage === 1);
+  document.getElementById('btnNext').disabled = (currentPage === totalPages);
+  
+  var pageNumbersDiv = document.getElementById('pageNumbers');
+  pageNumbersDiv.innerHTML = '';
+  
+  var startPage = Math.max(1, currentPage - 1);
+  var endPage = Math.min(totalPages, currentPage + 1);
+  
+  if (startPage > 1) {
+    pageNumbersDiv.appendChild(createPageBtn(1));
+    if (startPage > 2) {
+      var dots = document.createElement('span');
+      dots.className = 'w-8 h-8 flex items-center justify-center text-slate-500 text-xs font-bold';
+      dots.textContent = '...';
+      pageNumbersDiv.appendChild(dots);
+    }
+  }
+  
+  for (var i = startPage; i <= endPage; i++) {
+    pageNumbersDiv.appendChild(createPageBtn(i));
+  }
+  
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      var dots = document.createElement('span');
+      dots.className = 'w-8 h-8 flex items-center justify-center text-slate-500 text-xs font-bold';
+      dots.textContent = '...';
+      pageNumbersDiv.appendChild(dots);
+    }
+    pageNumbersDiv.appendChild(createPageBtn(totalPages));
+  }
+}
+
+function createPageBtn(p) {
+  var btn = document.createElement('button');
+  btn.className = 'w-8 h-8 rounded-xl font-bold text-xs transition-all ' + 
+    (p === currentPage 
+      ? 'bg-[#ec5b13] text-white shadow-md shadow-orange-500/20' 
+      : 'bg-slate-800 text-slate-300 hover:bg-[#ec5b13]/20 hover:text-white');
+  btn.textContent = p;
+  btn.onclick = function() { goToPage(p); };
+  return btn;
+}
+
+/* ----- TABLE ROWS ----- */
+function renderTableRows(data) {
+  var roleColors = {
+    'siswa':'bg-orange-500/10 text-orange-400 border border-orange-500/20',
+    'murid':'bg-orange-500/10 text-orange-400 border border-orange-500/20',
+    'orang tua':'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+  };
+  var fiturColors = {
+    'Beranda':'bg-orange-500/10 text-orange-400 border border-orange-500/20',
+    'Pelayanan Publik':'bg-blue-500/10 text-blue-400 border border-blue-500/20',
+    'Pusat Kesehatan':'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    'Layanan Babinsa':'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+    'Layanan Inklusi':'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    'Layanan Sekolah':'bg-pink-500/10 text-pink-400 border border-pink-500/20'
+  };
+
+  document.getElementById('dataTable').innerHTML = data.length ? data.map(function(d, i){
+    var rc = roleColors[d.role.toLowerCase()] || 'bg-slate-800 text-slate-400';
+    var fc = fiturColors[d.fitur] || 'bg-slate-800 text-slate-400 border border-slate-700/30';
+    return '<tr class="border-b border-slate-800/60 hover:bg-orange-500/5 transition-colors">'
+      +'<td class="py-3 pr-4 text-xs text-slate-500 whitespace-nowrap">'+d.waktu+'</td>'
+      +'<td class="py-3 pr-4 font-bold text-slate-200 text-sm">'+d.nama+'</td>'
+      +'<td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase '+rc+'">'+d.role+'</span></td>'
+      +'<td class="py-3 pr-4 text-sm text-slate-400">'+d.kelas+'</td>'
+      +'<td class="py-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-black '+fc+'">'+d.fitur+'</span></td></tr>';
+  }).join('')
+  : '<tr><td colspan="5" class="py-12 text-center text-slate-500 text-sm">Tidak ada data yang sesuai filter</td></tr>';
+}
+
+/* ----- FILTER ----- */
+function populateFilters(data) {
+  var fiturs = [...new Set(data.map(function(d){ return d.fitur; }))];
+  var sel = document.getElementById('filterFitur');
+  sel.innerHTML = '<option value="">Semua Fitur</option>'
+    + fiturs.map(function(f){ return '<option value="'+f+'">'+f+'</option>'; }).join('');
+}
+
+function applyFilter() {
+  var fFitur = document.getElementById('filterFitur').value;
+  var fRole  = document.getElementById('filterRole').value;
+  filteredData = allData.filter(function(d){
+    var dRole = d.role.toLowerCase() === 'siswa' || d.role.toLowerCase() === 'murid' ? 'siswa' : 'orang tua';
+    var filterRoleVal = fRole.toLowerCase() === 'siswa' ? 'siswa' : 'orang tua';
+    return (!fFitur || d.fitur === fFitur) && (!fRole || dRole === filterRoleVal);
+  });
+  currentPage = 1;
+  renderPaginatedTable();
+}
+</script>
+</body>
+</html>
