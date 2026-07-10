@@ -268,7 +268,13 @@
     <div class="pointer-events-none fixed top-2/3 right-1/4 w-8 h-8 rounded-xl bg-brandPurple/10 float-anim-3" style="z-index:0"></div>
 
     <!-- BEGIN: Navigation Bar -->
-    <header class="header-glass sticky top-0 z-50 w-full h-auto py-2 transition-all" data-purpose="main-header">
+    <header class="header-glass sticky top-0 z-50 w-full h-auto py-2 transition-all" data-purpose="main-header" style="position:relative;">
+        <!-- Center Logo in Header -->
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;">
+            <img src="https://images2.imgbox.com/63/1b/wyLK7oZj_o.png" alt="Logo Center"
+                style="max-height:96px;max-width:340px;object-fit:contain;display:block;"
+                onerror="this.style.display='none';" />
+        </div>
         <nav class="max-w-7xl mx-auto w-full px-4 md:px-16 h-16 flex items-center justify-between relative z-10">
             <!-- Logo Section -->
             <div class="flex items-center gap-3" data-purpose="logo">

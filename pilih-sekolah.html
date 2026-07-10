@@ -109,7 +109,13 @@
     <div class="app-container custom-scrollbar">
         <div class="blob-a"></div><div class="blob-b"></div>
         <!-- Header -->
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 px-6 md:px-20 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 px-6 md:px-20 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50" style="position:relative;">
+            <!-- Center Logo in Header -->
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;">
+                <img src="https://images2.imgbox.com/63/1b/wyLK7oZj_o.png" alt="Logo Center"
+                    style="max-height:96px;max-width:340px;object-fit:contain;display:block;"
+                    onerror="this.style.display='none';" />
+            </div>
             <div class="flex items-center gap-3">
                 <div class="bg-primary p-2 rounded-xl text-white">
                     <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">school</span>

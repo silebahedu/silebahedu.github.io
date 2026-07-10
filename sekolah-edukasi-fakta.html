@@ -98,7 +98,13 @@
     <div class="blob-1"></div>
     <div class="blob-2"></div>
 
-    <header class="header-glass sticky top-0 z-[60] w-full shrink-0 px-6 md:px-16 py-5">
+    <header class="header-glass sticky top-0 z-[60] w-full shrink-0 px-6 md:px-16 py-5" style="position:relative;">
+        <!-- Center Logo in Header -->
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;">
+            <img src="https://images2.imgbox.com/63/1b/wyLK7oZj_o.png" alt="Logo Center"
+                style="max-height:96px;max-width:340px;object-fit:contain;display:block;"
+                onerror="this.style.display='none';" />
+        </div>
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-4 md:gap-6">
                 <div class="h-14 w-14 md:h-16 md:w-16 rounded-[24px] bg-gradient-to-br from-rose-500 to-pink-600 p-[3px] shadow-xl shadow-rose-500/20">

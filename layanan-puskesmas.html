@@ -29,7 +29,13 @@
 </head>
 
 <body class="text-gray-800 flex flex-col min-h-screen">
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm py-2">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm py-2" style="position:relative;">
+        <!-- Center Logo in Header -->
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;">
+            <img src="https://images2.imgbox.com/63/1b/wyLK7oZj_o.png" alt="Logo Center"
+                style="max-height:96px;max-width:340px;object-fit:contain;display:block;"
+                onerror="this.style.display='none';" />
+        </div>
         <nav class="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2">
                 <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl font-black shadow-sm">K</div>

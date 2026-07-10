@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS v3 with plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Preconnect & Preload gambar kartu agar langsung tampil tanpa loading -->
+    <link rel="preconnect" href="https://images2.imgbox.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images2.imgbox.com" />
+    <link rel="preload" as="image" href="https://images2.imgbox.com/de/8a/a4Yqys47_o.jpeg" />
+    <link rel="preload" as="image" href="https://images2.imgbox.com/90/9f/VHBcC0uO_o.png" />
+    <link rel="preload" as="image" href="https://images2.imgbox.com/63/1b/wyLK7oZj_o.png" />
     <script>
         tailwind.config = {
             theme: {
@@ -312,8 +318,14 @@
 <body class="font-sans bg-main-canvas text-[#1a1a1a]">
     <div class="app-container custom-scrollbar">
         <!-- BEGIN: MainHeader -->
-        <header class="header-glass w-full sticky top-0 z-50 py-3 px-4 md:px-16 flex justify-between items-center">
+        <header class="header-glass w-full sticky top-0 z-50 py-3 px-4 md:px-16 flex justify-between items-center" style="position:relative;">
             <div class="blob-1"></div><div class="blob-2"></div>
+            <!-- Center Logo in Header -->
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;">
+                <img src="https://images2.imgbox.com/63/1b/wyLK7oZj_o.png" alt="Logo Center"
+                    style="max-height:96px;max-width:340px;object-fit:contain;display:block;"
+                    onerror="this.style.display='none';" />
+            </div>
             <!-- Logo Section -->
             <div class="flex items-center gap-3">
                 <div class="flex shrink-0 w-9 h-9 bg-gradient-to-br from-[#F06424] to-orange-600 rounded-2xl items-center justify-center shadow-lg shadow-orange-400/25">
@@ -458,7 +470,8 @@
                             <!-- Image -->
                             <img alt="Kakak Polisi"
                                 class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
-                                src="https://images2.imgbox.com/de/8a/a4Yqys47_o.jpeg" />
+                                src="https://images2.imgbox.com/de/8a/a4Yqys47_o.jpeg"
+                                loading="eager" fetchpriority="high" decoding="sync" />
                             <!-- Chat Icon Overlay -->
                             <div
                                 class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
@@ -490,7 +503,8 @@
                             <!-- Image -->
                             <img alt="Kakak TNI"
                                 class="relative z-10 w-full h-full object-cover rounded-[24px] group-hover:scale-105 shadow-md border-2 border-white dark:border-slate-800 transition-all duration-300"
-                                src="https://images2.imgbox.com/90/9f/VHBcC0uO_o.png" />
+                                src="https://images2.imgbox.com/90/9f/VHBcC0uO_o.png"
+                                loading="eager" fetchpriority="high" decoding="sync" />
                             <!-- Chat Icon Overlay -->
                             <div
                                 class="absolute -bottom-2 -right-2 z-20 bg-green-500 p-1.5 rounded-full text-white border-2 border-white dark:border-slate-800">
