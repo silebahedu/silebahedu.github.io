@@ -344,13 +344,13 @@
                             Warga Kabupaten Madiun
                         </div>
                     </div>
-                    <div class="relative mt-4 z-10 mx-auto w-full max-w-sm">
+                    <div class="relative mt-6 z-10 w-full">
                         <div id="accentBlur"
-                             class="absolute -top-8 -left-8 w-40 h-40 bg-gradient-to-br from-yellow-400/30 to-orange-300/30 rounded-full blur-3xl transition-all duration-500">
+                             class="absolute -top-8 -left-8 w-48 h-48 bg-gradient-to-br from-yellow-400/30 to-orange-300/30 rounded-full blur-3xl transition-all duration-500">
                         </div>
-                        <div class="visual-card rounded-3xl overflow-hidden aspect-video bg-slate-200/50 dark:bg-slate-700/50 shadow-xl relative border border-white/30 dark:border-slate-600/30">
-                            <img id="visualImg" alt="Logo SiLebah EDU"
-                                 class="w-full h-full object-contain transition-all duration-500"
+                        <div class="visual-card rounded-3xl overflow-hidden w-full aspect-[16/9] shadow-xl relative border border-white/40 dark:border-slate-600/40 bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm">
+                            <img id="visualImg" alt="Portal Visual SiLebah EDU"
+                                 class="w-full h-full object-cover object-center transition-all duration-500"
                                  src="https://i.ibb.co.com/B5xTSZgm/Chat-GPT-Image-6-Sep-2026-21-57-30.png"
                                  decoding="async" fetchpriority="high" />
                         </div>
@@ -358,10 +358,15 @@
                 </div>
 
                 <div class="p-6 lg:p-8 flex flex-col justify-center h-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md relative z-20">
-                    <div class="lg:hidden mb-6 text-center">
-                        <h1 class="text-3xl font-black text-slate-900 dark:text-white leading-tight">Halo, Mari
-                            Bergabung!</h1>
-                        <p class="text-slate-500 mt-2 text-sm">Silakan isi data dirimu untuk mulai belajar</p>
+                    <div class="lg:hidden mb-6">
+                        <div class="visual-card rounded-2xl overflow-hidden w-full aspect-[16/9] shadow-md border border-white/60 dark:border-slate-700/60 mb-4 bg-slate-100 dark:bg-slate-800">
+                            <img id="visualImgMobile" alt="Portal Visual SiLebah EDU" class="w-full h-full object-cover object-center transition-all duration-500" src="https://i.ibb.co.com/B5xTSZgm/Chat-GPT-Image-6-Sep-2026-21-57-30.png" decoding="async" />
+                        </div>
+                        <div class="text-center">
+                            <span id="visualTagMobile" class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary dark:text-orange-300 text-xs font-bold mb-2 tracking-wider uppercase">Portal Murid</span>
+                            <h1 id="visualTitleMobile" class="text-2xl font-black text-slate-900 dark:text-white leading-tight">Halo, Murid <span class="text-primary">Hebat!</span></h1>
+                            <p id="visualDescMobile" class="text-slate-500 mt-1 text-xs">Belajar jadi warga negara yang hebat itu seru, lho! Yuk isi data dirimu.</p>
+                        </div>
                     </div>
 
                     <form class="space-y-4">
@@ -487,6 +492,11 @@
             visualSide.style.opacity = "0.7";
 
             setTimeout(() => {
+                const visualImgMobile = document.getElementById('visualImgMobile');
+                const visualTagMobile = document.getElementById('visualTagMobile');
+                const visualTitleMobile = document.getElementById('visualTitleMobile');
+                const visualDescMobile = document.getElementById('visualDescMobile');
+
                 if (role === 'student') {
                     visualTitle.innerHTML = 'Halo, Murid <span class="text-primary">Hebat!</span>';
                     visualDesc.textContent = 'Belajar jadi warga negara yang hebat itu seru, lho! Yuk isi data dirimu di samping.';
@@ -494,11 +504,26 @@
                     visualTag.className = 'inline-block px-5 py-2 rounded-full bg-gradient-to-r from-primary/20 to-orange-200/50 dark:from-primary/40 dark:to-orange-300/40 text-primary dark:text-orange-300 text-xs font-bold mb-4 tracking-wider uppercase transition-all duration-300';
 
                     visualSide.className = "hidden lg:flex flex-col justify-between relative p-6 xl:p-10 bg-gradient-to-br from-orange-50 via-orange-100/30 to-amber-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 h-full";
-                    accentBlur.className = "absolute -top-8 -left-8 w-40 h-40 bg-gradient-to-br from-yellow-400/30 to-orange-300/30 rounded-full blur-3xl transition-all duration-500";
+                    accentBlur.className = "absolute -top-8 -left-8 w-48 h-48 bg-gradient-to-br from-yellow-400/30 to-orange-300/30 rounded-full blur-3xl transition-all duration-500";
 
                     visualImg.src = "https://i.ibb.co.com/B5xTSZgm/Chat-GPT-Image-6-Sep-2026-21-57-30.png";
-                    visualImg.alt = "Logo Murid";
-                    visualImg.className = "w-full h-full object-contain transition-all duration-500";
+                    visualImg.alt = "Portal Murid";
+                    visualImg.className = "w-full h-full object-cover object-center transition-all duration-500";
+
+                    if (visualImgMobile) {
+                        visualImgMobile.src = "https://i.ibb.co.com/B5xTSZgm/Chat-GPT-Image-6-Sep-2026-21-57-30.png";
+                        visualImgMobile.alt = "Portal Murid";
+                    }
+                    if (visualTagMobile) {
+                        visualTagMobile.textContent = 'Portal Murid';
+                        visualTagMobile.className = 'inline-block px-4 py-1 rounded-full bg-primary/10 text-primary dark:text-orange-300 text-xs font-bold mb-2 tracking-wider uppercase';
+                    }
+                    if (visualTitleMobile) {
+                        visualTitleMobile.innerHTML = 'Halo, Murid <span class="text-primary">Hebat!</span>';
+                    }
+                    if (visualDescMobile) {
+                        visualDescMobile.textContent = 'Belajar jadi warga negara yang hebat itu seru, lho! Yuk isi data dirimu.';
+                    }
 
                     submitBtn.className = "submit-btn w-full py-3.5 text-white rounded-2xl font-extrabold text-base flex items-center justify-center gap-3 mt-6";
 
@@ -523,11 +548,26 @@
                     visualTag.className = 'inline-block px-5 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-green-200/50 dark:from-emerald-500/30 dark:to-green-400/40 text-emerald-600 dark:text-emerald-300 text-xs font-bold mb-4 tracking-wider uppercase transition-all duration-300';
 
                     visualSide.className = "hidden lg:flex flex-col justify-between relative p-6 xl:p-10 bg-gradient-to-br from-emerald-50 via-teal-50/30 to-green-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 h-full";
-                    accentBlur.className = "absolute -top-8 -left-8 w-40 h-40 bg-gradient-to-br from-emerald-400/30 to-teal-300/30 rounded-full blur-3xl transition-all duration-500";
+                    accentBlur.className = "absolute -top-8 -left-8 w-48 h-48 bg-gradient-to-br from-emerald-400/30 to-teal-300/30 rounded-full blur-3xl transition-all duration-500";
 
                     visualImg.src = "https://i.ibb.co.com/DfYrcLWc/Chat-GPT-Image-6-Sep-2026-21-51-57.png";
-                    visualImg.alt = "Logo Orang Tua";
-                    visualImg.className = "w-full h-full object-contain transition-all duration-500";
+                    visualImg.alt = "Portal Orang Tua";
+                    visualImg.className = "w-full h-full object-cover object-center transition-all duration-500";
+
+                    if (visualImgMobile) {
+                        visualImgMobile.src = "https://i.ibb.co.com/DfYrcLWc/Chat-GPT-Image-6-Sep-2026-21-51-57.png";
+                        visualImgMobile.alt = "Portal Orang Tua";
+                    }
+                    if (visualTagMobile) {
+                        visualTagMobile.textContent = 'Portal Orang Tua';
+                        visualTagMobile.className = 'inline-block px-4 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300 text-xs font-bold mb-2 tracking-wider uppercase';
+                    }
+                    if (visualTitleMobile) {
+                        visualTitleMobile.innerHTML = 'Halo, Ayah & <span class="text-emerald-500">Bunda!</span>';
+                    }
+                    if (visualDescMobile) {
+                        visualDescMobile.textContent = 'Pantau perkembangan belajar si kecil dan dukung mereka.';
+                    }
 
                     submitBtn.className = "submit-btn emerald-btn w-full py-3.5 text-white rounded-2xl font-extrabold text-base flex items-center justify-center gap-3 mt-6";
 
